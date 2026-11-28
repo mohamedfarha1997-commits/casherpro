@@ -10,11 +10,29 @@
 :root{--green:#078f70;--green2:#e8f6f1;--bg:#f4f8f6;--ink:#20332d;--muted:#84928c;--line:#e4ece8;--white:#fff;--red:#c64c4c;--amber:#b17b26;--shadow:0 8px 28px #173d3010}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Cairo,Tahoma,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
 .login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{background:white;border:1px solid var(--line);border-radius:22px;padding:30px;width:min(400px,100%);box-shadow:var(--shadow);text-align:center}.logo{width:65px;height:65px;margin:auto;background:var(--green);color:white;border-radius:20px;display:grid;place-items:center;font-size:34px;font-weight:800}.loginbox h1{color:var(--green);margin:8px 0 0}.loginbox p{color:var(--muted);font-size:13px;margin:0 0 20px}.loginbox form{text-align:right}.loginbox label{display:block;font-size:12px;margin:12px 0}.loginbox input{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin-top:5px}.loginbox button{width:100%;border:0;border-radius:10px;background:var(--green);color:white;padding:12px;font-weight:700}.loginbox button.secondary{background:var(--green2);color:var(--green)}.loginbox small{display:block;color:var(--muted);font-size:10px;margin-top:12px;line-height:1.7}.steptitle{font-size:13px;font-weight:700;color:var(--ink);margin:0 0 12px}.linkbadge{display:inline-block;border-radius:30px;padding:5px 11px;background:var(--green2);color:var(--green);font-size:11px;font-weight:700}
-#app{min-height:100vh}.sidebar{position:fixed;inset:0 0 0 auto;width:250px;background:white;border-left:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;z-index:5}.brand{padding:0 12px 18px;border-bottom:1px solid var(--line);color:var(--green);font-size:25px;font-weight:800}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400}.profile{font-size:11px;color:var(--muted);padding:14px 10px}.nav{overflow:auto;flex:1}.nav button{display:block;width:100%;border:0;background:transparent;text-align:right;padding:11px 12px;border-radius:10px;color:#53645e;margin:3px 0;font-size:13px}.nav button[hidden]{display:none!important}.nav button.active,.nav button:hover{background:var(--green2);color:var(--green);font-weight:700}.sidebarfoot{display:grid;gap:8px}.sidebarfoot button{padding:10px;border:0;border-radius:10px;background:#f2f6f4;color:#52635d;font-size:12px}.main{margin-right:250px;min-height:100vh}.topbar{height:75px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;gap:15px;position:sticky;top:0;z-index:3}.topbar h2{font-size:18px;margin:0}.topbar .right{margin-right:auto;color:var(--muted);font-size:11px}.hamb{display:none;border:0;background:var(--green2);padding:8px 10px;border-radius:8px}#view{max-width:1500px;margin:auto;padding:24px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:17px}.card,.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:17px;box-shadow:var(--shadow)}.card small{color:var(--muted);font-size:11px}.card b{display:block;font-size:23px;color:var(--green);margin-top:4px}.heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:5px 0 14px}.heading h3,.panel h3{font-size:14px;margin:0}.muted{color:var(--muted);font-size:11px}.btn{border:0;border-radius:9px;padding:9px 13px;background:var(--green2);color:var(--green);font-size:12px;font-weight:700}.btn:disabled{opacity:.45;cursor:not-allowed}.btn.primary{background:var(--green);color:white}.btn.danger{background:#fff0f0;color:var(--red)}.toolbar{display:flex;gap:8px;margin:12px 0}.toolbar input{flex:1}.field,input,select{border:1px solid var(--line);border-radius:9px;padding:10px;background:white;min-width:0}.field{width:100%}.scroll{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th,td{text-align:right;padding:11px;border-bottom:1px solid var(--line);font-size:11px}th{background:#f8fbf9;color:var(--muted);font-weight:700}.badge{display:inline-block;border-radius:30px;padding:4px 9px;background:var(--green2);color:var(--green);font-size:10px}.badge.warn{background:#fff4df;color:var(--amber)}.badge.red{background:#fff0f0;color:var(--red)}.empty{text-align:center;color:var(--muted);padding:25px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.formgrid label{font-size:11px;color:var(--muted)}.formgrid input,.formgrid select{display:block;width:100%;margin-top:4px}.modalbg{position:fixed;inset:0;background:#10231dcc;z-index:10;display:grid;place-items:center;padding:15px}.modal{width:min(550px,100%);max-height:90vh;overflow:auto;background:white;border-radius:17px;padding:22px}.modal h3{margin:0 0 15px;font-size:16px}.actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}.posgrid{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}.productgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}.productbtn{background:white;border:1px solid var(--line);border-radius:11px;padding:13px;text-align:right}.productbtn b{display:block;font-size:12px}.productbtn small{color:var(--green)}.cartline{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}.cartline button{border:0;background:#fff0f0;color:var(--red);border-radius:6px}.syncnote{font-size:10px;color:var(--muted);padding:8px 10px;background:#f7faf8;border-radius:8px}
+#app{min-height:100vh}.sidebar{position:fixed;inset:0 0 0 auto;width:250px;background:white;border-left:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;z-index:5}.brand{padding:0 12px 18px;border-bottom:1px solid var(--line);color:var(--green);font-size:25px;font-weight:800}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400}.profile{font-size:11px;color:var(--muted);padding:14px 10px}.nav{overflow:auto;flex:1}.nav button{display:block;width:100%;border:0;background:transparent;text-align:right;padding:11px 12px;border-radius:10px;color:#53645e;margin:3px 0;font-size:13px}.nav button[hidden]{display:none!important}.nav button.active,.nav button:hover{background:var(--green2);color:var(--green);font-weight:700}.sidebarfoot{display:grid;gap:8px}.sidebarfoot button{padding:10px;border:0;border-radius:10px;background:#f2f6f4;color:#52635d;font-size:12px}.main{margin-right:250px;min-height:100vh}.topbar{height:75px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;gap:15px;position:sticky;top:0;z-index:3}.topbar h2{font-size:18px;margin:0}.topbar .right{margin-right:auto;color:var(--muted);font-size:11px}.hamb{display:none;border:0;background:var(--green2);padding:8px 10px;border-radius:8px}#view{max-width:1500px;margin:auto;padding:24px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:17px}.card,.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:17px;box-shadow:var(--shadow)}.card small{color:var(--muted);font-size:11px}.card b{display:block;font-size:23px;color:var(--green);margin-top:4px}.heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:5px 0 14px}.heading h3,.panel h3{font-size:14px;margin:0}.muted{color:var(--muted);font-size:11px}.btn{border:0;border-radius:9px;padding:9px 13px;background:var(--green2);color:var(--green);font-size:12px;font-weight:700}.btn:disabled{opacity:.45;cursor:not-allowed}.btn.primary{background:var(--green);color:white}.btn.danger{background:#fff0f0;color:var(--red)}.toolbar{display:flex;gap:8px;margin:12px 0}.toolbar input{flex:1}.field,input,select{border:1px solid var(--line);border-radius:9px;padding:10px;background:white;min-width:0}.field{width:100%}.scroll{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th,td{text-align:right;padding:11px;border-bottom:1px solid var(--line);font-size:11px}th{background:#f8fbf9;color:var(--muted);font-weight:700}.badge{display:inline-block;border-radius:30px;padding:4px 9px;background:var(--green2);color:var(--green);font-size:10px}.badge.warn{background:#fff4df;color:var(--amber)}.badge.red{background:#fff0f0;color:var(--red)}.empty{text-align:center;color:var(--muted);padding:25px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.formgrid label{font-size:11px;color:var(--muted)}.formgrid input,.formgrid select{display:block;width:100%;margin-top:4px}.modalbg{position:fixed;inset:0;background:#10231dcc;z-index:12;display:grid;place-items:center;padding:15px}.modal{width:min(550px,100%);max-height:90vh;overflow:auto;background:white;border-radius:17px;padding:22px}.modal h3{margin:0 0 15px;font-size:16px}.actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}.syncnote{font-size:10px;color:var(--muted);padding:8px 10px;background:#f7faf8;border-radius:8px}
 .tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}.tabs button{border:0;border-radius:9px;padding:9px 14px;background:var(--green2);color:var(--green);font-weight:700;font-size:12px}.tabs button.active{background:var(--green);color:white}.permgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:9px;margin-top:10px}.permitem{display:flex;align-items:center;gap:8px;font-size:12px;padding:9px;border:1px solid var(--line);border-radius:9px;background:#fbfdfc;cursor:pointer}.permitem input{width:auto;margin:0}.permitem:has(input:disabled){opacity:.6}
+
+/* ---------- نقطة البيع ---------- */
+.posTop{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center}.posTop select{min-width:170px;background:white}.posTop input{flex:1;min-width:220px;padding:12px 14px;font-size:14px}
+.catTabs{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;margin-bottom:6px}.catTabs button{border:1px solid var(--line);background:white;border-radius:30px;padding:9px 16px;font-weight:700;font-size:12px;white-space:nowrap;color:#53645e}.catTabs button.active{background:var(--green);color:white;border-color:var(--green)}
+.prodGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;padding-bottom:110px}
+.pcard{position:relative;background:white;border:1px solid var(--line);border-radius:16px;padding:16px 14px;text-align:right;display:flex;flex-direction:column;gap:6px;min-height:124px;box-shadow:var(--shadow);transition:transform .08s,border-color .15s}.pcard:active{transform:scale(.97)}.pcard:hover{border-color:#bcd9cf}.pcard.inc{border-color:var(--green);background:var(--green2)}
+.pname{font-size:14px;font-weight:800;color:var(--ink);line-height:1.4}.pcat{font-size:10px;color:var(--muted)}.pprice{margin-top:auto;font-size:16px;font-weight:800;color:var(--green)}
+.pbadge{position:absolute;top:9px;left:9px;background:var(--green);color:white;border-radius:30px;min-width:26px;height:26px;display:grid;place-items:center;font-size:12px;font-weight:800;padding:0 7px}
+.cartFab{position:fixed;left:18px;bottom:18px;z-index:8;border:0;border-radius:18px;background:var(--green);color:white;padding:12px 16px;box-shadow:0 10px 30px #078f7066;display:flex;align-items:center;gap:10px;font-weight:800;font-size:13px;transition:opacity .15s}.cartFab.hide{display:none}.cartFab .cnt{background:white;color:var(--green);border-radius:30px;min-width:26px;height:26px;display:grid;place-items:center;padding:0 7px;font-size:12px}
+.cartBg{position:fixed;inset:0;background:#10231d66;z-index:9;opacity:0;pointer-events:none;transition:opacity .2s}.cartBg.show{opacity:1;pointer-events:auto}
+.cartDrawer{position:fixed;top:0;bottom:0;left:0;width:min(390px,92vw);background:white;z-index:10;box-shadow:var(--shadow);transform:translateX(-105%);transition:transform .25s;display:flex;flex-direction:column;border-right:1px solid var(--line)}.cartDrawer.open{transform:none}
+.cdHead{display:flex;justify-content:space-between;align-items:center;padding:18px;border-bottom:1px solid var(--line)}.cdHead h3{margin:0;font-size:15px}
+.cdBody{flex:1;overflow:auto;padding:4px 18px}
+.cdFoot{padding:16px 18px;border-top:1px solid var(--line);display:grid;gap:10px;background:#fbfdfc}
+.cline{display:grid;grid-template-columns:1fr auto auto auto;gap:8px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-size:12px}.cname{font-weight:700}.cname small{display:block;color:var(--muted);font-weight:400;font-size:10px;margin-top:2px}
+.qty{display:flex;align-items:center;gap:6px}.qty button{width:30px;height:30px;border:0;border-radius:8px;background:var(--green2);color:var(--green);font-weight:800;font-size:16px}.qty b{min-width:22px;text-align:center}
+.rm{border:0;background:#fff0f0;color:var(--red);border-radius:8px;width:30px;height:30px;font-size:14px}
+.cdTotal{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:800}.cdTotal b{color:var(--green);font-size:18px}
 #toast{position:fixed;bottom:20px;left:20px;background:#163d32;color:white;padding:11px 16px;border-radius:10px;opacity:0;transition:.2s;z-index:20;font-size:12px;pointer-events:none;max-width:90vw}#toast.show{opacity:1}
-@media(max-width:900px){.sidebar{transform:translateX(105%);transition:.2s}.sidebar.open{transform:none}.main{margin:0}.hamb{display:block}.cards{grid-template-columns:repeat(2,1fr)}#view{padding:14px}.topbar{padding:0 14px}.posgrid{grid-template-columns:1fr}.productgrid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.cards{gap:8px}.card{padding:12px}.card b{font-size:18px}.formgrid{grid-template-columns:1fr}.topbar h2{font-size:15px}}
+@media(max-width:900px){.sidebar{transform:translateX(105%);transition:.2s}.sidebar.open{transform:none}.main{margin:0}.hamb{display:block}.cards{grid-template-columns:repeat(2,1fr)}#view{padding:14px}.topbar{padding:0 14px}.prodGrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.cards{gap:8px}.card{padding:12px}.card b{font-size:18px}.formgrid{grid-template-columns:1fr}.topbar h2{font-size:15px}.pcard{min-height:108px;padding:12px}}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -77,6 +95,7 @@ const SESSION_KEY='sysrmy_session_user';
 const GOOGLE_CLIENT_ID='546589135419-i0c847q2emv7j4rsrlfqfg7jgeg2fkif.apps.googleusercontent.com';
 const DRIVE_SCOPE='https://www.googleapis.com/auth/drive';
 const DRIVE_FOLDER_NAME='ZAD Central Data';
+const DRIVE_ACCOUNT='mohamedyousryfarha@gmail.com';
 const DRIVE_FIELDS='files(id,name,mimeType,modifiedTime,appProperties),nextPageToken';
 
 /* ---------- الصلاحيات ---------- */
@@ -123,7 +142,6 @@ function hiddenCol(key,k){
 
 /* ---------- البيانات ---------- */
 // كل تفصيلة (صنف، طلب، موظف، ...) = ملف JSON منفصل على Drive باسم coll__id.json
-// المعرّفات فريدة عالميًا تقريبًا عشان مستخدمين مختلفين ما يكتبوش على نفس الملف.
 const defaults=()=>({
   branches:[{id:1,name:'الفرع الرئيسي',location:'القاهرة',active:true}],
   products:[
@@ -165,12 +183,11 @@ function normalize(d){
 
 let data=defaults();
 let dataLoaded=false;
-let currentUser=null,cart=[],activePage='dashboard',staffTab='list',permUserId=null;
+let currentUser=null,cart=[],activePage='dashboard',staffTab='list',permUserId=null,posCat='';
 let driveToken=null,driveFolderId='',driveEmail='',driveBusy=false,driveStatus='غير متصل',syncTimer=null,pushTimer=null;
 let tokenClient=null,renewing=false,interactiveRequest=false;
 
 // نسخة "آخر حالة معروفة على Drive" لكل ملف: { json, v, fileId, coll, id }
-// v = رقم إصدار الملف على Drive (بيزيد مع كل رفع). ده اللي بيكشف التعارض.
 let snapshot=new Map();
 
 function save(){
@@ -213,7 +230,6 @@ function removeRecord(coll,id){
   data[coll]=data[coll].filter(r=>String(r.id)!==String(id));
 }
 
-// التغييرات المحلية: مقارنة الذاكرة بآخر نسخة معروفة من Drive
 function localChanges(){
   const cur=allRecords();
   const out=[];
@@ -279,7 +295,6 @@ async function findOrCreateFolder(){
   return r.id;
 }
 
-// قائمة كل الملفات الحالية على Drive: key -> {fileId, coll, id, v}
 async function listRemote(){
   const map=new Map();
   let page='';
@@ -302,7 +317,6 @@ async function downloadRemote(r){
   return driveRequest('https://www.googleapis.com/drive/v3/files/'+r.fileId+'?alt=media');
 }
 
-// رفع تفصيلة واحدة فقط (ملف واحد)
 async function uploadRecord(coll,id,json,v,fileId){
   const meta={
     name:coll+'__'+id+'.json',
@@ -320,8 +334,6 @@ async function uploadRecord(coll,id,json,v,fileId){
 }
 
 /* ---------- المزامنة لكل تفصيلة ---------- */
-
-// سحب التغييرات من Drive: بيحدّث بس الملفات اللي إصدارها اتغير، ومش بيلمس التفصيلة اللي عندنا فيها تعديل محلي
 async function applyRemote(remote,skipKeys){
   let changed=false;
   for(const [key,r] of remote){
@@ -342,14 +354,12 @@ async function applyRemote(remote,skipKeys){
   return changed;
 }
 
-// تحميل نسخة Drive الأحدث لتفصيلة واحدة (بعد تعارض)
 async function refreshOne(r,key){
   const obj=await downloadRemote(r);
   setRecord(r.coll,r.id,obj);
   snapshot.set(key,{json:JSON.stringify(obj),v:r.v,fileId:r.fileId,coll:r.coll,id:r.id});
 }
 
-// رفع التغييرات المحلية تفصيلة تفصيلة مع كشف التعارض
 async function pushChanges(remote){
   let conflicts=0;
   for(const c of localChanges()){
@@ -359,13 +369,11 @@ async function pushChanges(remote){
 
     if(c.type==='upsert'){
       if(remoteR&&remoteR.v!==baseV){
-        // مستخدم تاني عدّل التفصيلة دي: نسخة Drive هي الأحدث
         conflicts++;
         await refreshOne(remoteR,c.key);
         continue;
       }
       if(!remoteR&&s){
-        // اتحذفت من مستخدم تاني
         conflicts++;
         removeRecord(c.coll,c.id);
         snapshot.delete(c.key);
@@ -378,7 +386,6 @@ async function pushChanges(remote){
     }else{
       if(!remoteR){snapshot.delete(c.key);continue}
       if(remoteR.v!==baseV){
-        // اتعدّلت من مستخدم تاني قبل ما نحذفها: نرجّع النسخة الأحدث
         conflicts++;
         await refreshOne(remoteR,c.key);
         continue;
@@ -427,7 +434,6 @@ async function syncNow(){
   if(hasPending())setTimeout(syncNow,1500);
 }
 
-// تحميل كل البيانات من Drive عند الاتصال
 async function loadAllFromDrive(){
   snapshot=new Map();
   data=emptyData();
@@ -458,7 +464,7 @@ function requestDrive(interactive){
             }
           });
         }
-        tokenClient.requestAccessToken({prompt:interactive?'':'none'});
+        tokenClient.requestAccessToken({prompt:interactive?'':'none',hint:DRIVE_ACCOUNT});
       }catch(e){
         showErr('تعذر بدء ربط Google: '+e.message);
         onConnectFail();
@@ -484,7 +490,12 @@ async function onDriveToken(resp){
   driveToken=resp.access_token;
   try{
     const about=await driveRequest('https://www.googleapis.com/drive/v3/about?fields=user(emailAddress,displayName)');
-    driveEmail=about.user?.emailAddress||'Google';
+    driveEmail=(about.user?.emailAddress||'').toLowerCase();
+    if(driveEmail!==DRIVE_ACCOUNT){
+      try{google.accounts.oauth2.revoke(driveToken,()=>{})}catch{}
+      driveToken=null;
+      throw new Error('الحساب المسجّل ('+(driveEmail||'غير معروف')+') مش الحساب المعتمد للنظام');
+    }
     driveFolderId=await findOrCreateFolder();
     if(!dataLoaded)await loadAllFromDrive();
     else await syncNow();
@@ -656,21 +667,32 @@ dashboard(){
 },
 
 pos(){
-  return `<div class="posgrid">
-    <div class="panel">
-      <div class="heading"><h3>اختيار الأصناف</h3><select id="posBranch">${data.branches.map(b=>`<option value="${b.id}">${esc(b.name)}</option>`).join('')}</select></div>
-      <input id="productSearch" class="field" placeholder="ابحث عن صنف...">
-      <div class="productgrid" id="productGrid">${data.products.filter(p=>p.active!==false).map(p=>`<button class="productbtn" data-product="${p.id}"><b>${esc(p.name)}</b><small>${money(p.price)}</small></button>`).join('')}</div>
+  const cats=[...new Set(data.products.filter(p=>p.active!==false).map(p=>p.category||'بدون تصنيف'))];
+  return `<div class="posTop">
+      <select id="posBranch">${data.branches.map(b=>`<option value="${b.id}">${esc(b.name)}</option>`).join('')}</select>
+      <input id="productSearch" class="field" placeholder="ابحث باسم الصنف...">
     </div>
-    <div class="panel">
-      <h3>الفاتورة الحالية</h3>
-      <div id="cartLines"></div>
-      <label class="muted">اسم العميل<input id="customer" class="field" value="عميل نقدي" style="margin:5px 0 10px"></label>
-      <label class="muted">طريقة الدفع<select id="payment" class="field" style="margin:5px 0 10px"><option>نقدي</option><option>بطاقة</option><option>محفظة إلكترونية</option></select></label>
-      <h3 id="cartTotal">الإجمالي: ${money(0)}</h3>
-      <button class="btn primary" id="checkout" style="width:100%;margin-top:10px" ${can('pos.sell')?'':'disabled'}>تأكيد وحفظ الطلب</button>
+    <div class="catTabs" id="catTabs">
+      <button data-cat="" class="${posCat===''?'active':''}">الكل</button>
+      ${cats.map(c=>`<button data-cat="${esc(c)}" class="${posCat===c?'active':''}">${esc(c)}</button>`).join('')}
     </div>
-  </div>`;
+    <div class="prodGrid" id="productGrid"></div>
+
+    <button class="cartFab" id="cartFab" type="button">
+      <span>🛒 الفاتورة</span><span class="cnt" id="cartCount">0</span><span id="cartFabTotal">${money(0)}</span>
+    </button>
+    <div class="cartBg" id="cartBg"></div>
+    <aside class="cartDrawer" id="cartDrawer">
+      <div class="cdHead"><h3>الفاتورة الحالية</h3><button class="btn" id="cartClose" type="button">×</button></div>
+      <div class="cdBody"><div id="cartLines"></div></div>
+      <div class="cdFoot">
+        <label class="muted">اسم العميل<input id="customer" class="field" value="عميل نقدي"></label>
+        <label class="muted">طريقة الدفع<select id="payment" class="field"><option>نقدي</option><option>بطاقة</option><option>محفظة إلكترونية</option></select></label>
+        <div class="cdTotal"><span>الإجمالي</span><b id="cartTotal">${money(0)}</b></div>
+        <button class="btn primary" id="checkout" type="button" style="width:100%">تأكيد وحفظ الطلب</button>
+        <button class="btn" id="cartClear" type="button" style="width:100%">إفراغ الفاتورة</button>
+      </div>
+    </aside>`;
 },
 
 orders(){
@@ -832,6 +854,127 @@ function savePerms(){
   toast('تم حفظ الصلاحيات');
 }
 
+/* ---------- نقطة البيع: منطق الشاشة ---------- */
+function wirePos(){
+  const grid=$('#productGrid');
+  const linesEl=$('#cartLines');
+  const cartQty=()=>cart.reduce((s,x)=>s+x.qty,0);
+  const cartTotal=()=>cart.reduce((s,x)=>s+x.price*x.qty,0);
+
+  const drawGrid=()=>{
+    const q=$('#productSearch').value.trim().toLowerCase();
+    const list=data.products.filter(p=>
+      p.active!==false &&
+      (!posCat||(p.category||'بدون تصنيف')===posCat) &&
+      (!q||p.name.toLowerCase().includes(q)));
+    grid.innerHTML=list.map(p=>{
+      const line=cart.find(x=>x.id===p.id);
+      return `<button class="pcard ${line?'inc':''}" type="button" data-product="${p.id}">
+        <span class="pname">${esc(p.name)}</span>
+        <span class="pcat">${esc(p.category||'')}</span>
+        <span class="pprice">${money(p.price)}</span>
+        ${line?`<span class="pbadge">${line.qty}</span>`:''}
+      </button>`;
+    }).join('')||'<p class="empty" style="grid-column:1/-1">لا توجد أصناف مطابقة</p>';
+  };
+
+  const drawCart=()=>{
+    linesEl.innerHTML=cart.map(x=>`<div class="cline">
+        <div class="cname">${esc(x.name)}<small>${money(x.price)} للصنف</small></div>
+        <div class="qty"><button type="button" data-dec="${x.id}">−</button><b>${x.qty}</b><button type="button" data-inc="${x.id}">+</button></div>
+        <b>${money(x.price*x.qty)}</b>
+        <button type="button" class="rm" data-remove="${x.id}">×</button>
+      </div>`).join('')||'<p class="empty">الفاتورة فاضية. اختار أصناف من الشاشة.</p>';
+    $('#cartTotal').textContent=money(cartTotal());
+    $('#cartFabTotal').textContent=money(cartTotal());
+    $('#cartCount').textContent=cartQty();
+    $('#checkout').disabled=!can('pos.sell')||!cart.length;
+  };
+
+  const draw=()=>{drawGrid();drawCart()};
+
+  const openCart=v=>{
+    $('#cartDrawer').classList.toggle('open',v);
+    $('#cartBg').classList.toggle('show',v);
+    $('#cartFab').classList.toggle('hide',v);
+  };
+
+  $('#productSearch').oninput=drawGrid;
+
+  $('#catTabs').onclick=e=>{
+    const b=e.target.closest('[data-cat]');
+    if(!b)return;
+    posCat=b.dataset.cat;
+    $('#catTabs').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));
+    drawGrid();
+  };
+
+  grid.onclick=e=>{
+    const b=e.target.closest('[data-product]');
+    if(!b)return;
+    const p=data.products.find(x=>x.id===Number(b.dataset.product));
+    if(!p)return;
+    const line=cart.find(x=>x.id===p.id);
+    if(line)line.qty++;
+    else cart.push({id:p.id,name:p.name,price:Number(p.price),qty:1});
+    draw();
+  };
+
+  linesEl.onclick=e=>{
+    const btn=e.target.closest('[data-inc],[data-dec],[data-remove]');
+    if(!btn)return;
+    const id=Number(btn.dataset.inc??btn.dataset.dec??btn.dataset.remove);
+    const line=cart.find(x=>x.id===id);
+    if(!line)return;
+    if(btn.dataset.inc!==undefined)line.qty++;
+    else if(btn.dataset.dec!==undefined){
+      line.qty--;
+      if(line.qty<1)cart=cart.filter(x=>x.id!==id);
+    }else cart=cart.filter(x=>x.id!==id);
+    draw();
+  };
+
+  $('#cartFab').onclick=()=>openCart(true);
+  $('#cartClose').onclick=()=>openCart(false);
+  $('#cartBg').onclick=()=>openCart(false);
+  $('#cartClear').onclick=()=>{cart=[];draw()};
+
+  $('#checkout').onclick=()=>{
+    if(!can('pos.sell'))return toast('لا تملك صلاحية تسجيل الطلبات');
+    if(!cart.length)return toast('أضف صنفًا أولًا');
+    const branch=Number($('#posBranch').value);
+    const total=cartTotal();
+
+    for(const line of cart){
+      for(const rec of data.recipes.filter(r=>r.product_id===line.id)){
+        const stock=data.inventory.find(i=>i.id===rec.inventory_id&&i.branch_id===branch);
+        if(stock&&stock.qty<rec.qty*line.qty)return toast('المخزون غير كافٍ: '+stock.name);
+      }
+    }
+    for(const line of cart){
+      for(const rec of data.recipes.filter(r=>r.product_id===line.id)){
+        const stock=data.inventory.find(i=>i.id===rec.inventory_id&&i.branch_id===branch);
+        if(stock)stock.qty-=rec.qty*line.qty;
+      }
+    }
+    data.orders.push({
+      id:newId(),
+      date:today(),branch_id:branch,
+      customer:$('#customer').value||'عميل نقدي',
+      payment:$('#payment').value,
+      total,status:'قيد التحضير',
+      items:cart.map(x=>({product_id:x.id,qty:x.qty,price:x.price}))
+    });
+    cart=[];
+    save();
+    draw();
+    openCart(false);
+    toast('تم تسجيل الطلب وخصم الوصفة من المخزون');
+  };
+
+  draw();
+}
+
 /* ---------- ربط الأحداث ---------- */
 function wire(page){
   const view=$('#view');
@@ -861,60 +1004,7 @@ function wire(page){
     [...t.rows].slice(1).forEach(r=>r.hidden=!r.textContent.toLowerCase().includes(inp.value.toLowerCase()));
   });
 
-  if(page==='pos'){
-    const draw=()=>{
-      $('#cartLines').innerHTML=cart.map(x=>`<div class="cartline"><span>${esc(x.name)} × ${x.qty}</span><b>${money(x.price*x.qty)}</b><button data-remove="${x.id}">×</button></div>`).join('')||'<p class="empty">السلة فارغة</p>';
-      $('#cartTotal').textContent='الإجمالي: '+money(cart.reduce((s,x)=>s+x.price*x.qty,0));
-      $('#cartLines').querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{
-        cart=cart.filter(x=>x.id!==Number(b.dataset.remove));
-        draw();
-      });
-    };
-    draw();
-
-    $('#productGrid').onclick=e=>{
-      const b=e.target.closest('[data-product]');
-      if(!b)return;
-      const p=data.products.find(x=>x.id===Number(b.dataset.product));
-      if(!p)return;
-      const line=cart.find(x=>x.id===p.id);
-      line?line.qty++:cart.push({id:p.id,name:p.name,price:Number(p.price),qty:1});
-      draw();
-    };
-
-    $('#productSearch').oninput=e=>[...$('#productGrid').children].forEach(b=>b.hidden=!b.textContent.toLowerCase().includes(e.target.value.toLowerCase()));
-
-    $('#checkout').onclick=()=>{
-      if(!can('pos.sell'))return toast('لا تملك صلاحية تسجيل الطلبات');
-      if(!cart.length)return toast('أضف صنفًا أولًا');
-      const branch=Number($('#posBranch').value);
-      const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
-
-      for(const line of cart){
-        for(const rec of data.recipes.filter(r=>r.product_id===line.id)){
-          const stock=data.inventory.find(i=>i.id===rec.inventory_id&&i.branch_id===branch);
-          if(stock&&stock.qty<rec.qty*line.qty)return toast('المخزون غير كافٍ: '+stock.name);
-        }
-      }
-      for(const line of cart){
-        for(const rec of data.recipes.filter(r=>r.product_id===line.id)){
-          const stock=data.inventory.find(i=>i.id===rec.inventory_id&&i.branch_id===branch);
-          if(stock)stock.qty-=rec.qty*line.qty;
-        }
-      }
-      data.orders.push({
-        id:newId(),
-        date:today(),branch_id:branch,
-        customer:$('#customer').value,payment:$('#payment').value,
-        total,status:'قيد التحضير',
-        items:cart.map(x=>({product_id:x.id,qty:x.qty,price:x.price}))
-      });
-      cart=[];
-      save();
-      draw();
-      toast('تم تسجيل الطلب وخصم الوصفة من المخزون');
-    };
-  }
+  if(page==='pos')wirePos();
 
   if(page==='orders'){
     view.querySelectorAll('[data-status]').forEach(s=>s.onchange=()=>{
