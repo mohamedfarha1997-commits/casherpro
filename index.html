@@ -32,6 +32,7 @@
 .cdTotal{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:800}.cdTotal b{color:var(--green);font-size:18px}
 .board{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start}.col{background:#f4f9f7;border:1px solid var(--line);border-radius:16px;padding:12px;min-height:240px}.colhead{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800;margin:2px 4px 12px}.ocard{background:white;border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:10px;box-shadow:var(--shadow)}.ocard.urgent{border-color:#e7b96b}.oh{display:flex;justify-content:space-between;font-weight:800;font-size:14px}.om{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:4px;gap:6px}.ocard ul{margin:10px 0;padding:0 16px 0 0;font-size:13px;line-height:1.9}.ototal{display:flex;justify-content:space-between;align-items:center;font-size:12px;border-top:1px solid var(--line);padding-top:8px;margin-bottom:8px}.ototal b{color:var(--green);font-size:14px}.obtn{display:flex;gap:6px}.obtn button{flex:1;padding:10px}
 .stepper{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:6px;margin:12px 0}.step{text-align:center;font-size:11px;color:var(--muted)}.step .dot{display:block;width:14px;height:14px;border-radius:50%;background:#dfe8e4;margin:0 auto 6px}.step.done{color:var(--ink)}.step.done .dot{background:var(--green)}.step.cancel.done .dot{background:var(--red)}.step small{display:block;font-size:10px;margin-top:2px}.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.filters .field,.filters select{min-width:150px}.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:white;border-radius:30px;padding:7px 12px;font-size:12px;font-weight:700;color:#53645e}.chip.active{background:var(--green);color:white;border-color:var(--green)}.customRange{display:flex;gap:6px}.orow{cursor:pointer}.orow:hover td{background:#f7fbf9}.tl{margin:8px 0 0;padding:0 18px 0 0;font-size:12px;line-height:1.9}.sec{font-size:12px;font-weight:800;margin:14px 0 4px}.infogrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px}.infogrid div{background:#f7faf8;border-radius:10px;padding:8px}.infogrid small{display:block;color:var(--muted);font-size:10px}
+.formgrid input[type=checkbox]{width:auto;display:inline-block;margin:0}.ttlrow{font-size:12px}
 #toast{position:fixed;bottom:20px;left:20px;background:#163d32;color:white;padding:11px 16px;border-radius:10px;opacity:0;transition:.2s;z-index:20;font-size:12px;pointer-events:none;max-width:90vw}#toast.show{opacity:1}
 @media(max-width:900px){.sidebar{transform:translateX(105%);transition:.2s}.sidebar.open{transform:none}.main{margin:0}.hamb{display:block}.cards{grid-template-columns:repeat(2,1fr)}#view{padding:14px}.topbar{padding:0 14px}.prodGrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:900px){
@@ -139,7 +140,7 @@ const PERM_GROUPS=[
   {group:'المصروفات',items:[['expenses.view','عرض المصروفات'],['expenses.add','إضافة مصروف'],['expenses.edit','تعديل مصروف'],['expenses.delete','حذف مصروف']]},
   {group:'الموظفون',items:[['staff.view','عرض الموظفين'],['staff.add','إضافة موظف'],['staff.edit','تعديل موظف'],['staff.delete','حذف موظف'],['staff.permissions','إدارة صلاحيات الموظفين']]},
   {group:'التقارير',items:[['reports.view','عرض التقارير'],['reports.profit','رؤية الأرباح وصافي التقدير']]},
-  {group:'الإعدادات',items:[['settings.view','عرض الإعدادات'],['settings.restaurant','تعديل اسم المطعم'],['settings.backup','تنزيل النسخ الاحتياطية'],['settings.restore','استعادة نسخة احتياطية'],['settings.reset','إعادة ضبط البيانات'],['settings.drive','إدارة ربط Google Drive']]}
+  {group:'الإعدادات',items:[['settings.view','عرض الإعدادات'],['settings.restaurant','تعديل اسم المطعم'],['settings.backup','تنزيل النسخ الاحتياطية'],['settings.restore','استعادة نسخة احتياطية'],['settings.reset','إعادة ضبط البيانات'],['settings.drive','إدارة ربط Google Drive'],['settings.invoice','تعديل إعدادات الفاتورة والضريبة']]}
 ];
 const ALL_PERMS=PERM_GROUPS.flatMap(g=>g.items.map(i=>i[0]));
 const PRESETS={
@@ -719,6 +720,7 @@ pos(){
         <label class="muted">طريقة الدفع<select id="payment" class="field"><option>نقدي</option><option>بطاقة</option><option>محفظة إلكترونية</option></select></label>
         <div class="cdTotal"><span>الإجمالي</span><b id="cartTotal">${money(0)}</b></div>
         <button class="btn primary" id="checkout" type="button" style="width:100%">تأكيد وحفظ الطلب</button>
+        <button class="btn" id="cartPrint" type="button" style="width:100%">🖨 طباعة الفاتورة</button>
         <button class="btn" id="cartClear" type="button" style="width:100%">إفراغ الفاتورة</button>
       </div>
     </aside>`;
@@ -739,7 +741,7 @@ products(){
 },
 
 inventory(){return tablePage('inventory','المخزون',['name','unit','qty','min_qty','cost','branch_id'],['اسم الخامة','الوحدة','الرصيد','حد الطلب','تكلفة الوحدة','رقم الفرع'],true)},
-branches(){return tablePage('branches','الفروع',['name','location','active'],['اسم الفرع','الموقع','نشط'])},
+branches(){return tablePage('branches','الفروع',['name','location','phone','active'],['اسم الفرع','العنوان','الهاتف','نشط'])},
 tables(){return tablePage('tables','الطاولات',['name','seats','status','branch_id'],['الطاولة','عدد المقاعد','الحالة','رقم الفرع'])},
 suppliers(){return tablePage('suppliers','الموردون',['name','phone','balance'],['اسم المورد','الهاتف','الرصيد'])},
 expenses(){return tablePage('expenses','المصروفات',['title','category','amount','date','branch_id'],['البيان','التصنيف','المبلغ','التاريخ','رقم الفرع'])},
@@ -782,7 +784,7 @@ settings(){
       <div class="actions"><button class="btn" id="driveReconnect">إعادة الاتصال</button><button class="btn" id="driveSyncNow">مزامنة الآن</button><button class="btn danger" id="driveUnlink">فصل Google Drive وإلغاء الصلاحية</button></div>
       <small class="muted">كل تفصيلة ملف مستقل على Drive. عند التعارض بيتم تحميل النسخة الأحدث من المستخدم الآخر.</small>`
     :'<p class="muted">لا تملك صلاحية إدارة ربط Google Drive.</p>';
-  return panel('إعدادات المطعم',restaurantPanel)+panel('النسخ الاحتياطي والاستعادة',backupPanel)+panel('Google Drive — مصدر البيانات',drivePanel);
+  return panel('إعدادات المطعم',restaurantPanel)+invoicePanel()+panel('النسخ الاحتياطي والاستعادة',backupPanel)+panel('Google Drive — مصدر البيانات',drivePanel);
 }
 };
 
@@ -813,7 +815,7 @@ function recordDefs(){
   return {
     products:[['name','الاسم'],['category','التصنيف'],['price','سعر البيع','number'],['cost','التكلفة','number']],
     inventory:[['name','اسم الخامة'],['unit','الوحدة'],['qty','الرصيد','number'],['min_qty','حد الطلب','number'],['cost','تكلفة الوحدة','number'],['branch_id','رقم الفرع','number']],
-    branches:[['name','اسم الفرع'],['location','الموقع']],
+    branches:[['name','اسم الفرع'],['location','العنوان'],['phone','رقم الهاتف']],
     tables:[['name','اسم الطاولة'],['seats','عدد المقاعد','number'],['status','الحالة'],['branch_id','رقم الفرع','number']],
     suppliers:[['name','اسم المورد'],['phone','الهاتف'],['balance','الرصيد','number']],
     expenses:[['title','بيان المصروف'],['category','التصنيف'],['amount','المبلغ','number'],['date','التاريخ'],['branch_id','رقم الفرع','number']],
@@ -906,8 +908,9 @@ function wirePos(){
         <b>${money(x.price*x.qty)}</b>
         <button type="button" class="rm" data-remove="${x.id}">×</button>
       </div>`).join('')||'<p class="empty">الفاتورة فاضية. اختار أصناف من الشاشة.</p>';
-    $('#cartTotal').textContent=money(cartTotal());
-    $('#cartFabTotal').textContent=money(cartTotal());
+    const shown=calcTotals(cartTotal(),getInvCfg()).total;
+    $('#cartTotal').textContent=money(shown);
+    $('#cartFabTotal').textContent=money(shown);
     $('#cartCount').textContent=cartQty();
     $('#checkout').disabled=!can('pos.sell')||!cart.length;
   };
@@ -959,12 +962,13 @@ function wirePos(){
   $('#cartClose').onclick=()=>openCart(false);
   $('#cartBg').onclick=()=>openCart(false);
   $('#cartClear').onclick=()=>{cart=[];draw()};
+  $('#cartPrint').onclick=printCart;
 
   $('#checkout').onclick=()=>{
     if(!can('pos.sell'))return toast('لا تملك صلاحية تسجيل الطلبات');
     if(!cart.length)return toast('أضف صنفًا أولًا');
     const branch=Number($('#posBranch').value);
-    const total=cartTotal();
+    const tt=calcTotals(cartTotal(),getInvCfg());
 
     for(const line of cart){
       for(const rec of data.recipes.filter(r=>r.product_id===line.id)){
@@ -983,7 +987,7 @@ function wirePos(){
       date:today(),branch_id:branch,
       customer:$('#customer').value||'عميل نقدي',
       payment:$('#payment').value,
-      total,status:'قيد التحضير',createdAt:Date.now(),
+      total:tt.total,subtotal:tt.net,tax:tt.tax,taxRate:tt.rate,status:'قيد التحضير',createdAt:Date.now(),
       items:cart.map(x=>({product_id:x.id,qty:x.qty,price:x.price}))
     });
     cart=[];
@@ -994,6 +998,175 @@ function wirePos(){
   };
 
   draw();
+}
+
+/* ---------- الفاتورة والضريبة والطباعة ---------- */
+const INV_DEFAULTS={
+  name:'',title:'فاتورة ضريبية مبسطة',taxNumber:'',commercialReg:'',
+  taxEnabled:true,taxRate:14,pricesIncludeTax:false,
+  header:'',footer:'شكرًا لزيارتكم — نتمنى رؤيتكم قريبًا',
+  paper:'80',showPhone:true,currency:'ج.م'
+};
+
+function getInvCfg(){
+  const s=data.settings?.invoice||{};
+  return {...INV_DEFAULTS,...s,name:s.name||data.settings?.restaurant||'System RMY'};
+}
+
+// حساب الضريبة: إضافة فوق السعر، أو الأسعار شاملة الضريبة
+function calcTotals(gross,cfg){
+  const rate=cfg.taxEnabled?(Number(cfg.taxRate)||0):0;
+  const r=x=>Math.round(x*100)/100;
+  if(!rate)return {net:r(gross),tax:0,total:r(gross),rate:0};
+  if(cfg.pricesIncludeTax){
+    const net=gross/(1+rate/100);
+    return {net:r(net),tax:r(gross-net),total:r(gross),rate};
+  }
+  const tax=gross*rate/100;
+  return {net:r(gross),tax:r(tax),total:r(gross+tax),rate};
+}
+
+function invCss(cfg){
+  const a4=cfg.paper==='A4';
+  return `body{font-family:Cairo,Tahoma,Arial,sans-serif;margin:0;color:#000;font-size:12px;background:#fff}
+  .inv{width:100%;max-width:${a4?'170mm':'72mm'};margin:0 auto;padding:${a4?'8mm':'2mm'}}
+  .c{text-align:center}.nm{font-size:${a4?'20px':'16px'};font-weight:800}.sm{font-size:10px;color:#333}
+  .ttl{font-weight:800;margin:6px 0;font-size:${a4?'16px':'13px'}}
+  .r{display:flex;justify-content:space-between;gap:6px;margin:3px 0}.big{font-size:14px;font-weight:800}
+  hr{border:0;border-top:1px dashed #000;margin:6px 0}
+  table.it{width:100%;border-collapse:collapse;font-size:11px}table.it th,table.it td{padding:2px 0;text-align:right}table.it th{border-bottom:1px solid #000}
+  @page{size:${a4?'A4':'80mm auto'};margin:${a4?'10mm':'2mm'}}`;
+}
+
+function invBody(o,cfg,branch){
+  const f=n=>Number(n||0).toFixed(2);
+  const d=o.createdAt?new Date(o.createdAt):null;
+  const date=d?d.toLocaleDateString('ar-EG'):o.date;
+  const time=d?d.toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'}):'';
+  const rate=o.taxRate??cfg.taxRate;
+  const sub=o.subtotal??o.total;
+  const tax=o.tax??0;
+  const invNo=o.draft?'مسودة':'INV-'+String(o.id).slice(-6);
+  const rows=(o.items||[]).map(it=>{
+    const p=data.products.find(x=>x.id===it.product_id);
+    return `<tr><td>${esc(p?.name||'صنف')}</td><td>${it.qty}</td><td>${f(it.price)}</td><td>${f(it.qty*it.price)}</td></tr>`;
+  }).join('');
+  return `<div class="inv">
+    <div class="c">
+      <div class="nm">${esc(cfg.name)}</div>
+      ${cfg.header?`<div class="sm">${esc(cfg.header)}</div>`:''}
+      ${branch?`<div>${esc(branch.name)}</div>`:''}
+      ${branch?.location?`<div class="sm">${esc(branch.location)}</div>`:''}
+      ${cfg.showPhone&&branch?.phone?`<div class="sm">هاتف: ${esc(branch.phone)}</div>`:''}
+      ${cfg.taxNumber?`<div class="sm">الرقم الضريبي: ${esc(cfg.taxNumber)}</div>`:''}
+      ${cfg.commercialReg?`<div class="sm">السجل التجاري: ${esc(cfg.commercialReg)}</div>`:''}
+    </div>
+    <div class="c ttl">${esc(cfg.title)}</div>
+    <div class="r"><span>رقم الفاتورة</span><span>${invNo}</span></div>
+    <div class="r"><span>التاريخ</span><span>${date} ${time}</span></div>
+    <div class="r"><span>العميل</span><span>${esc(o.customer||'عميل نقدي')}</span></div>
+    <hr>
+    <table class="it"><tr><th>الصنف</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr>${rows}</table>
+    <hr>
+    <div class="r"><span>${cfg.taxEnabled?'الإجمالي قبل الضريبة':'الإجمالي'}</span><span>${f(sub)}</span></div>
+    ${cfg.taxEnabled?`<div class="r"><span>ضريبة القيمة المضافة (${rate}%)</span><span>${f(tax)}</span></div>`:''}
+    <div class="r big"><span>الإجمالي المستحق</span><span>${f(o.total)} ${esc(cfg.currency)}</span></div>
+    <div class="r"><span>طريقة الدفع</span><span>${esc(o.payment||'')}</span></div>
+    <hr>
+    <div class="c sm">${esc(cfg.footer)}</div>
+  </div>`;
+}
+
+function invDoc(o,cfg,branch){
+  return `<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><style>${invCss(cfg)}</style></head><body>${invBody(o,cfg,branch)}</body></html>`;
+}
+
+// طباعة عبر iframe مخفي (بيشتغل حتى لو المتصفح بيمنع النوافذ المنبثقة)
+function printInvoice(o,branch){
+  const cfg=getInvCfg();
+  const f=document.createElement('iframe');
+  f.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0';
+  document.body.appendChild(f);
+  f.contentDocument.open();
+  f.contentDocument.write(invDoc(o,cfg,branch));
+  f.contentDocument.close();
+  setTimeout(()=>{
+    try{f.contentWindow.focus();f.contentWindow.print()}catch{toast('تعذر فتح نافذة الطباعة')}
+    setTimeout(()=>f.remove(),1500);
+  },250);
+}
+
+// طباعة الفاتورة الحالية في السلة (مسودة قبل الحفظ)
+function printCart(){
+  if(!cart.length)return toast('الفاتورة فاضية');
+  const cfg=getInvCfg();
+  const bid=Number($('#posBranch')?.value);
+  const branch=data.branches.find(b=>b.id===bid)||data.branches[0];
+  const gross=cart.reduce((s,x)=>s+x.price*x.qty,0);
+  const t=calcTotals(gross,cfg);
+  printInvoice({
+    id:'draft',draft:true,date:today(),createdAt:Date.now(),
+    customer:$('#customer')?.value||'عميل نقدي',
+    payment:$('#payment')?.value||'نقدي',
+    items:cart.map(x=>({product_id:x.id,qty:x.qty,price:x.price})),
+    subtotal:t.net,tax:t.tax,taxRate:t.rate,total:t.total
+  },branch);
+}
+
+// إعدادات الفاتورة في تبويب الإعدادات
+function invoicePanel(){
+  const c=getInvCfg();
+  return panel('الفاتورة والضريبة',`
+    <form id="invForm" class="formgrid" style="margin-top:12px">
+      <label>الاسم على الفاتورة<input name="name" value="${esc(c.name)}"></label>
+      <label>عنوان الفاتورة<input name="title" value="${esc(c.title)}"></label>
+      <label>الرقم الضريبي<input name="taxNumber" value="${esc(c.taxNumber)}"></label>
+      <label>السجل التجاري<input name="commercialReg" value="${esc(c.commercialReg)}"></label>
+      <label>نسبة الضريبة %<input name="taxRate" type="number" step="0.01" value="${c.taxRate}"></label>
+      <label>العملة<input name="currency" value="${esc(c.currency)}"></label>
+      <label>مقاس الورق<select name="paper"><option value="80" ${c.paper==='80'?'selected':''}>حراري 80 مم</option><option value="A4" ${c.paper==='A4'?'selected':''}>A4</option></select></label>
+      <div></div>
+      <label><input type="checkbox" name="taxEnabled" ${c.taxEnabled?'checked':''}> تفعيل الضريبة</label>
+      <label><input type="checkbox" name="pricesIncludeTax" ${c.pricesIncludeTax?'checked':''}> الأسعار شاملة الضريبة</label>
+      <label><input type="checkbox" name="showPhone" ${c.showPhone?'checked':''}> إظهار هاتف الفرع</label>
+      <label style="grid-column:1/-1">ملاحظة أعلى الفاتورة<textarea name="header" rows="2" style="width:100%">${esc(c.header)}</textarea></label>
+      <label style="grid-column:1/-1">رسالة أسفل الفاتورة<textarea name="footer" rows="2" style="width:100%">${esc(c.footer)}</textarea></label>
+    </form>
+    <div class="actions"><button class="btn primary" id="invSave" type="button" ${can('settings.invoice')?'':'disabled'}>حفظ إعدادات الفاتورة</button></div>
+    <p class="muted" style="margin-top:12px">معاينة مباشرة:</p>
+    <iframe id="invFrame" style="width:100%;height:460px;border:1px solid var(--line);border-radius:12px;background:#fff"></iframe>
+    <small class="muted">العنوان والهاتف بيتسحبوا من بيانات كل فرع (تبويب الفروع).</small>`);
+}
+
+function cfgFromForm(){
+  const f=$('#invForm');
+  const g=n=>f.elements.namedItem(n);
+  return {
+    name:g('name').value.trim(),
+    title:g('title').value.trim()||INV_DEFAULTS.title,
+    taxNumber:g('taxNumber').value.trim(),
+    commercialReg:g('commercialReg').value.trim(),
+    taxRate:Number(g('taxRate').value)||0,
+    currency:g('currency').value.trim()||'ج.م',
+    paper:g('paper').value,
+    taxEnabled:g('taxEnabled').checked,
+    pricesIncludeTax:g('pricesIncludeTax').checked,
+    showPhone:g('showPhone').checked,
+    header:g('header').value.trim(),
+    footer:g('footer').value.trim()
+  };
+}
+
+function renderInvPreview(){
+  const fr=$('#invFrame'),form=$('#invForm');
+  if(!fr||!form)return;
+  const cfg=cfgFromForm();
+  const branch=data.branches[0];
+  const items=[{product_id:data.products[0]?.id,qty:2,price:data.products[0]?.price||0},{product_id:data.products[1]?.id,qty:1,price:data.products[1]?.price||0}];
+  const gross=items.reduce((s,i)=>s+i.qty*i.price,0);
+  const t=calcTotals(gross,cfg);
+  const sample={id:'sample',draft:true,date:today(),createdAt:Date.now(),customer:'عميل نقدي',payment:'نقدي',items,subtotal:t.net,tax:t.tax,taxRate:t.rate,total:t.total};
+  fr.srcdoc=invDoc(sample,cfg,branch);
 }
 
 /* ---------- الطلبات: المراحل والفلترة والسجل ---------- */
@@ -1116,12 +1289,14 @@ function openOrder(id){
     </div>
     <div class="sec">الأصناف</div>
     <div class="scroll"><table><tr><th>الصنف</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr>${items}</table></div>
-    <div class="cdTotal" style="margin-top:10px"><span>الإجمالي</span><b>${money(o.total)}</b></div>
+    <div class="infogrid" style="margin-top:10px"><div><small>قبل الضريبة</small>${money(o.subtotal??o.total)}</div><div><small>الضريبة${o.taxRate?' ('+o.taxRate+'%)':''}</small>${money(o.tax||0)}</div></div>
+    <div class="cdTotal" style="margin-top:8px"><span>الإجمالي</span><b>${money(o.total)}</b></div>
     <div class="sec">سجل المراحل</div>
     <ul class="tl">${log}</ul>
-    <div class="actions">${acts.map(([to,l,c])=>`<button type="button" class="${c}" data-oact="${to}">${l}</button>`).join('')}<button type="button" class="btn" id="ordClose">إغلاق</button></div>
+    <div class="actions">${acts.map(([to,l,c])=>`<button type="button" class="${c}" data-oact="${to}">${l}</button>`).join('')}<button type="button" class="btn" id="ordPrint">🖨 طباعة الفاتورة</button><button type="button" class="btn" id="ordClose">إغلاق</button></div>
   </div></div>`;
   $('#ordClose').onclick=()=>$('#modal').innerHTML='';
+  $('#ordPrint').onclick=()=>printInvoice(o,data.branches.find(b=>b.id===o.branch_id));
   $('#ordBg').onclick=e=>{if(e.target.id==='ordBg')$('#modal').innerHTML=''};
   $('#modal').querySelectorAll('[data-oact]').forEach(b=>b.onclick=()=>{
     $('#modal').innerHTML='';
@@ -1301,6 +1476,15 @@ function wire(page){
     $('#driveReconnect')?.addEventListener('click',()=>requestDrive(true));
     $('#driveSyncNow')?.addEventListener('click',()=>syncNow());
     $('#driveUnlink')?.addEventListener('click',unlinkDrive);
+    $('#invForm')?.addEventListener('input',renderInvPreview);
+    $('#invSave')?.addEventListener('click',()=>{
+      if(!can('settings.invoice'))return toast('لا تملك صلاحية تعديل الفاتورة');
+      data.settings.invoice=cfgFromForm();
+      save();
+      renderInvPreview();
+      toast('تم حفظ إعدادات الفاتورة');
+    });
+    renderInvPreview();
   }
 }
 
