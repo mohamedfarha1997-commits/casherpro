@@ -4,13 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#078f70">
-<title>ZAD | إدارة المطاعم</title>
+<title>System RMY | إدارة المطاعم</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
 :root{--green:#078f70;--green2:#e8f6f1;--bg:#f4f8f6;--ink:#20332d;--muted:#84928c;--line:#e4ece8;--white:#fff;--red:#c64c4c;--amber:#b17b26;--shadow:0 8px 28px #173d3010}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Cairo,Tahoma,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
-.login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{background:white;border:1px solid var(--line);border-radius:22px;padding:30px;width:min(400px,100%);box-shadow:var(--shadow);text-align:center}.logo{width:65px;height:65px;margin:auto;background:var(--green);color:white;border-radius:20px;display:grid;place-items:center;font-size:38px;font-weight:800}.loginbox h1{color:var(--green);margin:8px 0 0}.loginbox p{color:var(--muted);font-size:13px;margin:0 0 20px}.loginbox button{width:100%;border:0;border-radius:10px;background:var(--green);color:white;padding:12px;font-weight:700}.loginbox small{display:block;color:var(--muted);font-size:10px;margin-top:12px;line-height:1.7}
-#app{min-height:100vh}.sidebar{position:fixed;inset:0 0 0 auto;width:250px;background:white;border-left:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;z-index:5}.brand{padding:0 12px 18px;border-bottom:1px solid var(--line);color:var(--green);font-size:25px;font-weight:800}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400}.profile{font-size:11px;color:var(--muted);padding:14px 10px}.nav{overflow:auto;flex:1}.nav button{display:block;width:100%;border:0;background:transparent;text-align:right;padding:11px 12px;border-radius:10px;color:#53645e;margin:3px 0;font-size:13px}.nav button.active,.nav button:hover{background:var(--green2);color:var(--green);font-weight:700}.sidebarfoot{display:grid;gap:8px}.sidebarfoot button{padding:10px;border:0;border-radius:10px;background:#f2f6f4;color:#52635d;font-size:12px}.main{margin-right:250px;min-height:100vh}.topbar{height:75px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;gap:15px;position:sticky;top:0;z-index:3}.topbar h2{font-size:18px;margin:0}.topbar .right{margin-right:auto;color:var(--muted);font-size:11px}.hamb{display:none;border:0;background:var(--green2);padding:8px 10px;border-radius:8px}#view{max-width:1500px;margin:auto;padding:24px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:17px}.card,.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:17px;box-shadow:var(--shadow)}.card small{color:var(--muted);font-size:11px}.card b{display:block;font-size:23px;color:var(--green);margin-top:4px}.heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:5px 0 14px}.heading h3,.panel h3{font-size:14px;margin:0}.muted{color:var(--muted);font-size:11px}.btn{border:0;border-radius:9px;padding:9px 13px;background:var(--green2);color:var(--green);font-size:12px;font-weight:700}.btn.primary{background:var(--green);color:white}.btn.danger{background:#fff0f0;color:var(--red)}.toolbar{display:flex;gap:8px;margin:12px 0}.toolbar input{flex:1}.field,input,select{border:1px solid var(--line);border-radius:9px;padding:10px;background:white;min-width:0}.field{width:100%}.scroll{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th,td{text-align:right;padding:11px;border-bottom:1px solid var(--line);font-size:11px}th{background:#f8fbf9;color:var(--muted);font-weight:700}.badge{display:inline-block;border-radius:30px;padding:4px 9px;background:var(--green2);color:var(--green);font-size:10px}.badge.warn{background:#fff4df;color:var(--amber)}.badge.red{background:#fff0f0;color:var(--red)}.empty{text-align:center;color:var(--muted);padding:25px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.formgrid label{font-size:11px;color:var(--muted)}.formgrid input,.formgrid select{display:block;width:100%;margin-top:4px}.modalbg{position:fixed;inset:0;background:#10231dcc;z-index:10;display:grid;place-items:center;padding:15px}.modal{width:min(550px,100%);max-height:90vh;overflow:auto;background:white;border-radius:17px;padding:22px}.modal h3{margin:0 0 15px;font-size:16px}.actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}.posgrid{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}.productgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}.productbtn{background:white;border:1px solid var(--line);border-radius:11px;padding:13px;text-align:right}.productbtn b{display:block;font-size:12px}.productbtn small{color:var(--green)}.cartline{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}.cartline button{border:0;background:#fff0f0;color:var(--red);border-radius:6px}.syncnote{font-size:10px;color:var(--muted);padding:8px 10px;background:#f7faf8;border-radius:8px}#toast{position:fixed;bottom:20px;left:20px;background:#163d32;color:white;padding:11px 16px;border-radius:10px;opacity:0;transition:.2s;z-index:20;font-size:12px;pointer-events:none}#toast.show{opacity:1}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{background:white;border:1px solid var(--line);border-radius:22px;padding:30px;width:min(400px,100%);box-shadow:var(--shadow);text-align:center}.logo{width:65px;height:65px;margin:auto;background:var(--green);color:white;border-radius:20px;display:grid;place-items:center;font-size:34px;font-weight:800}.loginbox h1{color:var(--green);margin:8px 0 0}.loginbox p{color:var(--muted);font-size:13px;margin:0 0 20px}.loginbox form{text-align:right}.loginbox label{display:block;font-size:12px;margin:12px 0}.loginbox input{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin-top:5px}.loginbox button{width:100%;border:0;border-radius:10px;background:var(--green);color:white;padding:12px;font-weight:700}.loginbox button.secondary{background:var(--green2);color:var(--green)}.loginbox small{display:block;color:var(--muted);font-size:10px;margin-top:12px;line-height:1.7}.divider{height:1px;background:var(--line);margin:20px 0}
+#app{min-height:100vh}.sidebar{position:fixed;inset:0 0 0 auto;width:250px;background:white;border-left:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;z-index:5}.brand{padding:0 12px 18px;border-bottom:1px solid var(--line);color:var(--green);font-size:25px;font-weight:800}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400}.profile{font-size:11px;color:var(--muted);padding:14px 10px}.nav{overflow:auto;flex:1}.nav button{display:block;width:100%;border:0;background:transparent;text-align:right;padding:11px 12px;border-radius:10px;color:#53645e;margin:3px 0;font-size:13px}.nav button[hidden]{display:none!important}.nav button.active,.nav button:hover{background:var(--green2);color:var(--green);font-weight:700}.sidebarfoot{display:grid;gap:8px}.sidebarfoot button{padding:10px;border:0;border-radius:10px;background:#f2f6f4;color:#52635d;font-size:12px}.main{margin-right:250px;min-height:100vh}.topbar{height:75px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;gap:15px;position:sticky;top:0;z-index:3}.topbar h2{font-size:18px;margin:0}.topbar .right{margin-right:auto;color:var(--muted);font-size:11px}.hamb{display:none;border:0;background:var(--green2);padding:8px 10px;border-radius:8px}#view{max-width:1500px;margin:auto;padding:24px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:17px}.card,.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:17px;box-shadow:var(--shadow)}.card small{color:var(--muted);font-size:11px}.card b{display:block;font-size:23px;color:var(--green);margin-top:4px}.heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:5px 0 14px}.heading h3,.panel h3{font-size:14px;margin:0}.muted{color:var(--muted);font-size:11px}.btn{border:0;border-radius:9px;padding:9px 13px;background:var(--green2);color:var(--green);font-size:12px;font-weight:700}.btn:disabled{opacity:.45;cursor:not-allowed}.btn.primary{background:var(--green);color:white}.btn.danger{background:#fff0f0;color:var(--red)}.toolbar{display:flex;gap:8px;margin:12px 0}.toolbar input{flex:1}.field,input,select{border:1px solid var(--line);border-radius:9px;padding:10px;background:white;min-width:0}.field{width:100%}.scroll{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th,td{text-align:right;padding:11px;border-bottom:1px solid var(--line);font-size:11px}th{background:#f8fbf9;color:var(--muted);font-weight:700}.badge{display:inline-block;border-radius:30px;padding:4px 9px;background:var(--green2);color:var(--green);font-size:10px}.badge.warn{background:#fff4df;color:var(--amber)}.badge.red{background:#fff0f0;color:var(--red)}.empty{text-align:center;color:var(--muted);padding:25px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.formgrid label{font-size:11px;color:var(--muted)}.formgrid input,.formgrid select{display:block;width:100%;margin-top:4px}.modalbg{position:fixed;inset:0;background:#10231dcc;z-index:10;display:grid;place-items:center;padding:15px}.modal{width:min(550px,100%);max-height:90vh;overflow:auto;background:white;border-radius:17px;padding:22px}.modal h3{margin:0 0 15px;font-size:16px}.actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}.posgrid{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}.productgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}.productbtn{background:white;border:1px solid var(--line);border-radius:11px;padding:13px;text-align:right}.productbtn b{display:block;font-size:12px}.productbtn small{color:var(--green)}.cartline{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}.cartline button{border:0;background:#fff0f0;color:var(--red);border-radius:6px}.syncnote{font-size:10px;color:var(--muted);padding:8px 10px;background:#f7faf8;border-radius:8px}
+.tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}.tabs button{border:0;border-radius:9px;padding:9px 14px;background:var(--green2);color:var(--green);font-weight:700;font-size:12px}.tabs button.active{background:var(--green);color:white}.permgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:9px;margin-top:10px}.permitem{display:flex;align-items:center;gap:8px;font-size:12px;padding:9px;border:1px solid var(--line);border-radius:9px;background:#fbfdfc;cursor:pointer}.permitem input{width:auto;margin:0}.permitem:has(input:disabled){opacity:.6}
+#toast{position:fixed;bottom:20px;left:20px;background:#163d32;color:white;padding:11px 16px;border-radius:10px;opacity:0;transition:.2s;z-index:20;font-size:12px;pointer-events:none}#toast.show{opacity:1}
 @media(max-width:900px){.sidebar{transform:translateX(105%);transition:.2s}.sidebar.open{transform:none}.main{margin:0}.hamb{display:block}.cards{grid-template-columns:repeat(2,1fr)}#view{padding:14px}.topbar{padding:0 14px}.posgrid{grid-template-columns:1fr}.productgrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.cards{gap:8px}.card{padding:12px}.card b{font-size:18px}.formgrid{grid-template-columns:1fr}.topbar h2{font-size:15px}}
 </style>
@@ -19,21 +21,27 @@
 <body>
 <div id="login" class="login">
   <div class="loginbox">
-    <div class="logo">ز</div>
-    <h1>ZAD</h1>
+    <div class="logo">R</div>
+    <h1>System RMY</h1>
     <p>نظام إدارة المطاعم والفروع</p>
-    <button type="button" id="googleConnect">الدخول والاتصال بـ Google Drive</button>
-    <small>سجّل أولًا بحساب الإدارة لإنشاء مجلد "ZAD Central Data" تلقائيًا. ثم شارك هذا المجلد مع حسابات الفروع بصلاحية محرر، وسيظهر لهم تلقائيًا عند الدخول.</small>
+    <form id="loginForm" autocomplete="on">
+      <label>اسم المستخدم<input name="username" required autocomplete="username"></label>
+      <label>كلمة المرور<input name="password" type="password" required autocomplete="current-password"></label>
+      <button type="submit" style="margin-top:16px">تسجيل الدخول</button>
+    </form>
     <div id="loginError" style="color:#c44;font-size:12px;margin-top:8px"></div>
+    <div class="divider"></div>
+    <button type="button" id="googleConnect" class="secondary">ربط Google Drive وتحميل البيانات</button>
+    <small>اربط Google Drive مرة واحدة على كل جهاز لتحميل بيانات الحسابات والفروع. الحساب الافتراضي للإدارة: admin / 1234 — غيّر كلمة المرور من قسم الموظفون.</small>
   </div>
 </div>
 
 <div id="app" class="hidden">
   <aside class="sidebar" id="sidebar">
-    <div class="brand">ZAD <small>نظام إدارة المطاعم</small></div>
+    <div class="brand">System RMY <small>نظام إدارة المطاعم</small></div>
     <div class="profile" id="profile"></div>
     <nav class="nav" id="nav">
-      <button data-page="dashboard" class="active">▦ لوحة التحكم</button><button data-page="pos">▣ نقطة البيع</button><button data-page="orders">☷ الطلبات والمطبخ</button><button data-page="products">🍔 الأصناف والوصفات</button><button data-page="inventory">⬡ المخزون</button><button data-page="branches">⌂ الفروع</button><button data-page="tables">▤ الطاولات</button><button data-page="suppliers">▧ الموردون</button><button data-page="expenses">− المصروفات</button><button data-page="staff">♙ الموظفون</button><button data-page="reports">▤ التقارير</button><button data-page="settings">⚙ الإعدادات والنسخ الاحتياطي</button>
+      <button data-page="dashboard">▦ لوحة التحكم</button><button data-page="pos">▣ نقطة البيع</button><button data-page="orders">☷ الطلبات والمطبخ</button><button data-page="products">🍔 الأصناف والوصفات</button><button data-page="inventory">⬡ المخزون</button><button data-page="branches">⌂ الفروع</button><button data-page="tables">▤ الطاولات</button><button data-page="suppliers">▧ الموردون</button><button data-page="expenses">− المصروفات</button><button data-page="staff">♙ الموظفون</button><button data-page="reports">▤ التقارير</button><button data-page="settings">⚙ الإعدادات والنسخ الاحتياطي</button>
     </nav>
     <div class="sidebarfoot"><button id="exportBtn">تصدير نسخة بيانات JSON</button><button id="logoutBtn">تسجيل الخروج</button></div>
   </aside>
@@ -51,11 +59,54 @@ const $=s=>document.querySelector(s);
 const money=n=>new Intl.NumberFormat('ar-EG',{style:'currency',currency:'EGP',maximumFractionDigits:2}).format(Number(n)||0);
 const today=()=>new Date().toISOString().slice(0,10);
 const KEY='zad_single_file_data_v1';
+const SESSION_KEY='sysrmy_session_user';
 
 const GOOGLE_CLIENT_ID='546589135419-i0c847q2emv7j4rsrlfqfg7jgeg2fkif.apps.googleusercontent.com';
 const DRIVE_SCOPE='https://www.googleapis.com/auth/drive';
 const DRIVE_FOLDER_NAME='ZAD Central Data';
 const DRIVE_FIELDS='files(id,name,mimeType,modifiedTime,appProperties),nextPageToken';
+
+/* ---------- الصلاحيات ---------- */
+const PERM_GROUPS=[
+  {group:'لوحة التحكم',items:[['dashboard.view','عرض لوحة التحكم']]},
+  {group:'نقطة البيع',items:[['pos.view','عرض نقطة البيع'],['pos.sell','تسجيل طلبات بيع']]},
+  {group:'الطلبات والمطبخ',items:[['orders.view','عرض الطلبات'],['orders.update','تغيير حالة الطلب (تحضير / جاهز / مكتمل)'],['orders.cancel','إلغاء الطلبات']]},
+  {group:'الأصناف والوصفات',items:[['products.view','عرض الأصناف'],['products.add','إضافة صنف'],['products.edit','تعديل صنف'],['products.delete','حذف صنف'],['products.cost','رؤية تكلفة الصنف'],['recipes.manage','إدارة الوصفات']]},
+  {group:'المخزون',items:[['inventory.view','عرض المخزون'],['inventory.add','إضافة خامة'],['inventory.edit','تعديل خامة'],['inventory.delete','حذف خامة'],['inventory.cost','رؤية تكلفة الخامات وقيمة المخزون']]},
+  {group:'الفروع',items:[['branches.view','عرض الفروع'],['branches.add','إضافة فرع'],['branches.edit','تعديل فرع'],['branches.delete','حذف فرع']]},
+  {group:'الطاولات',items:[['tables.view','عرض الطاولات'],['tables.add','إضافة طاولة'],['tables.edit','تعديل طاولة'],['tables.delete','حذف طاولة']]},
+  {group:'الموردون',items:[['suppliers.view','عرض الموردين'],['suppliers.add','إضافة مورد'],['suppliers.edit','تعديل مورد'],['suppliers.delete','حذف مورد']]},
+  {group:'المصروفات',items:[['expenses.view','عرض المصروفات'],['expenses.add','إضافة مصروف'],['expenses.edit','تعديل مصروف'],['expenses.delete','حذف مصروف']]},
+  {group:'الموظفون',items:[['staff.view','عرض الموظفين'],['staff.add','إضافة موظف'],['staff.edit','تعديل موظف'],['staff.delete','حذف موظف'],['staff.permissions','إدارة صلاحيات الموظفين']]},
+  {group:'التقارير',items:[['reports.view','عرض التقارير'],['reports.profit','رؤية الأرباح وصافي التقدير']]},
+  {group:'الإعدادات',items:[['settings.view','عرض الإعدادات'],['settings.restaurant','تعديل اسم المطعم'],['settings.backup','تنزيل النسخ الاحتياطية'],['settings.restore','استعادة نسخة احتياطية'],['settings.reset','إعادة ضبط البيانات'],['settings.drive','إدارة ربط Google Drive']]}
+];
+const ALL_PERMS=PERM_GROUPS.flatMap(g=>g.items.map(i=>i[0]));
+const PRESETS={
+  'مدير كامل':'ALL',
+  'كاشير':['pos.view','pos.sell','orders.view','products.view'],
+  'مطبخ':['orders.view','orders.update'],
+  'مخزن':['inventory.view','inventory.add','inventory.edit','products.view','recipes.manage'],
+  'محاسب':['reports.view','reports.profit','expenses.view','expenses.add','expenses.edit','inventory.cost','orders.view','suppliers.view'],
+  'عرض فقط':'VIEW'
+};
+function presetKeys(name){
+  const p=PRESETS[name];
+  if(!p)return null;
+  if(p==='ALL')return ALL_PERMS;
+  if(p==='VIEW')return ALL_PERMS.filter(k=>k.endsWith('.view'));
+  return p;
+}
+function me(){return currentUser?data.staff.find(s=>String(s.id)===String(currentUser.id)):null}
+function can(k){
+  const u=me();
+  if(!u)return false;
+  if(u.role==='مدير عام')return true;
+  return !!(u.permissions&&u.permissions[k]);
+}
+function hiddenCol(key,k){
+  return (key==='inventory'&&k==='cost'&&!can('inventory.cost'))||(key==='products'&&k==='cost'&&!can('products.cost'));
+}
 
 const defaults=()=>({
   branches:[{id:1,name:'الفرع الرئيسي',location:'القاهرة',active:true}],
@@ -73,14 +124,16 @@ const defaults=()=>({
   suppliers:[{id:1,name:'شركة التوريدات',phone:'',balance:0}],
   expenses:[],
   orders:[],
-  staff:[{id:1,username:'admin',full_name:'مدير النظام',role:'مدير عام',branch_id:1,password:'1234'}],
-  settings:{restaurant:'ZAD',currency:'EGP'}
+  staff:[{id:1,username:'admin',full_name:'مدير النظام',role:'مدير عام',branch_id:1,password:'1234',permissions:{}}],
+  settings:{restaurant:'System RMY',currency:'EGP'}
 });
 
 let data;
 try{data=JSON.parse(localStorage.getItem(KEY))||defaults()}catch{data=defaults()}
+if(!Array.isArray(data.staff)||!data.staff.length)data.staff=defaults().staff;
+data.staff.forEach(s=>{if(!s.permissions)s.permissions={}});
 
-let currentUser=null,cart=[];
+let currentUser=null,cart=[],activePage='dashboard',staffTab='list',permUserId=null;
 let driveToken=null,driveFolderId='',driveDirty=false,driveBusy=false,driveStatus='غير متصل',syncTimer=null;
 
 function save(){localStorage.setItem(KEY,JSON.stringify(data));driveDirty=true}
@@ -93,12 +146,13 @@ function toast(s){
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function card(label,value){return `<div class="card"><small>${label}</small><b>${value}</b></div>`}
 function panel(title,body){return `<div class="panel"><h3>${title}</h3>${body}</div>`}
+function denied(){return '<div class="panel empty">ليس لديك صلاحية لعرض هذا القسم. تواصل مع المدير.</div>'}
 
 /* ---------- Google Drive ---------- */
 async function driveRequest(url,options={}){
-  if(!driveToken)throw new Error('سجّل الدخول إلى Google أولًا');
+  if(!driveToken)throw new Error('اربط Google Drive أولًا');
   const r=await fetch(url,{...options,headers:{Authorization:'Bearer '+driveToken,...(options.headers||{})}});
-  if(r.status===401){driveToken=null;throw new Error('انتهت جلسة Google، سجّل الدخول مرة أخرى')}
+  if(r.status===401){driveToken=null;throw new Error('انتهت جلسة Google، اربط Drive مرة أخرى')}
   if(!r.ok){const t=await r.text();throw new Error('Google Drive: '+r.status+' '+t.slice(0,220))}
   return r.status===204?null:r.json();
 }
@@ -171,7 +225,11 @@ async function pullDrive(){
     if(key==='settings'){next.settings=raw;count++;continue}
     if(Array.isArray(next[key])){next[key].push(raw);count++}
   }
-  if(count){data=next;localStorage.setItem(KEY,JSON.stringify(data))}
+  if(count){
+    data=next;
+    data.staff.forEach(s=>{if(!s.permissions)s.permissions={}});
+    localStorage.setItem(KEY,JSON.stringify(data));
+  }
   return count;
 }
 
@@ -190,7 +248,7 @@ async function syncDrive(){
   }
 }
 
-function startGoogleAuth(){
+function connectDrive(){
   if(!window.google?.accounts?.oauth2){
     $('#loginError').textContent='تحميل خدمة Google لم يكتمل. حدّث الصفحة وحاول مرة أخرى.';
     return;
@@ -204,16 +262,21 @@ function startGoogleAuth(){
       driveToken=resp.access_token;
       try{
         const about=await driveRequest('https://www.googleapis.com/drive/v3/about?fields=user(emailAddress,displayName)');
-        const email=about.user?.emailAddress||'Google user';
         driveFolderId=await findOrCreateFolder();
         const n=await pullDrive();
         if(!n){driveDirty=true;await pushDrive()}
-        currentUser={username:email,full_name:about.user?.displayName||email};
-        enter();
-        driveStatus='متصل بحساب '+currentUser.username;
+        driveStatus='متصل بحساب '+(about.user?.emailAddress||'Google');
         if(syncTimer)clearInterval(syncTimer);
         syncTimer=setInterval(syncDrive,10000);
+        $('#loginError').style.color='#078f70';
+        $('#loginError').textContent='تم ربط Google Drive وتحميل البيانات. سجّل دخولك الآن.';
+        if(currentUser){
+          const fresh=me();
+          if(!fresh){logout();return}
+          render(activePage);
+        }
       }catch(e){
+        $('#loginError').style.color='#c44';
         $('#loginError').textContent=e.message;
       }
     }
@@ -221,38 +284,75 @@ function startGoogleAuth(){
   tc.requestAccessToken({prompt:'consent'});
 }
 
-/* ---------- الدخول والعرض ---------- */
-function enter(){
+/* ---------- تسجيل الدخول ---------- */
+$('#loginForm').onsubmit=e=>{
+  e.preventDefault();
+  const f=e.target;
+  const u=f.username.value.trim(),p=f.password.value;
+  const s=data.staff.find(x=>x.username===u&&String(x.password)===p);
+  if(!s){
+    $('#loginError').style.color='#c44';
+    $('#loginError').textContent='اسم المستخدم أو كلمة المرور غير صحيحة';
+    return;
+  }
+  $('#loginError').textContent='';
+  f.reset();
+  enter(s);
+};
+
+$('#googleConnect').onclick=connectDrive;
+
+function enter(user){
+  currentUser=user;
+  sessionStorage.setItem(SESSION_KEY,String(user.id));
   $('#login').classList.add('hidden');
   $('#app').classList.remove('hidden');
-  $('#profile').textContent='مرحبًا، '+(currentUser.full_name||currentUser.username);
+  $('#profile').textContent='مرحبًا، '+(user.full_name||user.username);
   $('#today').textContent=new Date().toLocaleDateString('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-  document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.page==='dashboard'));
-  render('dashboard');
+  $('#exportBtn').hidden=!can('settings.backup');
+  const first=Object.keys(pages).find(p=>can(p+'.view'))||'dashboard';
+  render(first);
 }
 
-$('#googleConnect').onclick=startGoogleAuth;
-$('#logoutBtn').onclick=()=>{
-  if(driveToken&&window.google?.accounts?.oauth2){try{google.accounts.oauth2.revoke(driveToken)}catch{}}
+function logout(){
+  sessionStorage.removeItem(SESSION_KEY);
+  currentUser=null;
+  cart=[];
   location.reload();
-};
+}
+
+$('#logoutBtn').onclick=logout;
+
 $('#hamb').onclick=()=>$('#sidebar').classList.toggle('open');
 $('#nav').onclick=e=>{
   const b=e.target.closest('[data-page]');
   if(!b)return;
-  document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x===b));
   $('#sidebar').classList.remove('open');
   render(b.dataset.page);
 };
 
+/* ---------- العرض ---------- */
 const pages={
   dashboard:'لوحة التحكم',pos:'نقطة البيع',orders:'الطلبات والمطبخ',products:'الأصناف والوصفات',
   inventory:'المخزون',branches:'الفروع',tables:'الطاولات',suppliers:'الموردون',expenses:'المصروفات',
   staff:'الموظفون',reports:'التقارير',settings:'الإعدادات والنسخ الاحتياطي'
 };
 
+function syncNav(){
+  document.querySelectorAll('#nav button').forEach(b=>{
+    b.hidden=!can(b.dataset.page+'.view');
+    b.classList.toggle('active',b.dataset.page===activePage);
+  });
+}
+
 function render(page){
+  activePage=page;
   $('#pageTitle').textContent=pages[page]||page;
+  syncNav();
+  if(!can(page+'.view')){
+    $('#view').innerHTML=denied();
+    return;
+  }
   const fn=views[page];
   $('#view').innerHTML=fn?fn():'<div class="panel">القسم غير متاح</div>';
   wire(page);
@@ -260,15 +360,39 @@ function render(page){
 
 function tablePage(key,title,fields,labels,low=false){
   const rows=data[key]||[];
-  return `<div class="heading"><div><h3>${title}</h3><small class="muted">${rows.length} سجل</small></div><button class="btn primary" data-add="${key}">＋ إضافة</button></div>`+
+  const cols=fields.map((k,i)=>({k,l:labels[i]})).filter(c=>!hiddenCol(key,c.k));
+  const canAdd=can(key+'.add'),canEdit=can(key+'.edit'),canDel=can(key+'.delete');
+  return `<div class="heading"><div><h3>${title}</h3><small class="muted">${rows.length} سجل</small></div>${canAdd?`<button class="btn primary" data-add="${key}">＋ إضافة</button>`:''}</div>`+
   panel(title,`<div class="toolbar"><input data-search="${key}" placeholder="بحث في ${title}..."></div>
-  <div class="scroll"><table id="table-${key}"><tr>${labels.map(x=>`<th>${x}</th>`).join('')}<th>إجراء</th></tr>
-  ${rows.map(x=>`<tr>${fields.map(k=>`<td>${
+  <div class="scroll"><table id="table-${key}"><tr>${cols.map(c=>`<th>${c.l}</th>`).join('')}<th>إجراء</th></tr>
+  ${rows.map(x=>`<tr>${cols.map(({k})=>`<td>${
       k==='active'?(x[k]?'نعم':'لا'):
       (k==='qty'&&low&&x.qty<=x.min_qty)?`<span class="badge warn">${x[k]}</span>`:esc(x[k])
-    }</td>`).join('')}<td><button class="btn danger" data-delete="${key}:${x.id}">حذف</button></td></tr>`).join('')
-    ||`<tr><td colspan="${fields.length+1}" class="empty">لا توجد بيانات</td></tr>`}
+    }</td>`).join('')}<td>${canEdit?`<button class="btn" data-edit="${key}:${x.id}">تعديل</button> `:''}${canDel?`<button class="btn danger" data-delete="${key}:${x.id}">حذف</button>`:''}${(!canEdit&&!canDel)?'—':''}</td></tr>`).join('')
+    ||`<tr><td colspan="${cols.length+1}" class="empty">لا توجد بيانات</td></tr>`}
   </table></div>`);
+}
+
+function permsView(){
+  if(!data.staff.some(s=>String(s.id)===String(permUserId)))permUserId=data.staff[0]?.id;
+  const u=data.staff.find(s=>String(s.id)===String(permUserId));
+  const isSuper=u?.role==='مدير عام';
+  const cur=u?.permissions||{};
+  return `<div class="panel"><h3>صلاحيات الموظف</h3>
+    <div class="formgrid" style="margin-top:12px">
+      <label>الموظف<select id="permUser">${data.staff.map(s=>`<option value="${s.id}" ${String(s.id)===String(permUserId)?'selected':''}>${esc(s.full_name||s.username)} (${esc(s.username)})</option>`).join('')}</select></label>
+      <label>قالب جاهز (يطبّق على الاختيارات ثم احفظ)<select id="permPreset"><option value="">اختر قالبًا</option>${Object.keys(PRESETS).map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('')}</select></label>
+    </div>
+    ${isSuper?'<p class="syncnote">المدير العام له كل الصلاحيات تلقائيًا. لو عايز تقيّد صلاحياته، غيّر دوره من تبويب قائمة الموظفين.</p>':''}
+  </div>`+
+  PERM_GROUPS.map((g,gi)=>{
+    const allChecked=g.items.every(([k])=>isSuper||cur[k]);
+    return `<div class="panel"><div class="heading"><h3>${g.group}</h3>
+      <label class="muted"><input type="checkbox" data-gi="${gi}" ${allChecked?'checked':''} ${isSuper?'disabled':''}> تحديد الكل</label></div>
+      <div class="permgrid">${g.items.map(([k,l])=>`<label class="permitem"><input type="checkbox" data-perm="${k}" ${isSuper||cur[k]?'checked':''} ${isSuper?'disabled':''}>${l}</label>`).join('')}</div>
+    </div>`;
+  }).join('')+
+  `<div class="actions"><button class="btn primary" id="savePerms" ${isSuper?'disabled':''}>حفظ صلاحيات ${esc(u?.full_name||u?.username||'')}</button></div>`;
 }
 
 const views={
@@ -277,13 +401,14 @@ dashboard(){
   const sales=active.reduce((s,o)=>s+o.total,0);
   const expenses=data.expenses.reduce((s,x)=>s+Number(x.amount||0),0);
   const low=data.inventory.filter(x=>x.qty<=x.min_qty).length;
+  const showCost=can('inventory.cost');
   return `<div class="cards">${card('إجمالي المبيعات',money(sales))}${card('عدد الطلبات',data.orders.length)}${card('المصروفات',money(expenses))}${card('أصناف وصلت لحد الطلب',low)}</div>`+
-  panel('أداء الفروع',`<div class="scroll"><table><tr><th>الفرع</th><th>المبيعات</th><th>الطلبات</th><th>قيمة المخزون</th></tr>
+  panel('أداء الفروع',`<div class="scroll"><table><tr><th>الفرع</th><th>المبيعات</th><th>الطلبات</th>${showCost?'<th>قيمة المخزون</th>':''}</tr>
   ${data.branches.map(b=>{
     const os=data.orders.filter(o=>o.branch_id===b.id&&o.status!=='ملغي');
     const v=os.reduce((s,o)=>s+o.total,0);
     const iv=data.inventory.filter(i=>i.branch_id===b.id).reduce((s,i)=>s+i.qty*i.cost,0);
-    return `<tr><td>${esc(b.name)}</td><td>${money(v)}</td><td>${os.length}</td><td>${money(iv)}</td></tr>`;
+    return `<tr><td>${esc(b.name)}</td><td>${money(v)}</td><td>${os.length}</td>${showCost?`<td>${money(iv)}</td>`:''}</tr>`;
   }).join('')}</table></div>`)+
   `<p class="syncnote">البيانات تُحفظ على هذا الجهاز وتتم مزامنتها مع Google Drive عند الاتصال.</p>`;
 },
@@ -301,18 +426,19 @@ pos(){
       <label class="muted">اسم العميل<input id="customer" class="field" value="عميل نقدي" style="margin:5px 0 10px"></label>
       <label class="muted">طريقة الدفع<select id="payment" class="field" style="margin:5px 0 10px"><option>نقدي</option><option>بطاقة</option><option>محفظة إلكترونية</option></select></label>
       <h3 id="cartTotal">الإجمالي: ${money(0)}</h3>
-      <button class="btn primary" id="checkout" style="width:100%;margin-top:10px">تأكيد وحفظ الطلب</button>
+      <button class="btn primary" id="checkout" style="width:100%;margin-top:10px" ${can('pos.sell')?'':'disabled'}>تأكيد وحفظ الطلب</button>
     </div>
   </div>`;
 },
 
 orders(){
+  const canUpd=can('orders.update')||can('orders.cancel');
   const rows=data.orders.slice().reverse().map(o=>`<tr>
     <td>#${o.id}</td><td>${o.date}</td>
     <td>${esc(data.branches.find(b=>b.id===o.branch_id)?.name||'')}</td>
     <td>${esc(o.customer)}</td><td>${money(o.total)}</td><td>${esc(o.payment)}</td>
     <td><span class="badge ${o.status==='ملغي'?'red':''}">${esc(o.status)}</span></td>
-    <td><select data-status="${o.id}">${['قيد التحضير','جاهز','مكتمل','ملغي'].map(s=>`<option ${s===o.status?'selected':''}>${s}</option>`).join('')}</select></td>
+    <td><select data-status="${o.id}" ${canUpd?'':'disabled'}>${['قيد التحضير','جاهز','مكتمل','ملغي'].map(s=>`<option ${s===o.status?'selected':''}>${s}</option>`).join('')}</select></td>
   </tr>`).join('')||'<tr><td colspan="8" class="empty">لا توجد طلبات حتى الآن</td></tr>';
   return `<div class="heading"><h3>سجل الطلبات</h3><span class="muted">${data.orders.length} طلب</span></div>`+
   panel('الطلبات',`<div class="scroll"><table><tr><th>رقم</th><th>التاريخ</th><th>الفرع</th><th>العميل</th><th>الإجمالي</th><th>الدفع</th><th>الحالة</th><th>تحديث</th></tr>${rows}</table></div>`);
@@ -320,7 +446,7 @@ orders(){
 
 products(){
   return tablePage('products','الأصناف',['name','category','price','cost','active'],['الاسم','التصنيف','السعر','التكلفة','نشط'])+
-  `<div class="panel"><div class="heading"><h3>وصفات الأصناف (خصم خامات تلقائي عند البيع)</h3><button class="btn" id="recipeAdd">＋ إضافة مكون لوصفة</button></div>
+  `<div class="panel"><div class="heading"><h3>وصفات الأصناف (خصم خامات تلقائي عند البيع)</h3>${can('recipes.manage')?'<button class="btn" id="recipeAdd">＋ إضافة مكون لوصفة</button>':''}</div>
   <div class="scroll"><table><tr><th>الصنف</th><th>الخامة</th><th>الكمية لكل صنف</th></tr>
   ${data.recipes.map(r=>`<tr><td>${esc(data.products.find(p=>p.id===r.product_id)?.name||'')}</td><td>${esc(data.inventory.find(i=>i.id===r.inventory_id)?.name||'')}</td><td>${r.qty}</td></tr>`).join('')
   ||'<tr><td colspan="3" class="empty">لم تتم إضافة وصفات</td></tr>'}
@@ -332,9 +458,15 @@ branches(){return tablePage('branches','الفروع',['name','location','active
 tables(){return tablePage('tables','الطاولات',['name','seats','status','branch_id'],['الطاولة','عدد المقاعد','الحالة','رقم الفرع'])},
 suppliers(){return tablePage('suppliers','الموردون',['name','phone','balance'],['اسم المورد','الهاتف','الرصيد'])},
 expenses(){return tablePage('expenses','المصروفات',['title','category','amount','date','branch_id'],['البيان','التصنيف','المبلغ','التاريخ','رقم الفرع'])},
-staff(){return tablePage('staff','الموظفون',['username','full_name','role','branch_id'],['اسم المستخدم','الاسم','الدور','رقم الفرع'])},
+
+staff(){
+  const tabs=`<div class="tabs"><button data-stab="list" class="${staffTab==='list'?'active':''}">قائمة الموظفين</button>${can('staff.permissions')?`<button data-stab="perms" class="${staffTab==='perms'?'active':''}">الصلاحيات</button>`:''}</div>`;
+  if(staffTab==='perms'&&can('staff.permissions'))return tabs+permsView();
+  return tabs+tablePage('staff','الموظفون',['username','full_name','role','branch_id'],['اسم المستخدم','الاسم','الدور','رقم الفرع']);
+},
 
 reports(){
+  const showProfit=can('reports.profit');
   const active=data.orders.filter(o=>o.status!=='ملغي');
   const sales=active.reduce((s,o)=>s+o.total,0);
   const cost=active.reduce((s,o)=>s+o.items.reduce((a,it)=>a+(data.products.find(p=>p.id===it.product_id)?.cost||0)*it.qty,0),0);
@@ -344,41 +476,36 @@ reports(){
     const os=data.orders.filter(o=>o.date===d&&o.status!=='ملغي');
     return `<tr><td>${d}</td><td>${os.length}</td><td>${money(os.reduce((s,o)=>s+o.total,0))}</td></tr>`;
   }).join('')||'<tr><td colspan="3" class="empty">لا توجد بيانات</td></tr>';
-  return `<div class="cards">${card('المبيعات',money(sales))}${card('تكلفة الأصناف المقدرة',money(cost))}${card('المصروفات',money(exp))}${card('صافي تقديري',money(sales-cost-exp))}</div>`+
+  const cards=showProfit
+    ?`${card('المبيعات',money(sales))}${card('تكلفة الأصناف المقدرة',money(cost))}${card('المصروفات',money(exp))}${card('صافي تقديري',money(sales-cost-exp))}`
+    :card('المبيعات',money(sales));
+  return `<div class="cards">${cards}</div>`+
   panel('ملخص حسب اليوم',`<div class="scroll"><table><tr><th>التاريخ</th><th>عدد الطلبات</th><th>المبيعات</th></tr>${dayRows}</table></div>`);
 },
 
 settings(){
-  return `<div class="panel"><h3>إعدادات المطعم</h3>
-    <div class="formgrid" style="margin-top:12px">
-      <label>اسم المطعم<input id="restaurantName" value="${esc(data.settings.restaurant)}"></label>
-      <label>عملة النظام<input value="جنيه مصري (EGP)" disabled></label>
-    </div>
-    <div class="actions"><button class="btn primary" id="saveSettings">حفظ الإعدادات</button></div></div>`+
-  panel('النسخ الاحتياطي والاستعادة',`<p class="muted">احتفظ بنسخة JSON بشكل دوري. الاستعادة تستبدل البيانات الحالية بالكامل.</p>
-    <div class="actions">
-      <button class="btn primary" id="downloadBackup">تنزيل نسخة احتياطية</button>
-      <label class="btn">استعادة نسخة JSON<input type="file" id="restoreFile" accept=".json,application/json" hidden></label>
-      <button class="btn danger" id="resetData">إعادة ضبط البيانات التجريبية</button>
-    </div>`)+
-  panel('Google Drive — التخزين المركزي',`<p class="syncnote" id="driveStatus">${esc(driveStatus)}</p>
-    <div class="actions">
-      <button class="btn" id="driveReconnect">إعادة الاتصال بـ Google Drive</button>
-      <button class="btn" id="driveSyncNow">مزامنة الآن</button>
-    </div>
-    <small class="muted">المزامنة تلقائية كل 10 ثوانٍ أثناء فتح الصفحة.</small>`);
+  const restaurantPanel=can('settings.restaurant')
+    ?`<div class="formgrid" style="margin-top:12px"><label>اسم المطعم<input id="restaurantName" value="${esc(data.settings.restaurant)}"></label><label>عملة النظام<input value="جنيه مصري (EGP)" disabled></label></div><div class="actions"><button class="btn primary" id="saveSettings">حفظ الإعدادات</button></div>`
+    :'<p class="muted">لا تملك صلاحية تعديل الإعدادات العامة.</p>';
+  const backupPanel=`<p class="muted">احتفظ بنسخة JSON بشكل دوري. الاستعادة تستبدل البيانات الحالية بالكامل.</p><div class="actions">
+      ${can('settings.backup')?'<button class="btn primary" id="downloadBackup">تنزيل نسخة احتياطية</button>':''}
+      ${can('settings.restore')?'<label class="btn">استعادة نسخة JSON<input type="file" id="restoreFile" accept=".json,application/json" hidden></label>':''}
+      ${can('settings.reset')?'<button class="btn danger" id="resetData">إعادة ضبط البيانات التجريبية</button>':''}
+    </div>`;
+  const drivePanel=can('settings.drive')
+    ?`<p class="syncnote" id="driveStatus">${esc(driveStatus)}</p><div class="actions"><button class="btn" id="driveReconnect">إعادة الاتصال بـ Google Drive</button><button class="btn" id="driveSyncNow">مزامنة الآن</button></div><small class="muted">المزامنة تلقائية كل 10 ثوانٍ أثناء فتح الصفحة.</small>`
+    :'<p class="muted">لا تملك صلاحية إدارة ربط Google Drive.</p>';
+  return panel('إعدادات المطعم',restaurantPanel)+panel('النسخ الاحتياطي والاستعادة',backupPanel)+panel('Google Drive — التخزين المركزي',drivePanel);
 }
 };
 
-/* ---------- الإضافة والحذف ---------- */
-let activePage='dashboard';
-
+/* ---------- الإضافة والتعديل والحذف ---------- */
 function modal(title,fields,onSave){
   $('#modal').innerHTML=`<div class="modalbg"><form class="modal" id="dataForm"><h3>${title}</h3>
     <div class="formgrid">${fields.map(f=>`<label>${f.label}${
       f.type==='select'
         ?`<select name="${f.name}" required>${f.options.map(o=>`<option value="${o.value}">${esc(o.label)}</option>`).join('')}</select>`
-        :`<input name="${f.name}" type="${f.type||'text'}" ${f.step?'step="'+f.step+'"':''} required ${f.value!==undefined?'value="'+esc(f.value)+'"':''}>`
+        :`<input name="${f.name}" type="${f.type||'text'}" ${f.step?'step="'+f.step+'"':''} ${f.required===false?'':'required'} ${f.value!==undefined?'value="'+esc(f.value)+'"':''}>`
     }</label>`).join('')}</div>
     <div class="actions"><button class="btn primary">حفظ</button><button type="button" class="btn" id="cancelModal">إلغاء</button></div>
   </form></div>`;
@@ -386,7 +513,8 @@ function modal(title,fields,onSave){
   $('#dataForm').onsubmit=e=>{
     e.preventDefault();
     const obj=Object.fromEntries(new FormData(e.target));
-    onSave(obj);
+    const ok=onSave(obj);
+    if(ok===false)return;
     $('#modal').innerHTML='';
     save();
     render(activePage);
@@ -394,40 +522,89 @@ function modal(title,fields,onSave){
   };
 }
 
-function addRecord(key){
-  const defs={
+function recordDefs(){
+  return {
     products:[['name','الاسم'],['category','التصنيف'],['price','سعر البيع','number'],['cost','التكلفة','number']],
     inventory:[['name','اسم الخامة'],['unit','الوحدة'],['qty','الرصيد','number'],['min_qty','حد الطلب','number'],['cost','تكلفة الوحدة','number'],['branch_id','رقم الفرع','number']],
     branches:[['name','اسم الفرع'],['location','الموقع']],
-    tables:[['name','اسم الطاولة'],['seats','عدد المقاعد','number'],['status','الحالة']],
+    tables:[['name','اسم الطاولة'],['seats','عدد المقاعد','number'],['status','الحالة'],['branch_id','رقم الفرع','number']],
     suppliers:[['name','اسم المورد'],['phone','الهاتف'],['balance','الرصيد','number']],
     expenses:[['title','بيان المصروف'],['category','التصنيف'],['amount','المبلغ','number'],['date','التاريخ'],['branch_id','رقم الفرع','number']],
     staff:[['username','اسم المستخدم'],['full_name','الاسم الكامل'],['role','الدور'],['branch_id','رقم الفرع','number'],['password','كلمة المرور','password']]
   };
-  const fields=(defs[key]||[]).map(([name,label,type])=>({
-    name,label,type:type==='number'?'number':(type||'text'),
+}
+
+function addRecord(key,rec){
+  if(rec?!can(key+'.edit'):!can(key+'.add'))return toast('لا تملك صلاحية لهذا الإجراء');
+  const defs=recordDefs()[key]||[];
+  const fields=defs.map(([name,label,type])=>({
+    name,label,
+    type:type==='number'?'number':(type||'text'),
     step:type==='number'?'any':undefined,
-    value:name==='date'?today():(name==='branch_id'?1:undefined)
+    required:!(rec&&name==='password'),
+    value:rec
+      ?(name==='password'?undefined:rec[name])
+      :(name==='date'?today():(name==='branch_id'?1:undefined))
   }));
-  modal('إضافة '+pages[key],fields,obj=>{
-    obj.id=Math.max(0,...(data[key]||[]).map(x=>x.id||0))+1;
+  modal((rec?'تعديل ':'إضافة ')+pages[key],fields,obj=>{
     for(const k of ['price','cost','qty','min_qty','branch_id','seats','amount','balance'])
       if(obj[k]!==undefined)obj[k]=Number(obj[k]);
-    if(key==='products'||key==='branches')obj.active=true;
-    (data[key]||(data[key]=[])).push(obj);
+    if(key==='staff'){
+      if(data.staff.some(s=>s.username===obj.username&&(!rec||s.id!==rec.id))){toast('اسم المستخدم موجود بالفعل');return false}
+      if(rec&&!obj.password)obj.password=rec.password;
+    }
+    if(rec){
+      const updated={...rec,...obj,id:rec.id};
+      data[key]=data[key].map(x=>x.id===rec.id?updated:x);
+    }else{
+      obj.id=Math.max(0,...(data[key]||[]).map(x=>x.id||0))+1;
+      if(key==='products'||key==='branches')obj.active=true;
+      if(key==='staff')obj.permissions={};
+      (data[key]||(data[key]=[])).push(obj);
+    }
   });
+}
+
+function refreshGroupBoxes(){
+  PERM_GROUPS.forEach((g,gi)=>{
+    const gb=document.querySelector(`[data-gi="${gi}"]`);
+    if(!gb)return;
+    const boxes=g.items.map(([k])=>document.querySelector(`[data-perm="${k}"]`)).filter(Boolean);
+    gb.checked=boxes.length>0&&boxes.every(b=>b.checked);
+  });
+}
+
+function savePerms(){
+  const u=data.staff.find(s=>String(s.id)===String(permUserId));
+  if(!u)return;
+  if(u.role==='مدير عام')return toast('المدير العام له كل الصلاحيات تلقائيًا');
+  const obj={};
+  document.querySelectorAll('[data-perm]').forEach(cb=>{if(cb.checked)obj[cb.dataset.perm]=true});
+  const self=me();
+  if(self&&String(self.id)===String(u.id)&&!obj['staff.permissions'])return toast('لا يمكنك إزالة صلاحية إدارة الصلاحيات من حسابك');
+  u.permissions=obj;
+  save();
+  render('staff');
+  toast('تم حفظ الصلاحيات');
 }
 
 /* ---------- ربط الأحداث ---------- */
 function wire(page){
-  activePage=page;
   const view=$('#view');
 
   view.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>addRecord(b.dataset.add));
 
+  view.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{
+    const [k,id]=b.dataset.edit.split(':');
+    const rec=data[k].find(x=>String(x.id)===id);
+    if(rec)addRecord(k,rec);
+  });
+
   view.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>{
     const [k,id]=b.dataset.delete.split(':');
+    if(!can(k+'.delete'))return toast('لا تملك صلاحية الحذف');
     if(!confirm('هل تريد حذف هذا السجل؟'))return;
+    if(k==='staff'&&String(id)===String(currentUser?.id)){toast('لا يمكنك حذف حسابك الحالي');return}
     data[k]=data[k].filter(x=>String(x.id)!==id);
     save();
     render(page);
@@ -464,6 +641,7 @@ function wire(page){
     $('#productSearch').oninput=e=>[...$('#productGrid').children].forEach(b=>b.hidden=!b.textContent.toLowerCase().includes(e.target.value.toLowerCase()));
 
     $('#checkout').onclick=()=>{
+      if(!can('pos.sell'))return toast('لا تملك صلاحية تسجيل الطلبات');
       if(!cart.length)return toast('أضف صنفًا أولًا');
       const branch=Number($('#posBranch').value);
       const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
@@ -497,12 +675,17 @@ function wire(page){
   if(page==='orders'){
     view.querySelectorAll('[data-status]').forEach(s=>s.onchange=()=>{
       const o=data.orders.find(x=>x.id===Number(s.dataset.status));
-      if(o){o.status=s.value;save();toast('تم تحديث حالة الطلب')}
+      if(!o)return;
+      const next=s.value;
+      if(!can('orders.update')&&!can('orders.cancel')){toast('لا تملك صلاحية تغيير الحالة');s.value=o.status;return}
+      if(next==='ملغي'&&!can('orders.cancel')){toast('لا تملك صلاحية إلغاء الطلبات');s.value=o.status;return}
+      if(next!=='ملغي'&&!can('orders.update')){toast('لا تملك صلاحية تغيير الحالة');s.value=o.status;return}
+      o.status=next;save();toast('تم تحديث حالة الطلب');
     });
   }
 
   if(page==='products'){
-    $('#recipeAdd').onclick=()=>{
+    $('#recipeAdd')?.addEventListener('click',()=>{
       if(!data.products.length||!data.inventory.length)return toast('أضف أصنافًا وخامات أولًا');
       modal('إضافة مكون للوصفة',[
         {name:'product_id',label:'الصنف',type:'select',options:data.products.map(p=>({value:p.id,label:p.name}))},
@@ -511,34 +694,54 @@ function wire(page){
       ],o=>{
         data.recipes.push({product_id:Number(o.product_id),inventory_id:Number(o.inventory_id),qty:Number(o.qty)});
       });
-    };
+    });
+  }
+
+  if(page==='staff'){
+    view.querySelectorAll('[data-stab]').forEach(b=>b.onclick=()=>{staffTab=b.dataset.stab;render('staff')});
+    $('#permUser')?.addEventListener('change',e=>{permUserId=e.target.value;render('staff')});
+    $('#permPreset')?.addEventListener('change',e=>{
+      const keys=presetKeys(e.target.value);
+      if(!keys)return;
+      document.querySelectorAll('[data-perm]').forEach(cb=>{if(!cb.disabled)cb.checked=keys.includes(cb.dataset.perm)});
+      refreshGroupBoxes();
+    });
+    view.querySelectorAll('[data-gi]').forEach(gb=>gb.onchange=()=>{
+      const g=PERM_GROUPS[Number(gb.dataset.gi)];
+      g.items.forEach(([k])=>{const cb=document.querySelector(`[data-perm="${k}"]`);if(cb&&!cb.disabled)cb.checked=gb.checked});
+    });
+    view.querySelectorAll('[data-perm]').forEach(cb=>cb.onchange=refreshGroupBoxes);
+    $('#savePerms')?.addEventListener('click',savePerms);
   }
 
   if(page==='settings'){
-    $('#saveSettings').onclick=()=>{data.settings.restaurant=$('#restaurantName').value;save();toast('تم حفظ الإعدادات')};
-    $('#downloadBackup').onclick=backup;
-    $('#restoreFile').onchange=restore;
-    $('#resetData').onclick=()=>{
+    $('#saveSettings')?.addEventListener('click',()=>{data.settings.restaurant=$('#restaurantName').value;save();toast('تم حفظ الإعدادات')});
+    $('#downloadBackup')?.addEventListener('click',backup);
+    $('#restoreFile')?.addEventListener('change',restore);
+    $('#resetData')?.addEventListener('click',()=>{
       if(confirm('سيتم استبدال كل البيانات بالبيانات التجريبية. هل أنت متأكد؟')){
-        data=defaults();save();render('settings');toast('تمت إعادة الضبط');
+        data=defaults();save();
+        logout();
       }
-    };
-    $('#driveReconnect').onclick=startGoogleAuth;
-    $('#driveSyncNow').onclick=()=>syncDrive();
+    });
+    $('#driveReconnect')?.addEventListener('click',connectDrive);
+    $('#driveSyncNow')?.addEventListener('click',()=>syncDrive());
   }
 }
 
 /* ---------- النسخ الاحتياطي ---------- */
 function backup(){
+  if(!can('settings.backup'))return toast('لا تملك صلاحية التنزيل');
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
-  a.download='zad-backup-'+today()+'.json';
+  a.download='sysrmy-backup-'+today()+'.json';
   a.click();
   URL.revokeObjectURL(a.href);
 }
 
 function restore(e){
+  if(!can('settings.restore'))return toast('لا تملك صلاحية الاستعادة');
   const f=e.target.files[0];
   if(!f)return;
   const r=new FileReader();
@@ -546,13 +749,24 @@ function restore(e){
     try{
       const d=JSON.parse(r.result);
       if(!d.products||!d.orders||!d.branches||!d.staff)throw Error('invalid');
-      data=d;save();render('settings');toast('تمت استعادة النسخة');
+      data=d;
+      data.staff.forEach(s=>{if(!s.permissions)s.permissions={}});
+      save();
+      render('settings');
+      toast('تمت استعادة النسخة');
     }catch{toast('ملف النسخة غير صالح')}
   };
   r.readAsText(f);
 }
 
 $('#exportBtn').onclick=backup;
+
+/* ---------- استعادة الجلسة عند تحديث الصفحة ---------- */
+const savedUid=sessionStorage.getItem(SESSION_KEY);
+if(savedUid){
+  const s=data.staff.find(x=>String(x.id)===savedUid);
+  if(s)enter(s);
+}
 })();
 </script>
 </body>
