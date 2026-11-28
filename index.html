@@ -33,6 +33,37 @@
 .board{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start}.col{background:#f4f9f7;border:1px solid var(--line);border-radius:16px;padding:12px;min-height:240px}.colhead{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800;margin:2px 4px 12px}.ocard{background:white;border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:10px;box-shadow:var(--shadow)}.ocard.urgent{border-color:#e7b96b}.oh{display:flex;justify-content:space-between;font-weight:800;font-size:14px}.om{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:4px;gap:6px}.ocard ul{margin:10px 0;padding:0 16px 0 0;font-size:13px;line-height:1.9}.ototal{display:flex;justify-content:space-between;align-items:center;font-size:12px;border-top:1px solid var(--line);padding-top:8px;margin-bottom:8px}.ototal b{color:var(--green);font-size:14px}.obtn{display:flex;gap:6px}.obtn button{flex:1;padding:10px}
 .stepper{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:6px;margin:12px 0}.step{text-align:center;font-size:11px;color:var(--muted)}.step .dot{display:block;width:14px;height:14px;border-radius:50%;background:#dfe8e4;margin:0 auto 6px}.step.done{color:var(--ink)}.step.done .dot{background:var(--green)}.step.cancel.done .dot{background:var(--red)}.step small{display:block;font-size:10px;margin-top:2px}.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.filters .field,.filters select{min-width:150px}.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:white;border-radius:30px;padding:7px 12px;font-size:12px;font-weight:700;color:#53645e}.chip.active{background:var(--green);color:white;border-color:var(--green)}.customRange{display:flex;gap:6px}.orow{cursor:pointer}.orow:hover td{background:#f7fbf9}.tl{margin:8px 0 0;padding:0 18px 0 0;font-size:12px;line-height:1.9}.sec{font-size:12px;font-weight:800;margin:14px 0 4px}.infogrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px}.infogrid div{background:#f7faf8;border-radius:10px;padding:8px}.infogrid small{display:block;color:var(--muted);font-size:10px}
 .formgrid input[type=checkbox]{width:auto;display:inline-block;margin:0}.ttlrow{font-size:12px}
+.env{position:relative;background:#fffdf6;border:1px solid #e3d6b0;border-radius:14px;padding:12px 14px;margin-bottom:12px;box-shadow:var(--shadow);cursor:pointer;overflow:hidden}
+.env .flap{position:absolute;top:0;left:0;right:0;height:54px;background:linear-gradient(#f3e7c4,#ead9a6);clip-path:polygon(0 0,100% 0,50% 100%)}
+.env .envhead{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:13px;padding-top:60px;color:#6b5a2a}
+.env .envhead b{color:var(--green)}
+.env .envbody{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed #e3d6b0;font-size:12px}
+.env .envbody ul{margin:8px 0;padding:0 16px 0 0;line-height:1.8}
+.env .envhint{font-size:10px;color:#8a7a45;text-align:center;margin-top:6px}
+.env.open .flap{display:none}.env.open .envhead{padding-top:0}.env.open .envbody{display:block}.env.open .envhint{display:none}
+.closedbanner{background:var(--green2);color:var(--green);border-radius:12px;padding:12px;font-weight:700;margin-bottom:12px;font-size:13px}
+.warnbanner{background:#fff4df;color:var(--amber);border-radius:12px;padding:12px;font-weight:700;margin-bottom:12px;font-size:13px}
+.repgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.repgrid .wide{grid-column:1/-1}
+.vbars{display:flex;align-items:flex-end;gap:6px;height:200px;padding:6px 2px 0;border-bottom:1px solid var(--line);overflow-x:auto}
+.vcol{flex:1 0 auto;min-width:28px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.vfill{width:100%;background:linear-gradient(#3dbf9e,var(--green));border-radius:8px 8px 0 0;min-height:2px}
+.vval{font-size:9px;font-weight:700;color:var(--ink);margin-bottom:3px;white-space:nowrap}
+.vlab{font-size:9px;color:var(--muted);margin-top:4px;white-space:nowrap}
+.hb{display:grid;grid-template-columns:110px 1fr 130px;gap:10px;align-items:center;font-size:12px;margin:9px 0}
+.hb .track{background:#eef4f1;border-radius:8px;height:12px;overflow:hidden}.hb .fill{height:100%;background:var(--green);border-radius:8px}
+.hb .hv{font-size:11px;color:var(--muted)}
+@media(max-width:900px){.repgrid{grid-template-columns:1fr}.hb{grid-template-columns:90px 1fr 110px}}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:14px}
+.tcard{background:white;border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--shadow)}
+.tcard.ready{border-color:var(--green);background:var(--green2)}
+.tcard.late{border-color:#e7b96b}
+.th{display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.tm{font-size:11px;color:var(--muted);margin:4px 0 8px}
+.tsteps{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-size:10px;text-align:center;color:var(--muted);margin:8px 0}
+.tsteps span:before{content:'';display:block;height:6px;border-radius:6px;background:#dfe8e4;margin-bottom:4px}
+.tsteps span.on{color:var(--green);font-weight:700}.tsteps span.on:before{background:var(--green)}
+.tcard ul{margin:6px 0;padding:0 16px 0 0;font-size:12px;line-height:1.8}
+.tcard .btn{width:100%;padding:11px}
 #toast{position:fixed;bottom:20px;left:20px;background:#163d32;color:white;padding:11px 16px;border-radius:10px;opacity:0;transition:.2s;z-index:20;font-size:12px;pointer-events:none;max-width:90vw}#toast.show{opacity:1}
 @media(max-width:900px){.sidebar{transform:translateX(105%);transition:.2s}.sidebar.open{transform:none}.main{margin:0}.hamb{display:block}.cards{grid-template-columns:repeat(2,1fr)}#view{padding:14px}.topbar{padding:0 14px}.prodGrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:900px){
@@ -102,9 +133,9 @@
     <div class="brand">System RMY <small>نظام إدارة المطاعم</small></div>
     <div class="profile" id="profile"></div>
     <nav class="nav" id="nav">
-      <button data-page="dashboard">▦ لوحة التحكم</button><button data-page="pos">▣ نقطة البيع</button><button data-page="orders">☷ الطلبات والمطبخ</button><button data-page="products">🍔 الأصناف والوصفات</button><button data-page="inventory">⬡ المخزون</button><button data-page="branches">⌂ الفروع</button><button data-page="tables">▤ الطاولات</button><button data-page="suppliers">▧ الموردون</button><button data-page="expenses">− المصروفات</button><button data-page="staff">♙ الموظفون</button><button data-page="reports">▤ التقارير</button><button data-page="settings">⚙ الإعدادات والنسخ الاحتياطي</button>
+      <button data-page="dashboard">▦ لوحة التحكم</button><button data-page="pos">▣ نقطة البيع</button><button data-page="orders">☷ الطلبات والمطبخ</button><button data-page="products">🍔 الأصناف والوصفات</button><button data-page="inventory">⬡ المخزون</button><button data-page="branches">⌂ الفروع</button><button data-page="tables">▤ الطاولات</button><button data-page="suppliers">▧ الموردون</button><button data-page="expenses">− المصروفات</button><button data-page="staff">♙ الموظفون</button><button data-page="reports">▤ التقارير</button><button data-page="settings">⚙ الإعدادات</button>
     </nav>
-    <div class="sidebarfoot"><button id="exportBtn">تصدير نسخة بيانات JSON</button><button id="logoutBtn">تسجيل الخروج</button></div>
+    <div class="sidebarfoot"><button id="logoutBtn">تسجيل الخروج</button></div>
   </aside>
   <main class="main">
     <header class="topbar"><button class="hamb" id="hamb">☰</button><h2 id="pageTitle">لوحة التحكم</h2><span class="right" id="today"></span></header>
@@ -131,7 +162,7 @@ const DRIVE_FIELDS='files(id,name,mimeType,modifiedTime,appProperties),nextPageT
 const PERM_GROUPS=[
   {group:'لوحة التحكم',items:[['dashboard.view','عرض لوحة التحكم']]},
   {group:'نقطة البيع',items:[['pos.view','عرض نقطة البيع'],['pos.sell','تسجيل طلبات بيع']]},
-  {group:'الطلبات والمطبخ',items:[['orders.view','عرض الطلبات'],['orders.update','تغيير حالة الطلب (تحضير / جاهز / مكتمل)'],['orders.cancel','إلغاء الطلبات']]},
+  {group:'الطلبات والمطبخ',items:[['orders.view','عرض الطلبات'],['orders.update','تغيير حالة الطلب (تحضير / جاهز / مكتمل)'],['orders.cancel','إلغاء الطلبات'],['orders.close','تقفيل اليوم وطباعة التقرير']]},
   {group:'الأصناف والوصفات',items:[['products.view','عرض الأصناف'],['products.add','إضافة صنف'],['products.edit','تعديل صنف'],['products.delete','حذف صنف'],['products.cost','رؤية تكلفة الصنف'],['recipes.manage','إدارة الوصفات']]},
   {group:'المخزون',items:[['inventory.view','عرض المخزون'],['inventory.add','إضافة خامة'],['inventory.edit','تعديل خامة'],['inventory.delete','حذف خامة'],['inventory.cost','رؤية تكلفة الخامات وقيمة المخزون']]},
   {group:'الفروع',items:[['branches.view','عرض الفروع'],['branches.add','إضافة فرع'],['branches.edit','تعديل فرع'],['branches.delete','حذف فرع']]},
@@ -139,8 +170,7 @@ const PERM_GROUPS=[
   {group:'الموردون',items:[['suppliers.view','عرض الموردين'],['suppliers.add','إضافة مورد'],['suppliers.edit','تعديل مورد'],['suppliers.delete','حذف مورد']]},
   {group:'المصروفات',items:[['expenses.view','عرض المصروفات'],['expenses.add','إضافة مصروف'],['expenses.edit','تعديل مصروف'],['expenses.delete','حذف مصروف']]},
   {group:'الموظفون',items:[['staff.view','عرض الموظفين'],['staff.add','إضافة موظف'],['staff.edit','تعديل موظف'],['staff.delete','حذف موظف'],['staff.permissions','إدارة صلاحيات الموظفين']]},
-  {group:'التقارير',items:[['reports.view','عرض التقارير'],['reports.profit','رؤية الأرباح وصافي التقدير']]},
-  {group:'الإعدادات',items:[['settings.view','عرض الإعدادات'],['settings.restaurant','تعديل اسم المطعم'],['settings.backup','تنزيل النسخ الاحتياطية'],['settings.restore','استعادة نسخة احتياطية'],['settings.reset','إعادة ضبط البيانات'],['settings.drive','إدارة ربط Google Drive'],['settings.invoice','تعديل إعدادات الفاتورة والضريبة']]}
+  {group:'التقارير',items:[['reports.view','عرض التقارير'],['reports.profit','رؤية الأرباح وصافي التقدير']]}
 ];
 const ALL_PERMS=PERM_GROUPS.flatMap(g=>g.items.map(i=>i[0]));
 const PRESETS={
@@ -163,6 +193,7 @@ function can(k){
   const u=me();
   if(!u)return false;
   if(u.role==='مدير عام')return true;
+  if(k.startsWith('settings.'))return false;
   return !!(u.permissions&&u.permissions[k]);
 }
 function hiddenCol(key,k){
@@ -187,6 +218,7 @@ const defaults=()=>({
   suppliers:[{id:1,name:'شركة التوريدات',phone:'',balance:0}],
   expenses:[],
   orders:[],
+  closings:[],
   staff:[{id:1,username:'admin',full_name:'مدير النظام',role:'مدير عام',branch_id:1,password:'1234',permissions:{}}],
   settings:{restaurant:'System RMY',currency:'EGP'}
 });
@@ -204,6 +236,7 @@ function normalize(d){
     if(!Array.isArray(d[k]))continue;
     d[k].forEach(r=>{if(r.id===undefined||r.id===null||r.id==='')r.id=newId()});
   }
+  if(!Array.isArray(d.closings))d.closings=[];
   if(!Array.isArray(d.staff)||!d.staff.length)d.staff=defaults().staff;
   d.staff.forEach(s=>{if(!s.permissions)s.permissions={}});
   if(!d.settings)d.settings=defaults().settings;
@@ -213,6 +246,7 @@ function normalize(d){
 let data=defaults();
 let dataLoaded=false;
 let currentUser=null,cart=[],activePage='dashboard',staffTab='list',permUserId=null,posCat='';
+let posTab='sell',trackBranch='';
 let ordersTab='board',ordHist={q:'',branch:'',status:'',range:'today',from:'',to:''};
 let driveToken=null,driveFolderId='',driveEmail='',driveBusy=false,driveStatus='غير متصل',syncTimer=null,pushTimer=null;
 let tokenClient=null,renewing=false,interactiveRequest=false;
@@ -589,7 +623,6 @@ function enter(user){
   $('#app').classList.remove('hidden');
   $('#profile').textContent='مرحبًا، '+(user.full_name||user.username);
   $('#today').textContent=new Date().toLocaleDateString('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-  $('#exportBtn').hidden=!can('settings.backup');
   const first=Object.keys(pages).find(p=>can(p+'.view'))||'dashboard';
   render(first);
 }
@@ -618,7 +651,7 @@ $('#nav').onclick=e=>{
 const pages={
   dashboard:'لوحة التحكم',pos:'نقطة البيع',orders:'الطلبات والمطبخ',products:'الأصناف والوصفات',
   inventory:'المخزون',branches:'الفروع',tables:'الطاولات',suppliers:'الموردون',expenses:'المصروفات',
-  staff:'الموظفون',reports:'التقارير',settings:'الإعدادات والنسخ الاحتياطي'
+  staff:'الموظفون',reports:'التقارير',settings:'الإعدادات'
 };
 
 function syncNav(){
@@ -698,7 +731,8 @@ dashboard(){
 
 pos(){
   const cats=[...new Set(data.products.filter(p=>p.active!==false).map(p=>p.category||'بدون تصنيف'))];
-  return `<div class="posTop">
+  if(posTab==='track')return posTabs()+trackView();
+  return posTabs()+`<div class="posTop">
       <select id="posBranch">${data.branches.map(b=>`<option value="${b.id}">${esc(b.name)}</option>`).join('')}</select>
       <input id="productSearch" class="field" placeholder="ابحث باسم الصنف...">
     </div>
@@ -727,8 +761,8 @@ pos(){
 },
 
 orders(){
-  const tabs=`<div class="tabs"><button data-otab="board" class="${ordersTab==='board'?'active':''}">متابعة المطبخ</button><button data-otab="history" class="${ordersTab==='history'?'active':''}">سجل الطلبات</button></div>`;
-  return tabs+(ordersTab==='history'?ordersHistoryView():ordersBoardView());
+  const tabs=`<div class="tabs"><button data-otab="board" class="${ordersTab==='board'?'active':''}">متابعة المطبخ</button><button data-otab="history" class="${ordersTab==='history'?'active':''}">سجل الطلبات</button><button data-otab="close" class="${ordersTab==='close'?'active':''}">🔒 تقفيل اليوم</button></div>`;
+  return tabs+(ordersTab==='history'?ordersHistoryView():ordersTab==='close'?closingView():ordersBoardView());
 },
 
 products(){
@@ -753,21 +787,7 @@ staff(){
 },
 
 reports(){
-  const showProfit=can('reports.profit');
-  const active=data.orders.filter(o=>o.status!=='ملغي');
-  const sales=active.reduce((s,o)=>s+o.total,0);
-  const cost=active.reduce((s,o)=>s+o.items.reduce((a,it)=>a+(data.products.find(p=>p.id===it.product_id)?.cost||0)*it.qty,0),0);
-  const exp=data.expenses.reduce((s,x)=>s+Number(x.amount||0),0);
-  const days=[...new Set(data.orders.map(o=>o.date))].sort().reverse();
-  const dayRows=days.map(d=>{
-    const os=data.orders.filter(o=>o.date===d&&o.status!=='ملغي');
-    return `<tr><td>${d}</td><td>${os.length}</td><td>${money(os.reduce((s,o)=>s+o.total,0))}</td></tr>`;
-  }).join('')||'<tr><td colspan="3" class="empty">لا توجد بيانات</td></tr>';
-  const cards=showProfit
-    ?`${card('المبيعات',money(sales))}${card('تكلفة الأصناف المقدرة',money(cost))}${card('المصروفات',money(exp))}${card('صافي تقديري',money(sales-cost-exp))}`
-    :card('المبيعات',money(sales));
-  return `<div class="cards">${cards}</div>`+
-  panel('ملخص حسب اليوم',`<div class="scroll"><table><tr><th>التاريخ</th><th>عدد الطلبات</th><th>المبيعات</th></tr>${dayRows}</table></div>`);
+  return reportsView();
 },
 
 settings(){
@@ -968,6 +988,7 @@ function wirePos(){
     if(!can('pos.sell'))return toast('لا تملك صلاحية تسجيل الطلبات');
     if(!cart.length)return toast('أضف صنفًا أولًا');
     const branch=Number($('#posBranch').value);
+    if(isDayClosed(Number($('#posBranch').value),today()))return toast('اليوم متقفل للفرع ده، مينفعش تسجيل طلبات جديدة');
     const tt=calcTotals(cartTotal(),getInvCfg());
 
     for(const line of cart){
@@ -1169,6 +1190,448 @@ function renderInvPreview(){
   fr.srcdoc=invDoc(sample,cfg,branch);
 }
 
+/* ---------- تسليم الطلبات كظروف مغلقة ---------- */
+const openEnvs=new Set();
+function envCard(o){
+  const items=(o.items||[]).map(it=>{
+    const p=data.products.find(x=>x.id===it.product_id);
+    return `<li>${it.qty} × ${esc(p?.name||'صنف محذوف')}</li>`;
+  }).join('');
+  const doneAt=stageTime(o,'مكتمل');
+  const time=doneAt?new Date(doneAt).toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'}):'';
+  const open=openEnvs.has(String(o.id));
+  return `<div class="env ${open?'open':''}" data-env="${o.id}">
+    <div class="flap"></div>
+    <div class="envhead"><span>✉ #${String(o.id).slice(-6)}${time?' · '+time:''}</span><b>${money(o.total)}</b></div>
+    <div class="envbody">
+      <div class="om"><span>${esc(data.branches.find(b=>b.id===o.branch_id)?.name||'')}</span><span>${esc(o.customer)} · ${esc(o.payment)}</span></div>
+      <ul>${items}</ul>
+      <div class="ototal"><span>قبل الضريبة</span><b>${money(o.subtotal??o.total)}</b></div>
+      ${o.tax?`<div class="ototal"><span>الضريبة (${o.taxRate}%)</span><b>${money(o.tax)}</b></div>`:''}
+    </div>
+    <div class="envhint">اضغط لفتح الظرف</div>
+  </div>`;
+}
+
+/* ---------- تقفيل اليوم ---------- */
+const closeSel={branch:null,date:null};
+const r2=x=>Math.round(x*100)/100;
+
+function isDayClosed(branchId,date){
+  return data.closings.some(c=>String(c.branch_id)===String(branchId)&&c.date===date);
+}
+function closingOf(branchId,date){
+  return data.closings.find(c=>String(c.branch_id)===String(branchId)&&c.date===date);
+}
+
+// ملخص اليوم لفرع معين: الطلبات والمبيعات والضريبة والدفع والمصروفات والكاش المتوقع
+function dayStats(branchId,date){
+  const list=data.orders.filter(o=>o.branch_id===branchId&&o.date===date);
+  const live=list.filter(o=>o.status!=='ملغي');
+  const byPay={};
+  live.forEach(o=>{const k=o.payment||'أخرى';byPay[k]=r2((byPay[k]||0)+o.total)});
+  const gross=live.reduce((s,o)=>s+o.total,0);
+  const tax=live.reduce((s,o)=>s+(o.tax||0),0);
+  const net=live.reduce((s,o)=>s+(o.subtotal??(o.total-(o.tax||0))),0);
+  const exp=data.expenses.filter(e=>e.branch_id===branchId&&e.date===date).reduce((s,e)=>s+Number(e.amount||0),0);
+  const cash=byPay['نقدي']||0;
+  return {
+    total:list.length,
+    delivered:list.filter(o=>o.status==='مكتمل').length,
+    cancelled:list.filter(o=>o.status==='ملغي').length,
+    open:list.filter(o=>o.status==='قيد التحضير'||o.status==='جاهز').length,
+    gross:r2(gross),tax:r2(tax),net:r2(net),byPay,exp:r2(exp),expectedCash:r2(cash-exp)
+  };
+}
+
+function diffText(d){
+  if(Math.abs(d)<0.005)return 'متطابق ✓';
+  return d>0?'زيادة '+money(d):'عجز '+money(-d);
+}
+
+function closingView(){
+  const branches=data.branches;
+  if(!closeSel.branch)closeSel.branch=branches[0]?.id??null;
+  if(!closeSel.date)closeSel.date=today();
+  const b=branches.find(x=>String(x.id)===String(closeSel.branch))||branches[0];
+  if(!b)return '<div class="panel empty">أضف فرعًا أولًا</div>';
+  const s=dayStats(b.id,closeSel.date);
+  const closed=closingOf(b.id,closeSel.date);
+  const payRows=Object.entries(s.byPay).map(([k,v])=>`<tr><td>${esc(k)}</td><td>${money(v)}</td></tr>`).join('')||'<tr><td colspan="2" class="empty">لا توجد مبيعات</td></tr>';
+  const hist=data.closings.slice().sort((x,y)=>y.closedAt-x.closedAt).slice(0,30);
+  const histRows=hist.map(c=>{
+    const cb=data.branches.find(x=>x.id===c.branch_id);
+    return `<tr><td>${c.date}</td><td>${esc(cb?.name||'')}</td><td>${c.total}</td><td>${money(c.gross)}</td><td>${money(c.countedCash)}</td><td>${esc(diffText(c.diff))}</td><td>${esc(c.closedBy)}</td><td><button class="btn" type="button" data-cprint="${c.id}">🖨</button></td></tr>`;
+  }).join('')||'<tr><td colspan="8" class="empty">لا توجد إقفالات بعد</td></tr>';
+  return `<div class="filters">
+      <select id="cBranch">${branches.map(x=>`<option value="${x.id}" ${String(x.id)===String(b.id)?'selected':''}>${esc(x.name)}</option>`).join('')}</select>
+      <input type="date" id="cDate" value="${closeSel.date}">
+    </div>
+    ${closed?`<div class="closedbanner">🔒 اليوم ده متقفل منذ ${fmtT(closed.closedAt)} بواسطة ${esc(closed.closedBy)}</div>`:''}
+    ${!closed&&s.open>0?`<div class="warnbanner">⚠ فيه ${s.open} طلب لسه مش مكتمل. لازم تخلصهم قبل التقفيل.</div>`:''}
+    <div class="cards">${card('طلبات مكتملة',s.delivered)}${card('إجمالي المبيعات',money(s.gross))}${card('الضريبة',money(s.tax))}${card('الكاش المتوقع',money(s.expectedCash))}</div>
+    <div class="panel"><h3>ملخص اليوم</h3><div class="scroll"><table>
+      <tr><th>البند</th><th>القيمة</th></tr>
+      <tr><td>إجمالي الطلبات</td><td>${s.total}</td></tr>
+      <tr><td>مكتملة / ملغاة</td><td>${s.delivered} / ${s.cancelled}</td></tr>
+      <tr><td>قبل الضريبة</td><td>${money(s.net)}</td></tr>
+      <tr><td>الضريبة</td><td>${money(s.tax)}</td></tr>
+      <tr><td><b>الإجمالي بعد الضريبة</b></td><td><b>${money(s.gross)}</b></td></tr>
+      ${payRows}
+      <tr><td>المصروفات</td><td>${money(s.exp)}</td></tr>
+      <tr><td><b>الكاش المتوقع في الدرج</b></td><td><b>${money(s.expectedCash)}</b></td></tr>
+    </table></div></div>
+    <div class="panel"><h3>جرد الكاش</h3>
+      <div class="formgrid" style="margin-top:10px">
+        <label>الكاش الفعلي في الدرج<input type="number" step="0.01" id="cCounted" value="${closed?closed.countedCash:''}" ${closed?'disabled':''}></label>
+        <label>ملاحظة<input id="cNote" value="${esc(closed?.note||'')}" ${closed?'disabled':''}></label>
+      </div>
+      <p id="cDiff" class="muted" style="margin-top:8px;font-weight:700"></p>
+      <div class="actions">${closed
+        ?`<button class="btn primary" id="cPrint" type="button">🖨 طباعة تقرير اليوم</button>`
+        :`<button class="btn primary" id="cDo" type="button" ${can('orders.close')&&s.open===0?'':'disabled'}>🔒 تقفيل اليوم</button>`}</div>
+      ${!closed&&!can('orders.close')?'<p class="muted">ليس لديك صلاحية تقفيل اليوم.</p>':''}
+    </div>
+    <div class="panel"><h3>الإقفالات السابقة</h3><div class="scroll"><table>
+      <tr><th>التاريخ</th><th>الفرع</th><th>الطلبات</th><th>المبيعات</th><th>الكاش الفعلي</th><th>الفرق</th><th>بواسطة</th><th></th></tr>${histRows}
+    </table></div></div>`;
+}
+
+function wireClosing(){
+  $('#cBranch')?.addEventListener('change',e=>{closeSel.branch=e.target.value;render('orders')});
+  $('#cDate')?.addEventListener('change',e=>{closeSel.date=e.target.value||today();render('orders')});
+  const b=data.branches.find(x=>String(x.id)===String(closeSel.branch))||data.branches[0];
+  const upd=()=>{
+    const s=dayStats(b.id,closeSel.date);
+    const v=$('#cCounted').value;
+    $('#cDiff').textContent=v===''?'اكتب الكاش الفعلي عشان نحسب الفرق':'الفرق: '+diffText(Number(v)-s.expectedCash);
+  };
+  $('#cCounted')?.addEventListener('input',upd);
+  upd();
+  $('#cDo')?.addEventListener('click',closeDay);
+  $('#cPrint')?.addEventListener('click',()=>printClosing(closingOf(b.id,closeSel.date)));
+  $('#view').querySelectorAll('[data-cprint]').forEach(bt=>bt.onclick=()=>printClosing(data.closings.find(c=>String(c.id)===bt.dataset.cprint)));
+}
+
+function closeDay(){
+  if(!can('orders.close'))return toast('لا تملك صلاحية تقفيل اليوم');
+  const b=data.branches.find(x=>String(x.id)===String(closeSel.branch))||data.branches[0];
+  const d=closeSel.date;
+  if(isDayClosed(b.id,d))return toast('اليوم ده متقفل بالفعل');
+  const s=dayStats(b.id,d);
+  if(s.open>0)return toast('فيه طلبات لسه مش مكتملة');
+  const v=$('#cCounted').value;
+  if(v==='')return toast('اكتب الكاش الفعلي الأول');
+  if(!confirm('تقفيل اليوم؟ بعد التقفيل مش هينفع تعديل أو إلغاء أو إضافة طلبات لليوم ده.'))return;
+  const counted=r2(Number(v));
+  const rec={
+    id:newId(),branch_id:b.id,date:d,closedAt:Date.now(),
+    closedBy:currentUser?.full_name||currentUser?.username||'',
+    ...s,
+    countedCash:counted,
+    diff:r2(counted-s.expectedCash),
+    note:($('#cNote').value||'').trim()
+  };
+  data.closings.push(rec);
+  save();
+  render('orders');
+  printClosing(rec);
+  toast('تم تقفيل اليوم');
+}
+
+function printHTML(html){
+  const f=document.createElement('iframe');
+  f.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0';
+  document.body.appendChild(f);
+  f.contentDocument.open();f.contentDocument.write(html);f.contentDocument.close();
+  setTimeout(()=>{
+    try{f.contentWindow.focus();f.contentWindow.print()}catch{toast('تعذر فتح نافذة الطباعة')}
+    setTimeout(()=>f.remove(),1500);
+  },250);
+}
+
+function printClosing(c){
+  if(!c)return toast('لا يوجد تقرير لهذا اليوم');
+  const cfg=getInvCfg();
+  const b=data.branches.find(x=>x.id===c.branch_id);
+  const f=n=>Number(n||0).toFixed(2);
+  const body=`<div class="inv">
+    <div class="c"><div class="nm">${esc(cfg.name)}</div><div>${esc(b?.name||'')}</div>${cfg.taxNumber?`<div class="sm">الرقم الضريبي: ${esc(cfg.taxNumber)}</div>`:''}</div>
+    <div class="c ttl">تقرير تقفيل اليوم</div>
+    <div class="r"><span>التاريخ</span><span>${c.date}</span></div>
+    <div class="r"><span>وقت التقفيل</span><span>${fmtT(c.closedAt)}</span></div>
+    <div class="r"><span>بواسطة</span><span>${esc(c.closedBy)}</span></div>
+    <hr>
+    <div class="r"><span>إجمالي الطلبات</span><span>${c.total}</span></div>
+    <div class="r"><span>مكتملة</span><span>${c.delivered}</span></div>
+    <div class="r"><span>ملغاة</span><span>${c.cancelled}</span></div>
+    <hr>
+    <div class="r"><span>قبل الضريبة</span><span>${f(c.net)}</span></div>
+    <div class="r"><span>الضريبة</span><span>${f(c.tax)}</span></div>
+    <div class="r big"><span>الإجمالي</span><span>${f(c.gross)} ${esc(cfg.currency)}</span></div>
+    <hr>
+    ${Object.entries(c.byPay||{}).map(([k,v])=>`<div class="r"><span>${esc(k)}</span><span>${f(v)}</span></div>`).join('')}
+    <div class="r"><span>المصروفات</span><span>${f(c.exp)}</span></div>
+    <div class="r"><span>الكاش المتوقع</span><span>${f(c.expectedCash)}</span></div>
+    <div class="r"><span>الكاش الفعلي</span><span>${f(c.countedCash)}</span></div>
+    <div class="r big"><span>الفرق</span><span>${esc(diffText(c.diff))}</span></div>
+    ${c.note?`<div class="sm">ملاحظة: ${esc(c.note)}</div>`:''}
+  </div>`;
+  printHTML(`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><style>${invCss(cfg)}</style></head><body>${body}</body></html>`);
+}
+
+/* ---------- التقارير ---------- */
+const repState={range:'month',branch:'',from:'',to:''};
+const sumBy=(arr,f)=>arr.reduce((s,x)=>s+(Number(f(x))||0),0);
+const prodCost=id=>data.products.find(p=>p.id===id)?.cost||0;
+
+function repRange(){
+  const now=Date.now(),day=n=>new Date(now-n*86400000).toISOString().slice(0,10);
+  if(repState.range==='today')return {from:day(0),to:day(0)};
+  if(repState.range==='week')return {from:day(6),to:day(0)};
+  if(repState.range==='month')return {from:day(29),to:day(0)};
+  if(repState.range==='custom')return {from:repState.from,to:repState.to};
+  return {from:'',to:''};
+}
+function inRange(d,r){return(!r.from||d>=r.from)&&(!r.to||d<=r.to)}
+
+function repData(){
+  const r=repRange(),br=repState.branch;
+  const orders=data.orders.filter(o=>inRange(o.date,r)&&(!br||String(o.branch_id)===br));
+  const live=orders.filter(o=>o.status!=='ملغي');
+  const exps=data.expenses.filter(e=>inRange(e.date||'',r)&&(!br||String(e.branch_id)===br));
+  const gross=sumBy(live,o=>o.total);
+  const tax=sumBy(live,o=>o.tax||0);
+  const net=sumBy(live,o=>o.subtotal??(o.total-(o.tax||0)));
+  const cost=sumBy(live,o=>sumBy(o.items||[],it=>prodCost(it.product_id)*it.qty));
+  const exp=sumBy(exps,e=>e.amount);
+  const preps=orders.map(prepMinutes).filter(x=>x!==null);
+  const avgPrep=preps.length?Math.round(sumBy(preps,x=>x)/preps.length):null;
+
+  const byPay={};
+  live.forEach(o=>{const k=o.payment||'أخرى';byPay[k]=(byPay[k]||0)+o.total});
+
+  const dayMap={};
+  const dayOf=d=>dayMap[d]||(dayMap[d]={d,orders:0,gross:0,tax:0,net:0,cost:0,exp:0});
+  live.forEach(o=>{
+    const x=dayOf(o.date);
+    x.orders++;x.gross+=o.total;x.tax+=o.tax||0;
+    x.net+=o.subtotal??(o.total-(o.tax||0));
+    x.cost+=sumBy(o.items||[],it=>prodCost(it.product_id)*it.qty);
+  });
+  exps.forEach(e=>{dayOf(e.date).exp+=Number(e.amount)||0});
+  const days=Object.values(dayMap).sort((a,b)=>a.d.localeCompare(b.d)).map(d=>({...d,profit:d.net-d.cost-d.exp}));
+
+  const brMap={};
+  live.forEach(o=>{
+    const n=data.branches.find(b=>b.id===o.branch_id)?.name||'—';
+    brMap[n]=brMap[n]||{label:n,value:0,orders:0};
+    brMap[n].value+=o.total;brMap[n].orders++;
+  });
+  const branches=Object.values(brMap).sort((a,b)=>b.value-a.value);
+
+  const prodMap={};
+  live.forEach(o=>(o.items||[]).forEach(it=>{
+    const p=data.products.find(x=>x.id===it.product_id);
+    const k=String(it.product_id);
+    const row=prodMap[k]||(prodMap[k]={name:p?.name||'صنف محذوف',cat:p?.category||'بدون تصنيف',qty:0,revenue:0});
+    row.qty+=it.qty;row.revenue+=it.qty*it.price;
+  }));
+  const products=Object.values(prodMap).sort((a,b)=>b.revenue-a.revenue);
+
+  const catMap={};
+  products.forEach(p=>{catMap[p.cat]=(catMap[p.cat]||0)+p.revenue});
+  const cats=Object.entries(catMap).map(([label,value])=>({label,value})).sort((a,b)=>b.value-a.value);
+
+  const hours=Array(24).fill(0);
+  live.forEach(o=>{if(o.createdAt)hours[new Date(o.createdAt).getHours()]++});
+
+  return {
+    orders,live,exps,gross,tax,net,cost,exp,profit:net-cost-exp,avgPrep,byPay,days,branches,products,cats,hours,
+    cancelled:orders.filter(o=>o.status==='ملغي').length,
+    delivered:orders.filter(o=>o.status==='مكتمل').length,
+    open:orders.filter(o=>o.status==='قيد التحضير'||o.status==='جاهز').length,
+    avgTicket:live.length?gross/live.length:0
+  };
+}
+
+// أعمدة رأسية (مبيعات يومية، ساعات الذروة)
+function vbars(items){
+  const max=Math.max(1,...items.map(i=>i.value));
+  return `<div class="vbars">${items.map(i=>`<div class="vcol" title="${esc(i.title||i.label)}">
+      <div class="vval">${i.valueLabel??''}</div>
+      <div class="vfill" style="height:${Math.max(i.value/max*100,i.value?2:0)}%"></div>
+      <div class="vlab">${esc(i.label)}</div></div>`).join('')}</div>`;
+}
+
+// أشرطة أفقية (دفع، فروع، تصنيفات)
+function hbars(items,total){
+  const max=Math.max(1,...items.map(i=>i.value));
+  const pct=(v,t)=>t?Math.round(v/t*100):0;
+  return items.map(i=>`<div class="hb">
+      <span>${esc(i.label)}</span>
+      <div class="track"><div class="fill" style="width:${Math.round(i.value/max*100)}%"></div></div>
+      <span class="hv">${money(i.value)}${total!==undefined?' · '+pct(i.value,total)+'%':''}</span></div>`).join('')
+    ||'<p class="empty">لا توجد بيانات</p>';
+}
+
+function repLabel(){
+  const names={today:'اليوم',week:'آخر 7 أيام',month:'آخر 30 يوم',all:'كل الفترات',custom:'فترة مخصصة'};
+  const r=repRange();
+  const br=repState.branch?data.branches.find(b=>String(b.id)===repState.branch)?.name:'كل الفروع';
+  const period=repState.range==='all'?names.all:(r.from===r.to?r.from:(r.from||'')+' ← '+(r.to||''));
+  return `${names[repState.range]||''} · ${period} · ${br}`;
+}
+
+function reportsView(){
+  const R=repData();
+  const showProfit=can('reports.profit');
+  const chips=[['today','اليوم'],['week','آخر 7 أيام'],['month','آخر 30 يوم'],['all','الكل'],['custom','فترة مخصصة']];
+  const branchOpts=data.branches.map(b=>`<option value="${b.id}" ${repState.branch===String(b.id)?'selected':''}>${esc(b.name)}</option>`).join('');
+  const pct=(v,t)=>t?Math.round(v/t*100):0;
+
+  const kpi1=card('المبيعات (شامل الضريبة)',money(R.gross))+card('صافي المبيعات',money(R.net))+card('الضريبة المحصلة',money(R.tax))+card('الطلبات',`${R.live.length}<small>ملغي: ${R.cancelled}</small>`);
+  const kpi2=card('متوسط الفاتورة',money(R.avgTicket))+card('متوسط وقت التحضير',R.avgPrep===null?'—':R.avgPrep+' د')+card('طلبات مكتملة',R.delivered)+card('بالانتظار الآن',R.open);
+  const kpi3=showProfit
+    ?card('التكلفة المقدرة',money(R.cost))+card('المصروفات',money(R.exp))+card('صافي الربح التقديري',money(R.profit))+card('هامش الربح',(R.net?Math.round(R.profit/R.net*100):0)+'%')
+    :'';
+
+  const payItems=Object.entries(R.byPay).map(([label,value])=>({label,value})).sort((a,b)=>b.value-a.value);
+  const payTotal=sumBy(payItems,x=>x.value);
+
+  const dayBars=R.days.filter(d=>d.orders>0).slice(-31);
+  const dayChart=dayBars.length
+    ?vbars(dayBars.map(d=>({label:d.d.slice(5),value:d.gross,valueLabel:Math.round(d.gross),title:d.d+' — '+money(d.gross)})))
+    :'<p class="empty">لا توجد مبيعات في الفترة دي</p>';
+
+  const hourChart=vbars(R.hours.map((n,h)=>({label:h%3===0?h+':00':'',value:n,valueLabel:n||'',title:h+':00 — '+n+' طلب'})));
+
+  const topRows=R.products.slice(0,10).map((p,i)=>`<tr><td>${i+1}</td><td>${esc(p.name)}</td><td>${p.qty}</td><td>${money(p.revenue)}</td><td>${pct(p.revenue,R.gross)}%</td></tr>`).join('')
+    ||'<tr><td colspan="5" class="empty">لا توجد مبيعات</td></tr>';
+
+  const dayRows=R.days.slice().reverse().map(d=>`<tr><td>${d.d}</td><td>${d.orders}</td><td>${money(d.gross)}</td><td>${money(d.tax)}</td><td>${money(d.net)}</td><td>${money(d.exp)}</td>${showProfit?`<td>${money(d.profit)}</td>`:''}</tr>`).join('')
+    ||`<tr><td colspan="${showProfit?7:6}" class="empty">لا توجد بيانات</td></tr>`;
+
+  return `<div class="filters">
+      <div class="chips">${chips.map(([k,l])=>`<button type="button" class="chip ${repState.range===k?'active':''}" data-rrange="${k}">${l}</button>`).join('')}</div>
+      <select id="rBranch"><option value="">كل الفروع</option>${branchOpts}</select>
+      ${repState.range==='custom'?`<div class="customRange"><input type="date" id="rFrom" value="${repState.from}"><input type="date" id="rTo" value="${repState.to}"></div>`:''}
+      <button class="btn" id="rPrint" type="button">🖨 طباعة</button>
+      <button class="btn primary" id="rExport" type="button">تصدير CSV</button>
+    </div>
+    <div class="cards">${kpi1}</div>
+    <div class="cards">${kpi2}</div>
+    ${showProfit?`<div class="cards">${kpi3}</div>`:''}
+    <div class="repgrid">
+      <div class="panel wide"><h3>المبيعات اليومية</h3><div style="margin-top:12px">${dayChart}</div></div>
+      <div class="panel"><h3>طرق الدفع</h3>${hbars(payItems,payTotal)}</div>
+      <div class="panel"><h3>مقارنة الفروع</h3>${hbars(R.branches)}</div>
+      <div class="panel"><h3>ساعات الذروة</h3><div style="margin-top:12px">${hourChart}</div><small class="muted">عدد الطلبات حسب الساعة</small></div>
+      <div class="panel"><h3>المبيعات حسب التصنيف</h3>${hbars(R.cats,R.gross)}</div>
+      <div class="panel wide"><h3>أكثر الأصناف مبيعًا</h3><div class="scroll"><table>
+        <tr><th>#</th><th>الصنف</th><th>الكمية</th><th>الإيراد</th><th>النسبة</th></tr>${topRows}
+      </table></div></div>
+      <div class="panel wide"><h3>تفاصيل يومية</h3><div class="scroll"><table>
+        <tr><th>التاريخ</th><th>الطلبات</th><th>شامل الضريبة</th><th>الضريبة</th><th>قبل الضريبة</th><th>المصروفات</th>${showProfit?'<th>الربح التقديري</th>':''}</tr>${dayRows}
+      </table></div></div>
+    </div>`;
+}
+
+function wireReports(){
+  $('#view').querySelectorAll('[data-rrange]').forEach(b=>b.onclick=()=>{repState.range=b.dataset.rrange;render('reports')});
+  $('#rBranch')?.addEventListener('change',e=>{repState.branch=e.target.value;render('reports')});
+  $('#rFrom')?.addEventListener('change',e=>{repState.from=e.target.value;render('reports')});
+  $('#rTo')?.addEventListener('change',e=>{repState.to=e.target.value;render('reports')});
+  $('#rExport')?.addEventListener('click',exportReportCSV);
+  $('#rPrint')?.addEventListener('click',printReport);
+}
+
+function exportReportCSV(){
+  const R=repData();
+  const showProfit=can('reports.profit');
+  const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
+  const head=['التاريخ','الطلبات','شامل الضريبة','الضريبة','قبل الضريبة','المصروفات',...(showProfit?['الربح التقديري']:[])];
+  const lines=R.days.map(d=>[d.d,d.orders,d.gross.toFixed(2),d.tax.toFixed(2),d.net.toFixed(2),d.exp.toFixed(2),...(showProfit?[d.profit.toFixed(2)]:[])].map(q).join(','));
+  const csv='\uFEFF'+[head.map(q).join(','),...lines].join('\r\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='report-'+today()+'.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function printReport(){
+  const R=repData();
+  const cfg=getInvCfg();
+  const showProfit=can('reports.profit');
+  const f=n=>Number(n||0).toFixed(2);
+  const kpis=[
+    ['المبيعات (شامل الضريبة)',f(R.gross)],['صافي المبيعات',f(R.net)],['الضريبة المحصلة',f(R.tax)],
+    ['عدد الطلبات',R.live.length],['ملغاة',R.cancelled],['متوسط الفاتورة',f(R.avgTicket)],
+    ...(showProfit?[['التكلفة المقدرة',f(R.cost)],['المصروفات',f(R.exp)],['صافي الربح التقديري',f(R.profit)]]:[])
+  ];
+  const body=`<h2>${esc(cfg.name)} — تقرير المبيعات</h2>
+    <div class="sm">${esc(repLabel())}</div>
+    <table><tr><th>البند</th><th>القيمة</th></tr>${kpis.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>
+    <h3>تفاصيل يومية</h3>
+    <table><tr><th>التاريخ</th><th>الطلبات</th><th>شامل الضريبة</th><th>الضريبة</th><th>قبل الضريبة</th><th>المصروفات</th>${showProfit?'<th>الربح</th>':''}</tr>
+    ${R.days.slice().reverse().map(d=>`<tr><td>${d.d}</td><td>${d.orders}</td><td>${f(d.gross)}</td><td>${f(d.tax)}</td><td>${f(d.net)}</td><td>${f(d.exp)}</td>${showProfit?`<td>${f(d.profit)}</td>`:''}</tr>`).join('')}
+    </table>`;
+  printHTML(`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><style>
+    body{font-family:Cairo,Tahoma,Arial,sans-serif;margin:10mm;color:#000;font-size:12px}
+    h2{margin:0 0 4px}h3{margin:14px 0 6px}.sm{color:#444;font-size:11px;margin-bottom:8px}
+    table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #ccc;padding:5px;text-align:right}th{background:#f2f2f2}
+    @page{size:A4;margin:10mm}</style></head><body>${body}</body></html>`);
+}
+
+/* ---------- نقطة البيع: تبويب متابعة الطلبات للكاشير ---------- */
+function posTabs(){
+  return `<div class="tabs"><button type="button" data-ptab="sell" class="${posTab==='sell'?'active':''}">🧾 البيع</button><button type="button" data-ptab="track" class="${posTab==='track'?'active':''}">📋 متابعة الطلبات</button></div>`;
+}
+
+// كارت الطلب للكاشير: مراحله، عمره، وزرار التسليم لما يكون جاهز
+function trackCard(o){
+  const br=esc(data.branches.find(b=>b.id===o.branch_id)?.name||'');
+  const mins=o.createdAt?Math.max(0,Math.round((Date.now()-o.createdAt)/60000)):null;
+  const ready=o.status==='جاهز';
+  const late=!ready&&mins!==null&&mins>10;
+  const items=(o.items||[]).map(it=>{
+    const p=data.products.find(x=>x.id===it.product_id);
+    return `<li>${it.qty} × ${esc(p?.name||'صنف محذوف')}</li>`;
+  }).join('');
+  const steps=[['استلام',true],['تحضير',true],['جاهز',ready],['تسليم',false]];
+  return `<div class="tcard ${ready?'ready':''} ${late?'late':''}">
+    <div class="th"><b>#${String(o.id).slice(-6)}</b><span class="badge ${ready?'':'warn'}">${ready?'🛎 جاهز للتسليم':'🍳 قيد التحضير'}</span></div>
+    <div class="tm">${esc(o.customer)} · ${br}${mins!==null?` · منذ ${mins} د`:''}${late?' ⚠':''}</div>
+    <div class="tsteps">${steps.map(([n,on])=>`<span class="${on?'on':''}">${n}</span>`).join('')}</div>
+    <ul>${items}</ul>
+    ${ready&&can('orders.update')?`<button class="btn primary" type="button" data-deliver="${o.id}">✓ تم التسليم للعميل</button>`:''}
+  </div>`;
+}
+
+function trackView(){
+  const list=data.orders.filter(o=>o.date===today()&&(!trackBranch||String(o.branch_id)===trackBranch)).sort((a,b)=>(a.createdAt||a.id)-(b.createdAt||b.id));
+  const active=list.filter(o=>o.status==='قيد التحضير'||o.status==='جاهز');
+  const done=list.filter(o=>o.status==='مكتمل').reverse();
+  const cancelled=list.filter(o=>o.status==='ملغي').length;
+  const branches=data.branches.map(b=>`<option value="${b.id}" ${trackBranch===String(b.id)?'selected':''}>${esc(b.name)}</option>`).join('');
+  return `<div class="filters">
+      <select id="tBranch"><option value="">كل الفروع</option>${branches}</select>
+      <span class="muted">${active.length} قيد التنفيذ · ${done.length} تم تسليمه · ${cancelled} ملغي</span>
+    </div>
+    <div class="tgrid">${active.map(o=>trackCard(o)).join('')||'<p class="empty" style="grid-column:1/-1">مفيش طلبات قيد التنفيذ دلوقتي ✓</p>'}</div>
+    <div class="panel"><h3>تم تسليمه اليوم</h3><div class="scroll"><table>
+      <tr><th>رقم</th><th>العميل</th><th>الإجمالي</th><th>وقت التسليم</th></tr>
+      ${done.slice(0,30).map(o=>`<tr><td>#${String(o.id).slice(-6)}</td><td>${esc(o.customer)}</td><td>${money(o.total)}</td><td>${fmtT(stageTime(o,'مكتمل'))}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">لا يوجد</td></tr>'}
+    </table></div></div>`;
+}
+
+function wireTrack(){
+  $('#tBranch')?.addEventListener('change',e=>{trackBranch=e.target.value;render('pos')});
+  $('#view').querySelectorAll('[data-deliver]').forEach(b=>b.onclick=()=>setOrderStatus(b.dataset.deliver,'مكتمل'));
+}
+
 /* ---------- الطلبات: المراحل والفلترة والسجل ---------- */
 const ORDER_STATUSES=['قيد التحضير','جاهز','مكتمل','ملغي'];
 
@@ -1342,6 +1805,7 @@ function ordersBoardView(){
 
 /* ---------- متابعة الطلبات: الكروت والأعمدة ---------- */
 function orderCard(o,kind){
+  if(kind==='done')return envCard(o);
   const br=esc(data.branches.find(b=>b.id===o.branch_id)?.name||'');
   const items=(o.items||[]).map(it=>{
     const p=data.products.find(x=>x.id===it.product_id);
@@ -1362,13 +1826,14 @@ function orderCard(o,kind){
 }
 
 function orderCol(title,list,kind){
-  return `<div class="col"><div class="colhead"><span>${title}</span><span class="badge">${list.length}</span></div>`+
+  return `<div class="col"><div class="colhead"><span>${title}</span><span class="badge">${list.length}</span></div>`+(kind==='done'?'<button class="btn primary" type="button" data-otab="close" style="width:100%;margin-bottom:10px">🔒 تقفيل اليوم</button>':'')+
     (list.map(o=>orderCard(o,kind)).join('')||'<p class="empty">لا توجد طلبات</p>')+`</div>`;
 }
 
 function setOrderStatus(id,to){
   const o=data.orders.find(x=>String(x.id)===String(id));
   if(!o)return;
+  if(isDayClosed(o.branch_id,o.date))return toast('اليوم ده متقفل، مينفعش تعديل الطلبات');
   if(to==='ملغي'&&!can('orders.cancel'))return toast('لا تملك صلاحية إلغاء الطلبات');
   if(to!=='ملغي'&&!can('orders.update'))return toast('لا تملك صلاحية تغيير الحالة');
   if(to==='ملغي'&&!confirm('إلغاء الطلب؟'))return;
@@ -1417,10 +1882,20 @@ function wire(page){
     [...t.rows].slice(1).forEach(r=>r.hidden=!r.textContent.toLowerCase().includes(inp.value.toLowerCase()));
   });
 
-  if(page==='pos')wirePos();
+  if(page==='pos'){
+    view.querySelectorAll('[data-ptab]').forEach(b=>b.onclick=()=>{posTab=b.dataset.ptab;render('pos')});
+    if(posTab==='track')wireTrack();else wirePos();
+  }
+  if(page==='reports')wireReports();
 
   if(page==='orders'){
     view.querySelectorAll('[data-otab]').forEach(b=>b.onclick=()=>{ordersTab=b.dataset.otab;render('orders')});
+    if(ordersTab==='close')wireClosing();
+    view.querySelectorAll('[data-env]').forEach(el=>el.onclick=()=>{
+      const id=el.dataset.env;
+      if(openEnvs.has(id))openEnvs.delete(id);else openEnvs.add(id);
+      el.classList.toggle('open');
+    });
     view.querySelectorAll('[data-next]').forEach(b=>b.onclick=()=>setOrderStatus(b.dataset.next,b.dataset.to));
     view.querySelectorAll('[data-range]').forEach(b=>b.onclick=()=>{ordHist.range=b.dataset.range;render('orders')});
     $('#hBranch')?.addEventListener('change',e=>{ordHist.branch=e.target.value;refreshHistory()});
@@ -1517,9 +1992,10 @@ function restore(e){
   r.readAsText(f);
 }
 
-$('#exportBtn').onclick=backup;
 
 /* ---------- بدء التشغيل: الاتصال بـ Drive أولًا ---------- */
+// تحديث عدادات الوقت في تبويب متابعة الطلبات كل 30 ثانية
+setInterval(()=>{if(activePage==='pos'&&posTab==='track')render('pos')},30000);
 showLoading();
 requestDrive(false);
 })();
