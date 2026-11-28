@@ -52,7 +52,25 @@
 .hb{display:grid;grid-template-columns:110px 1fr 130px;gap:10px;align-items:center;font-size:12px;margin:9px 0}
 .hb .track{background:#eef4f1;border-radius:8px;height:12px;overflow:hidden}.hb .fill{height:100%;background:var(--green);border-radius:8px}
 .hb .hv{font-size:11px;color:var(--muted)}
-@media(max-width:900px){.repgrid{grid-template-columns:1fr}.hb{grid-template-columns:90px 1fr 110px}}
+@media(max-width:900px){
+  html{overflow-x:hidden}
+  .main,#view{min-width:0;max-width:100%}
+  .repgrid{grid-template-columns:minmax(0,1fr);gap:10px;margin-top:10px}
+  .repgrid .panel{min-width:0;padding:14px}
+  .repgrid h3{font-size:13px}
+  .repgrid .vbars{height:170px}
+  .hb{grid-template-columns:78px minmax(0,1fr) auto;gap:8px;font-size:11px;margin:7px 0}
+  .hb .hv{font-size:10px;white-space:nowrap}
+  .filters .chips{flex-wrap:nowrap;overflow-x:auto;width:100%;padding-bottom:4px;scrollbar-width:none}
+  .filters .chips::-webkit-scrollbar{display:none}
+  .filters .chip{flex:0 0 auto}
+  .filters .btn{flex:1 1 calc(50% - 4px)}
+  .filters #rBranch{width:100%}
+  .cards{min-width:0}
+  .cards>.card{min-width:0;overflow:hidden}
+  .card b{font-size:16px;overflow-wrap:anywhere}
+  .card small{font-size:10px}
+}
 .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:14px}
 .tcard{background:white;border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--shadow)}
 .tcard.ready{border-color:var(--green);background:var(--green2)}
@@ -133,7 +151,7 @@
     <div class="brand">System RMY <small>نظام إدارة المطاعم</small></div>
     <div class="profile" id="profile"></div>
     <nav class="nav" id="nav">
-      <button data-page="dashboard">▦ لوحة التحكم</button><button data-page="pos">▣ نقطة البيع</button><button data-page="orders">☷ الطلبات والمطبخ</button><button data-page="products">🍔 الأصناف والوصفات</button><button data-page="inventory">⬡ المخزون</button><button data-page="branches">⌂ الفروع</button><button data-page="tables">▤ الطاولات</button><button data-page="suppliers">▧ الموردون</button><button data-page="expenses">− المصروفات</button><button data-page="staff">♙ الموظفون</button><button data-page="reports">▤ التقارير</button><button data-page="settings">⚙ الإعدادات</button>
+      <button data-page="dashboard">▦ لوحة التحكم</button><button data-page="pos">▣ نقطة البيع</button><button data-page="orders">☷ الطلبات والمطبخ</button><button data-page="closing">🔒 تقفيل اليوم</button><button data-page="products">🍔 الأصناف والوصفات</button><button data-page="inventory">⬡ المخزون</button><button data-page="branches">⌂ الفروع</button><button data-page="tables">▤ الطاولات</button><button data-page="suppliers">▧ الموردون</button><button data-page="expenses">− المصروفات</button><button data-page="staff">♙ الموظفون</button><button data-page="reports">▤ التقارير</button><button data-page="settings">⚙ الإعدادات</button>
     </nav>
     <div class="sidebarfoot"><button id="logoutBtn">تسجيل الخروج</button></div>
   </aside>
@@ -623,7 +641,7 @@ function enter(user){
   $('#app').classList.remove('hidden');
   $('#profile').textContent='مرحبًا، '+(user.full_name||user.username);
   $('#today').textContent=new Date().toLocaleDateString('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-  const first=Object.keys(pages).find(p=>can(p+'.view'))||'dashboard';
+  const first=Object.keys(pages).find(p=>can(pagePerm(p)))||'dashboard';
   render(first);
 }
 
@@ -649,14 +667,17 @@ $('#nav').onclick=e=>{
 
 /* ---------- العرض ---------- */
 const pages={
-  dashboard:'لوحة التحكم',pos:'نقطة البيع',orders:'الطلبات والمطبخ',products:'الأصناف والوصفات',
+  dashboard:'لوحة التحكم',pos:'نقطة البيع',orders:'الطلبات والمطبخ',closing:'تقفيل اليوم',products:'الأصناف والوصفات',
   inventory:'المخزون',branches:'الفروع',tables:'الطاولات',suppliers:'الموردون',expenses:'المصروفات',
   staff:'الموظفون',reports:'التقارير',settings:'الإعدادات'
 };
 
+// الصلاحية المطلوبة لفتح كل صفحة
+function pagePerm(p){return p==='closing'?'orders.close':p+'.view'}
+
 function syncNav(){
   document.querySelectorAll('#nav button').forEach(b=>{
-    b.hidden=!can(b.dataset.page+'.view');
+    b.hidden=!can(pagePerm(b.dataset.page));
     b.classList.toggle('active',b.dataset.page===activePage);
   });
 }
@@ -665,7 +686,7 @@ function render(page){
   activePage=page;
   $('#pageTitle').textContent=pages[page]||page;
   syncNav();
-  if(!can(page+'.view')){
+  if(!can(pagePerm(page))){
     $('#view').innerHTML=denied();
     return;
   }
@@ -712,6 +733,7 @@ function permsView(){
 }
 
 const views={
+closing(){return closingView()},
 dashboard(){
   const active=data.orders.filter(o=>o.status!=='ملغي');
   const sales=active.reduce((s,o)=>s+o.total,0);
@@ -761,8 +783,8 @@ pos(){
 },
 
 orders(){
-  const tabs=`<div class="tabs"><button data-otab="board" class="${ordersTab==='board'?'active':''}">متابعة المطبخ</button><button data-otab="history" class="${ordersTab==='history'?'active':''}">سجل الطلبات</button><button data-otab="close" class="${ordersTab==='close'?'active':''}">🔒 تقفيل اليوم</button></div>`;
-  return tabs+(ordersTab==='history'?ordersHistoryView():ordersTab==='close'?closingView():ordersBoardView());
+  const tabs=`<div class="tabs"><button data-otab="board" class="${ordersTab==='board'?'active':''}">متابعة المطبخ</button><button data-otab="history" class="${ordersTab==='history'?'active':''}">سجل الطلبات</button></div>`;
+  return tabs+(ordersTab==='history'?ordersHistoryView():ordersBoardView());
 },
 
 products(){
@@ -1008,7 +1030,7 @@ function wirePos(){
       date:today(),branch_id:branch,
       customer:$('#customer').value||'عميل نقدي',
       payment:$('#payment').value,
-      total:tt.total,subtotal:tt.net,tax:tt.tax,taxRate:tt.rate,status:'قيد التحضير',createdAt:Date.now(),
+      total:tt.total,subtotal:tt.net,tax:tt.tax,taxRate:tt.rate,invNo:nextInvNo(branch,today()),status:'قيد التحضير',createdAt:Date.now(),
       items:cart.map(x=>({product_id:x.id,qty:x.qty,price:x.price}))
     });
     cart=[];
@@ -1022,6 +1044,15 @@ function wirePos(){
 }
 
 /* ---------- الفاتورة والضريبة والطباعة ---------- */
+
+// رقم الفاتورة يبدأ من 1 كل يوم لكل فرع
+function nextInvNo(branchId,date){
+  const max=data.orders
+    .filter(o=>String(o.branch_id)===String(branchId)&&o.date===date&&o.invNo)
+    .reduce((m,o)=>Math.max(m,o.invNo),0);
+  return max+1;
+}
+
 const INV_DEFAULTS={
   name:'',title:'فاتورة ضريبية مبسطة',taxNumber:'',commercialReg:'',
   taxEnabled:true,taxRate:14,pricesIncludeTax:false,
@@ -1067,7 +1098,7 @@ function invBody(o,cfg,branch){
   const rate=o.taxRate??cfg.taxRate;
   const sub=o.subtotal??o.total;
   const tax=o.tax??0;
-  const invNo=o.draft?'مسودة':'INV-'+String(o.id).slice(-6);
+  const invNo=o.draft?'مسودة':(o.invNo?String(o.invNo):'INV-'+String(o.id).slice(-6));
   const rows=(o.items||[]).map(it=>{
     const p=data.products.find(x=>x.id===it.product_id);
     return `<tr><td>${esc(p?.name||'صنف')}</td><td>${it.qty}</td><td>${f(it.price)}</td><td>${f(it.qty*it.price)}</td></tr>`;
@@ -1298,8 +1329,8 @@ function closingView(){
 }
 
 function wireClosing(){
-  $('#cBranch')?.addEventListener('change',e=>{closeSel.branch=e.target.value;render('orders')});
-  $('#cDate')?.addEventListener('change',e=>{closeSel.date=e.target.value||today();render('orders')});
+  $('#cBranch')?.addEventListener('change',e=>{closeSel.branch=e.target.value;render('closing')});
+  $('#cDate')?.addEventListener('change',e=>{closeSel.date=e.target.value||today();render('closing')});
   const b=data.branches.find(x=>String(x.id)===String(closeSel.branch))||data.branches[0];
   const upd=()=>{
     const s=dayStats(b.id,closeSel.date);
@@ -1334,7 +1365,7 @@ function closeDay(){
   };
   data.closings.push(rec);
   save();
-  render('orders');
+  render('closing');
   printClosing(rec);
   toast('تم تقفيل اليوم');
 }
@@ -1826,7 +1857,7 @@ function orderCard(o,kind){
 }
 
 function orderCol(title,list,kind){
-  return `<div class="col"><div class="colhead"><span>${title}</span><span class="badge">${list.length}</span></div>`+(kind==='done'?'<button class="btn primary" type="button" data-otab="close" style="width:100%;margin-bottom:10px">🔒 تقفيل اليوم</button>':'')+
+  return `<div class="col"><div class="colhead"><span>${title}</span><span class="badge">${list.length}</span></div>`+(kind==='done'?'<button class="btn primary" type="button" data-goclose="1" style="width:100%;margin-bottom:10px">🔒 تقفيل اليوم</button>':'')+
     (list.map(o=>orderCard(o,kind)).join('')||'<p class="empty">لا توجد طلبات</p>')+`</div>`;
 }
 
@@ -1887,10 +1918,11 @@ function wire(page){
     if(posTab==='track')wireTrack();else wirePos();
   }
   if(page==='reports')wireReports();
+  if(page==='closing')wireClosing();
 
   if(page==='orders'){
     view.querySelectorAll('[data-otab]').forEach(b=>b.onclick=()=>{ordersTab=b.dataset.otab;render('orders')});
-    if(ordersTab==='close')wireClosing();
+    view.querySelectorAll('[data-goclose]').forEach(b=>b.onclick=()=>render('closing'));
     view.querySelectorAll('[data-env]').forEach(el=>el.onclick=()=>{
       const id=el.dataset.env;
       if(openEnvs.has(id))openEnvs.delete(id);else openEnvs.add(id);
