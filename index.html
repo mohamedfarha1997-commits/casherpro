@@ -82,6 +82,12 @@
 .tsteps span.on{color:var(--green);font-weight:700}.tsteps span.on:before{background:var(--green)}
 .tcard ul{margin:6px 0;padding:0 16px 0 0;font-size:12px;line-height:1.8}
 .tcard .btn{width:100%;padding:11px}
+.tgrid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:16px}
+.tbl{background:white;border:2px solid var(--line);border-radius:16px;padding:16px;text-align:right;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow);min-height:124px;font:inherit;color:var(--ink)}
+.tbl.free{border-color:var(--green)}.tbl.busy{border-color:#e7b96b;background:#fffbf3}
+.tblname{font-size:18px;font-weight:800}.tblmeta{font-size:11px;color:var(--muted)}.tblbill{margin-top:auto;font-weight:800;color:var(--green);font-size:14px}
+.tdgrid{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;margin-top:10px}.tdHead{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+@media(max-width:900px){.tdgrid{grid-template-columns:1fr}.tgrid2{grid-template-columns:repeat(2,1fr)}}
 #toast{position:fixed;bottom:20px;left:20px;background:#163d32;color:white;padding:11px 16px;border-radius:10px;opacity:0;transition:.2s;z-index:20;font-size:12px;pointer-events:none;max-width:90vw}#toast.show{opacity:1}
 @media(max-width:900px){.sidebar{transform:translateX(105%);transition:.2s}.sidebar.open{transform:none}.main{margin:0}.hamb{display:block}.cards{grid-template-columns:repeat(2,1fr)}#view{padding:14px}.topbar{padding:0 14px}.prodGrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:900px){
@@ -237,6 +243,7 @@ const defaults=()=>({
   expenses:[],
   orders:[],
   closings:[],
+  bills:[],
   staff:[{id:1,username:'admin',full_name:'مدير النظام',role:'مدير عام',branch_id:1,password:'1234',permissions:{}}],
   settings:{restaurant:'System RMY',currency:'EGP'}
 });
@@ -255,6 +262,7 @@ function normalize(d){
     d[k].forEach(r=>{if(r.id===undefined||r.id===null||r.id==='')r.id=newId()});
   }
   if(!Array.isArray(d.closings))d.closings=[];
+  if(!Array.isArray(d.bills))d.bills=[];
   if(!Array.isArray(d.staff)||!d.staff.length)d.staff=defaults().staff;
   d.staff.forEach(s=>{if(!s.permissions)s.permissions={}});
   if(!d.settings)d.settings=defaults().settings;
@@ -264,6 +272,7 @@ function normalize(d){
 let data=defaults();
 let dataLoaded=false;
 let currentUser=null,cart=[],activePage='dashboard',staffTab='list',permUserId=null,posCat='';
+let tableSel=null,tableCart=[],tCat='';
 let posTab='sell',trackBranch='';
 let ordersTab='board',ordHist={q:'',branch:'',status:'',range:'today',from:'',to:''};
 let driveToken=null,driveFolderId='',driveEmail='',driveBusy=false,driveStatus='غير متصل',syncTimer=null,pushTimer=null;
@@ -798,7 +807,14 @@ products(){
 
 inventory(){return tablePage('inventory','المخزون',['name','unit','qty','min_qty','cost','branch_id'],['اسم الخامة','الوحدة','الرصيد','حد الطلب','تكلفة الوحدة','رقم الفرع'],true)},
 branches(){return tablePage('branches','الفروع',['name','location','phone','active'],['اسم الفرع','العنوان','الهاتف','نشط'])},
-tables(){return tablePage('tables','الطاولات',['name','seats','status','branch_id'],['الطاولة','عدد المقاعد','الحالة','رقم الفرع'])},
+tables(){
+  if(tableSel){
+    const t=data.tables.find(x=>x.id===tableSel);
+    if(t)return tableDetailView(t);
+    tableSel=null;
+  }
+  return tableGridView()+rebillPanel()+tablePage('tables','الطاولات',['name','seats','branch_id'],['الطاولة','عدد المقاعد','رقم الفرع']);
+},
 suppliers(){return tablePage('suppliers','الموردون',['name','phone','balance'],['اسم المورد','الهاتف','الرصيد'])},
 expenses(){return tablePage('expenses','المصروفات',['title','category','amount','date','branch_id'],['البيان','التصنيف','المبلغ','التاريخ','رقم الفرع'])},
 
@@ -1047,7 +1063,7 @@ function wirePos(){
 
 // رقم الفاتورة يبدأ من 1 كل يوم لكل فرع
 function nextInvNo(branchId,date){
-  const max=data.orders
+  const max=[...data.orders,...(data.bills||[])]
     .filter(o=>String(o.branch_id)===String(branchId)&&o.date===date&&o.invNo)
     .reduce((m,o)=>Math.max(m,o.invNo),0);
   return max+1;
@@ -1270,7 +1286,7 @@ function dayStats(branchId,date){
     total:list.length,
     delivered:list.filter(o=>o.status==='مكتمل').length,
     cancelled:list.filter(o=>o.status==='ملغي').length,
-    open:list.filter(o=>o.status==='قيد التحضير'||o.status==='جاهز').length,
+    open:list.filter(o=>o.status==='قيد التحضير'||o.status==='جاهز'||(o.tableId&&!o.billed&&o.status!=='ملغي')).length,
     gross:r2(gross),tax:r2(tax),net:r2(net),byPay,exp:r2(exp),expectedCash:r2(cash-exp)
   };
 }
@@ -1616,6 +1632,217 @@ function printReport(){
     @page{size:A4;margin:10mm}</style></head><body>${body}</body></html>`);
 }
 
+/* ---------- الطربيزات: الطلبات والمحاسبة ---------- */
+
+// الطلبات المرسلة للطربيزة ولسه ماتحاسبتش
+function unbilledOrders(tid){
+  return data.orders
+    .filter(o=>String(o.tableId)===String(tid)&&!o.billed&&o.status!=='ملغي')
+    .sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
+}
+
+// خصم الخامات (بيتأكد الأول إن المخزون يكفي)
+function consumeStock(items,branchId){
+  const need=[];
+  for(const line of items){
+    for(const rec of data.recipes.filter(r=>r.product_id===line.product_id)){
+      const st=data.inventory.find(i=>i.id===rec.inventory_id&&i.branch_id===branchId);
+      if(!st)continue;
+      const q=rec.qty*line.qty;
+      if(st.qty<q)return 'المخزون غير كافٍ: '+st.name;
+      need.push([st,q]);
+    }
+  }
+  need.forEach(([st,q])=>st.qty-=q);
+  return null;
+}
+
+// تجميع أصناف عدة طلبات في سطر واحد لكل صنف وسعر
+function aggregateItems(os){
+  const m=new Map();
+  os.forEach(o=>(o.items||[]).forEach(it=>{
+    const k=it.product_id+'|'+it.price;
+    const r=m.get(k)||{product_id:it.product_id,price:it.price,qty:0};
+    r.qty+=it.qty;
+    m.set(k,r);
+  }));
+  return [...m.values()];
+}
+
+function tableGridView(){
+  const cards=data.tables.map(t=>{
+    const os=unbilledOrders(t.id);
+    const busy=os.length>0;
+    const total=sumBy(os,o=>o.total);
+    const first=os[0]?.createdAt;
+    const mins=first?Math.round((Date.now()-first)/60000):null;
+    const bname=data.branches.find(b=>b.id===t.branch_id)?.name||'';
+    return `<button type="button" class="tbl ${busy?'busy':'free'}" data-table="${t.id}">
+      <span class="tblname">${esc(t.name)}</span>
+      <span class="tblmeta">👥 ${t.seats||'—'} مقاعد · ${esc(bname)}</span>
+      <span><span class="badge ${busy?'warn':''}">${busy?'مشغولة':'متاحة'}</span></span>
+      ${busy?`<span class="tblbill">${money(total)}${mins!==null?` · ${mins} د`:''}</span>`:''}
+    </button>`;
+  }).join('');
+  return `<div class="tgrid2">${cards||'<p class="empty" style="grid-column:1/-1">لا توجد طاولات. أضف طاولة من القايمة تحت.</p>'}</div>`;
+}
+
+function tableDetailView(t){
+  const os=unbilledOrders(t.id);
+  const bname=data.branches.find(b=>b.id===t.branch_id)?.name||'';
+  const cfg=getInvCfg();
+  const billTotal=sumBy(os,o=>o.total);
+  const billTax=sumBy(os,o=>o.tax||0);
+  const billNet=sumBy(os,o=>o.subtotal??(o.total-(o.tax||0)));
+  const cartT=calcTotals(sumBy(tableCart,x=>x.price*x.qty),cfg);
+  const cats=[...new Set(data.products.filter(p=>p.active!==false).map(p=>p.category||'بدون تصنيف'))];
+  const prods=data.products.filter(p=>p.active!==false&&(!tCat||(p.category||'بدون تصنيف')===tCat));
+  const canSell=can('pos.sell');
+  return `<div class="filters">
+      <button class="btn" type="button" data-tback="1">← رجوع للطاولات</button>
+      <div class="tdHead"><b>${esc(t.name)}</b><span class="muted">👥 ${t.seats||'—'} مقاعد · ${esc(bname)}</span></div>
+    </div>
+    <div class="tdgrid">
+      <div class="panel">
+        <h3>المنيو</h3>
+        <div class="catTabs">${['',...cats].map(c=>`<button type="button" data-tcat="${esc(c)}" class="${tCat===c?'active':''}">${c||'الكل'}</button>`).join('')}</div>
+        <div class="prodGrid">${prods.map(p=>`<button type="button" class="pcard" data-tprod="${p.id}"><span class="pname">${esc(p.name)}</span><span class="pprice">${money(p.price)}</span></button>`).join('')}</div>
+      </div>
+      <div class="panel">
+        <h3>طلب جديد (لسه ما اتبعتش)</h3>
+        ${tableCart.map(x=>`<div class="cline"><div class="cname">${esc(x.name)}</div><div class="qty"><button type="button" data-tdec="${x.id}">−</button><b>${x.qty}</b><button type="button" data-tinc="${x.id}">+</button></div><b>${money(x.price*x.qty)}</b><button type="button" class="rm" data-trem="${x.id}">×</button></div>`).join('')||'<p class="empty">اختار أصناف من المنيو</p>'}
+        <div class="cdTotal" style="margin-top:10px"><span>الإجمالي شامل الضريبة</span><b>${money(cartT.total)}</b></div>
+        <div class="actions"><button class="btn primary" type="button" data-tsend="1" ${canSell&&tableCart.length?'':'disabled'}>🍳 إرسال للمطبخ</button></div>
+
+        <h3 style="margin-top:18px">الحساب الحالي</h3>
+        ${os.map(o=>`<div class="sec">طلب #${String(o.id).slice(-6)} · ${fmtT(o.createdAt)} <span class="badge ${o.status==='قيد التحضير'?'warn':''}">${esc(o.status)}</span></div>
+          <ul class="tl">${(o.items||[]).map(it=>{const p=data.products.find(x=>x.id===it.product_id);return `<li>${it.qty} × ${esc(p?.name||'صنف محذوف')}</li>`}).join('')}</ul>`).join('')||'<p class="empty">مفيش طلبات متبعتة للطربيزة دي</p>'}
+        <div class="infogrid" style="margin-top:10px">
+          <div><small>قبل الضريبة</small>${money(billNet)}</div>
+          <div><small>الضريبة</small>${money(billTax)}</div>
+        </div>
+        <div class="cdTotal" style="margin-top:8px"><span>الإجمالي المستحق</span><b>${money(billTotal)}</b></div>
+        <div class="actions"><button class="btn primary" type="button" data-tcheck="1" ${canSell&&os.length?'':'disabled'}>💳 محاسبة وتحرير الطربيزة</button></div>
+        <small class="muted">الطربيزة مش هتتقفل غير بعد ما تحاسب على الفاتورة. الأصناف اللي في "طلب جديد" لازم تبعتها للمطبخ الأول.</small>
+      </div>
+    </div>`;
+}
+
+// فواتير الطربيزات اليوم (لإعادة الطباعة)
+function rebillPanel(){
+  const list=(data.bills||[]).filter(b=>b.date===today()).slice().reverse();
+  const rows=list.map(b=>`<tr><td>${b.invNo||'—'}</td><td>${esc(b.table_name||'')}</td><td>${esc(data.branches.find(x=>x.id===b.branch_id)?.name||'')}</td><td>${money(b.total)}</td><td>${esc(b.payment)}</td><td><button class="btn" type="button" data-rebill="${b.id}">🖨</button></td></tr>`).join('');
+  return panel('فواتير الطربيزات اليوم',`<div class="scroll"><table>
+    <tr><th>رقم الفاتورة</th><th>الطربيزة</th><th>الفرع</th><th>الإجمالي</th><th>الدفع</th><th></th></tr>
+    ${rows||'<tr><td colspan="6" class="empty">لا توجد فواتير اليوم</td></tr>'}
+  </table></div>`);
+}
+
+function sendToKitchen(t){
+  if(!can('pos.sell'))return toast('لا تملك صلاحية تسجيل الطلبات');
+  if(!tableCart.length)return toast('أضف أصناف الأول');
+  const items=tableCart.map(x=>({product_id:x.id,qty:x.qty,price:x.price}));
+  const err=consumeStock(items,t.branch_id);
+  if(err)return toast(err);
+  const gross=sumBy(tableCart,x=>x.price*x.qty);
+  const tt=calcTotals(gross,getInvCfg());
+  data.orders.push({
+    id:newId(),date:today(),branch_id:t.branch_id,
+    tableId:t.id,customer:'طربيزة '+t.name,payment:'مؤجل',
+    total:tt.total,subtotal:tt.net,tax:tt.tax,taxRate:tt.rate,
+    status:'قيد التحضير',createdAt:Date.now(),items,billed:null
+  });
+  tableCart=[];
+  save();
+  render('tables');
+  toast('اتبعت للمطبخ');
+}
+
+function checkoutTable(t){
+  if(!can('pos.sell'))return toast('لا تملك صلاحية المحاسبة');
+  const os=unbilledOrders(t.id);
+  if(!os.length)return toast('مفيش طلبات على الطربيزة');
+  if(os.some(o=>o.status==='قيد التحضير'))return toast('فيه طلبات لسه في المطبخ');
+  const net=sumBy(os,o=>o.subtotal??(o.total-(o.tax||0)));
+  const tax=sumBy(os,o=>o.tax||0);
+  const total=sumBy(os,o=>o.total);
+  $('#modal').innerHTML=`<div class="modalbg" id="tBg"><div class="modal" style="width:min(460px,100%)">
+    <h3>محاسبة ${esc(t.name)}</h3>
+    <div class="cdTotal"><span>الإجمالي المستحق</span><b>${money(total)}</b></div>
+    <p class="muted" style="margin:8px 0">قبل الضريبة ${money(net)} · الضريبة ${money(tax)}</p>
+    <label class="muted" style="font-size:12px">طريقة الدفع
+      <select id="tPay" class="field" style="margin-top:6px"><option>نقدي</option><option>بطاقة</option><option>محفظة إلكترونية</option></select>
+    </label>
+    <div class="actions">
+      <button class="btn primary" id="tOk" type="button">تأكيد المحاسبة وطباعة الفاتورة</button>
+      <button class="btn" id="tNo" type="button">إلغاء</button>
+    </div>
+  </div></div>`;
+  $('#tNo').onclick=()=>$('#modal').innerHTML='';
+  $('#tBg').onclick=e=>{if(e.target.id==='tBg')$('#modal').innerHTML=''};
+  $('#tOk').onclick=()=>{
+    const pay=$('#tPay').value;
+    const bill={
+      id:newId(),date:today(),createdAt:Date.now(),
+      branch_id:t.branch_id,table_id:t.id,table_name:t.name,
+      customer:'طربيزة '+t.name,payment:pay,
+      invNo:nextInvNo(t.branch_id,today()),
+      items:aggregateItems(os),
+      subtotal:r2(net),tax:r2(tax),taxRate:os[0].taxRate??getInvCfg().taxRate,total:r2(total),
+      orderIds:os.map(o=>o.id),
+      closedBy:currentUser?.full_name||currentUser?.username||''
+    };
+    data.bills.push(bill);
+    os.forEach(o=>{o.billed=bill.id;o.payment=pay});
+    $('#modal').innerHTML='';
+    tableSel=null;
+    tableCart=[];
+    save();
+    render('tables');
+    printInvoice(bill,data.branches.find(b=>b.id===t.branch_id));
+    toast('تمت المحاسبة وتحررت الطربيزة');
+  };
+}
+
+function wireTables(){
+  const view=$('#view');
+  if(tableSel){
+    const t=data.tables.find(x=>x.id===tableSel);
+    view.querySelectorAll('[data-tback]').forEach(b=>b.onclick=()=>{tableSel=null;tableCart=[];render('tables')});
+    view.querySelectorAll('[data-tcat]').forEach(b=>b.onclick=()=>{tCat=b.dataset.tcat;render('tables')});
+    view.querySelectorAll('[data-tprod]').forEach(b=>b.onclick=()=>{
+      const p=data.products.find(x=>x.id===Number(b.dataset.tprod));
+      if(!p)return;
+      const l=tableCart.find(x=>x.id===p.id);
+      if(l)l.qty++;else tableCart.push({id:p.id,name:p.name,price:Number(p.price),qty:1});
+      render('tables');
+    });
+    view.querySelectorAll('[data-tinc],[data-tdec],[data-trem]').forEach(b=>b.onclick=()=>{
+      const inc=b.dataset.tinc,dec=b.dataset.tdec;
+      const id=Number(inc??dec??b.dataset.trem);
+      const l=tableCart.find(x=>x.id===id);
+      if(!l)return;
+      if(inc!==undefined)l.qty++;
+      else if(dec!==undefined){l.qty--;if(l.qty<1)tableCart=tableCart.filter(x=>x.id!==id)}
+      else tableCart=tableCart.filter(x=>x.id!==id);
+      render('tables');
+    });
+    view.querySelectorAll('[data-tsend]').forEach(b=>b.onclick=()=>{if(t)sendToKitchen(t)});
+    view.querySelectorAll('[data-tcheck]').forEach(b=>b.onclick=()=>{if(t)checkoutTable(t)});
+  }else{
+    view.querySelectorAll('[data-table]').forEach(b=>b.onclick=()=>{
+      tableSel=Number(b.dataset.table);
+      tableCart=[];
+      tCat='';
+      render('tables');
+    });
+  }
+  view.querySelectorAll('[data-rebill]').forEach(b=>b.onclick=()=>{
+    const bl=data.bills.find(x=>String(x.id)===b.dataset.rebill);
+    if(bl)printInvoice(bl,data.branches.find(x=>x.id===bl.branch_id));
+  });
+}
+
 /* ---------- نقطة البيع: تبويب متابعة الطلبات للكاشير ---------- */
 function posTabs(){
   return `<div class="tabs"><button type="button" data-ptab="sell" class="${posTab==='sell'?'active':''}">🧾 البيع</button><button type="button" data-ptab="track" class="${posTab==='track'?'active':''}">📋 متابعة الطلبات</button></div>`;
@@ -1901,6 +2128,7 @@ function wire(page){
     if(!can(k+'.delete'))return toast('لا تملك صلاحية الحذف');
     if(!confirm('هل تريد حذف هذا السجل؟'))return;
     if(k==='staff'&&String(id)===String(currentUser?.id)){toast('لا يمكنك حذف حسابك الحالي');return}
+    if(k==='tables'&&unbilledOrders(id).length){toast('الطربيزة مشغولة، حاسب عليها الأول');return}
     data[k]=data[k].filter(x=>String(x.id)!==id);
     save();
     render(page);
@@ -1919,6 +2147,7 @@ function wire(page){
   }
   if(page==='reports')wireReports();
   if(page==='closing')wireClosing();
+  if(page==='tables')wireTables();
 
   if(page==='orders'){
     view.querySelectorAll('[data-otab]').forEach(b=>b.onclick=()=>{ordersTab=b.dataset.otab;render('orders')});
