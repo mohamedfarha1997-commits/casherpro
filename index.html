@@ -30,6 +30,8 @@
 .qty{display:flex;align-items:center;gap:6px}.qty button{width:30px;height:30px;border:0;border-radius:8px;background:var(--green2);color:var(--green);font-weight:800;font-size:16px}.qty b{min-width:22px;text-align:center}
 .rm{border:0;background:#fff0f0;color:var(--red);border-radius:8px;width:30px;height:30px;font-size:14px}
 .cdTotal{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:800}.cdTotal b{color:var(--green);font-size:18px}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start}.col{background:#f4f9f7;border:1px solid var(--line);border-radius:16px;padding:12px;min-height:240px}.colhead{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800;margin:2px 4px 12px}.ocard{background:white;border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:10px;box-shadow:var(--shadow)}.ocard.urgent{border-color:#e7b96b}.oh{display:flex;justify-content:space-between;font-weight:800;font-size:14px}.om{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:4px;gap:6px}.ocard ul{margin:10px 0;padding:0 16px 0 0;font-size:13px;line-height:1.9}.ototal{display:flex;justify-content:space-between;align-items:center;font-size:12px;border-top:1px solid var(--line);padding-top:8px;margin-bottom:8px}.ototal b{color:var(--green);font-size:14px}.obtn{display:flex;gap:6px}.obtn button{flex:1;padding:10px}
+.stepper{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:6px;margin:12px 0}.step{text-align:center;font-size:11px;color:var(--muted)}.step .dot{display:block;width:14px;height:14px;border-radius:50%;background:#dfe8e4;margin:0 auto 6px}.step.done{color:var(--ink)}.step.done .dot{background:var(--green)}.step.cancel.done .dot{background:var(--red)}.step small{display:block;font-size:10px;margin-top:2px}.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.filters .field,.filters select{min-width:150px}.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:white;border-radius:30px;padding:7px 12px;font-size:12px;font-weight:700;color:#53645e}.chip.active{background:var(--green);color:white;border-color:var(--green)}.customRange{display:flex;gap:6px}.orow{cursor:pointer}.orow:hover td{background:#f7fbf9}.tl{margin:8px 0 0;padding:0 18px 0 0;font-size:12px;line-height:1.9}.sec{font-size:12px;font-weight:800;margin:14px 0 4px}.infogrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px}.infogrid div{background:#f7faf8;border-radius:10px;padding:8px}.infogrid small{display:block;color:var(--muted);font-size:10px}
 #toast{position:fixed;bottom:20px;left:20px;background:#163d32;color:white;padding:11px 16px;border-radius:10px;opacity:0;transition:.2s;z-index:20;font-size:12px;pointer-events:none;max-width:90vw}#toast.show{opacity:1}
 @media(max-width:900px){.sidebar{transform:translateX(105%);transition:.2s}.sidebar.open{transform:none}.main{margin:0}.hamb{display:block}.cards{grid-template-columns:repeat(2,1fr)}#view{padding:14px}.topbar{padding:0 14px}.prodGrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.cards{gap:8px}.card{padding:12px}.card b{font-size:18px}.formgrid{grid-template-columns:1fr}.topbar h2{font-size:15px}.pcard{min-height:108px;padding:12px}}
@@ -184,6 +186,7 @@ function normalize(d){
 let data=defaults();
 let dataLoaded=false;
 let currentUser=null,cart=[],activePage='dashboard',staffTab='list',permUserId=null,posCat='';
+let ordersTab='board',ordHist={q:'',branch:'',status:'',range:'today',from:'',to:''};
 let driveToken=null,driveFolderId='',driveEmail='',driveBusy=false,driveStatus='غير متصل',syncTimer=null,pushTimer=null;
 let tokenClient=null,renewing=false,interactiveRequest=false;
 
@@ -696,16 +699,8 @@ pos(){
 },
 
 orders(){
-  const canUpd=can('orders.update')||can('orders.cancel');
-  const rows=data.orders.slice().reverse().map(o=>`<tr>
-    <td>#${String(o.id).slice(-6)}</td><td>${o.date}</td>
-    <td>${esc(data.branches.find(b=>b.id===o.branch_id)?.name||'')}</td>
-    <td>${esc(o.customer)}</td><td>${money(o.total)}</td><td>${esc(o.payment)}</td>
-    <td><span class="badge ${o.status==='ملغي'?'red':''}">${esc(o.status)}</span></td>
-    <td><select data-status="${o.id}" ${canUpd?'':'disabled'}>${['قيد التحضير','جاهز','مكتمل','ملغي'].map(s=>`<option ${s===o.status?'selected':''}>${s}</option>`).join('')}</select></td>
-  </tr>`).join('')||'<tr><td colspan="8" class="empty">لا توجد طلبات حتى الآن</td></tr>';
-  return `<div class="heading"><h3>سجل الطلبات</h3><span class="muted">${data.orders.length} طلب</span></div>`+
-  panel('الطلبات',`<div class="scroll"><table><tr><th>رقم</th><th>التاريخ</th><th>الفرع</th><th>العميل</th><th>الإجمالي</th><th>الدفع</th><th>الحالة</th><th>تحديث</th></tr>${rows}</table></div>`);
+  const tabs=`<div class="tabs"><button data-otab="board" class="${ordersTab==='board'?'active':''}">متابعة المطبخ</button><button data-otab="history" class="${ordersTab==='history'?'active':''}">سجل الطلبات</button></div>`;
+  return tabs+(ordersTab==='history'?ordersHistoryView():ordersBoardView());
 },
 
 products(){
@@ -962,7 +957,7 @@ function wirePos(){
       date:today(),branch_id:branch,
       customer:$('#customer').value||'عميل نقدي',
       payment:$('#payment').value,
-      total,status:'قيد التحضير',
+      total,status:'قيد التحضير',createdAt:Date.now(),
       items:cart.map(x=>({product_id:x.id,qty:x.qty,price:x.price}))
     });
     cart=[];
@@ -973,6 +968,223 @@ function wirePos(){
   };
 
   draw();
+}
+
+/* ---------- الطلبات: المراحل والفلترة والسجل ---------- */
+const ORDER_STATUSES=['قيد التحضير','جاهز','مكتمل','ملغي'];
+
+// وقت وصول الطلب لمرحلة معينة (من سجل المراحل)
+function stageTime(o,s){
+  const e=(o.log||[]).filter(x=>x.s===s).pop();
+  if(e)return e.t;
+  if(s==='قيد التحضير'&&o.createdAt)return o.createdAt;
+  return null;
+}
+function fmtT(t){return t?new Date(t).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'}):'—'}
+function prepMinutes(o){
+  const a=o.createdAt,b=stageTime(o,'جاهز');
+  return a&&b?Math.max(0,Math.round((b-a)/60000)):null;
+}
+
+function filteredOrders(){
+  const q=ordHist.q.trim().toLowerCase();
+  let from='',to='';
+  const now=Date.now(),day=n=>new Date(now-n*86400000).toISOString().slice(0,10);
+  if(ordHist.range==='today'){from=to=day(0)}
+  else if(ordHist.range==='yesterday'){from=to=day(1)}
+  else if(ordHist.range==='week'){from=day(6);to=day(0)}
+  else if(ordHist.range==='custom'){from=ordHist.from;to=ordHist.to}
+  return data.orders.filter(o=>
+    (!from||o.date>=from)&&(!to||o.date<=to)&&
+    (!ordHist.branch||String(o.branch_id)===ordHist.branch)&&
+    (!ordHist.status||o.status===ordHist.status)&&
+    (!q||String(o.id).slice(-6).includes(q)||String(o.customer||'').toLowerCase().includes(q))
+  ).sort((a,b)=>(b.createdAt||b.id)-(a.createdAt||a.id));
+}
+
+function histSummaryHTML(list){
+  const active=list.filter(o=>o.status!=='ملغي');
+  const sales=active.reduce((s,o)=>s+o.total,0);
+  const mins=list.map(prepMinutes).filter(x=>x!==null);
+  const avg=mins.length?Math.round(mins.reduce((a,b)=>a+b,0)/mins.length):null;
+  return card('عدد الطلبات',list.length)+card('إجمالي المبيعات',money(sales))+
+         card('متوسط وقت التحضير',avg===null?'—':avg+' د')+card('الطلبات الملغاة',list.filter(o=>o.status==='ملغي').length);
+}
+
+function histRowsHTML(list){
+  const branchName=id=>data.branches.find(b=>b.id===id)?.name||'—';
+  const rows=list.slice(0,300).map(o=>{
+    const pm=prepMinutes(o);
+    const t=o.createdAt?new Date(o.createdAt).toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'}):'—';
+    const cls=o.status==='ملغي'?'red':(o.status==='مكتمل'?'':'warn');
+    return `<tr class="orow" data-detail="${o.id}">
+      <td>#${String(o.id).slice(-6)}</td><td>${o.date}</td><td>${t}</td>
+      <td>${esc(branchName(o.branch_id))}</td><td>${esc(o.customer)}</td>
+      <td>${(o.items||[]).reduce((s,i)=>s+i.qty,0)}</td><td>${money(o.total)}</td>
+      <td>${esc(o.payment)}</td><td><span class="badge ${cls}">${esc(o.status)}</span></td>
+      <td>${pm===null?'—':pm+' د'}</td></tr>`;
+  }).join('');
+  return rows||'<tr><td colspan="10" class="empty">لا توجد طلبات مطابقة</td></tr>';
+}
+
+function refreshHistory(){
+  const list=filteredOrders();
+  const s=$('#histSummary');if(s)s.innerHTML=histSummaryHTML(list);
+  const b=$('#histBody');if(b)b.innerHTML=histRowsHTML(list);
+}
+
+function ordersHistoryView(){
+  const branches=data.branches.map(b=>`<option value="${b.id}" ${ordHist.branch===String(b.id)?'selected':''}>${esc(b.name)}</option>`).join('');
+  const ranges=[['today','اليوم'],['yesterday','أمس'],['week','آخر 7 أيام'],['all','الكل'],['custom','فترة مخصصة']];
+  const list=filteredOrders();
+  return `<div class="filters">
+      <input id="hQ" class="field" placeholder="ابحث برقم الطلب أو اسم العميل" value="${esc(ordHist.q)}" style="max-width:320px">
+      <select id="hBranch"><option value="">كل الفروع</option>${branches}</select>
+      <select id="hStatus"><option value="">كل الحالات</option>${ORDER_STATUSES.map(s=>`<option ${ordHist.status===s?'selected':''}>${s}</option>`).join('')}</select>
+      <div class="chips">${ranges.map(([k,l])=>`<button type="button" class="chip ${ordHist.range===k?'active':''}" data-range="${k}">${l}</button>`).join('')}</div>
+      ${ordHist.range==='custom'?`<div class="customRange"><input type="date" id="hFrom" value="${ordHist.from}"><input type="date" id="hTo" value="${ordHist.to}"></div>`:''}
+      <button class="btn primary" id="hExport" type="button">تصدير CSV</button>
+    </div>
+    <div class="cards" id="histSummary">${histSummaryHTML(list)}</div>
+    <div class="panel"><div class="scroll"><table>
+      <tr><th>رقم</th><th>التاريخ</th><th>الوقت</th><th>الفرع</th><th>العميل</th><th>عدد الأصناف</th><th>الإجمالي</th><th>الدفع</th><th>الحالة</th><th>مدة التحضير</th></tr>
+      <tbody id="histBody">${histRowsHTML(list)}</tbody>
+    </table></div></div>`;
+}
+
+// تفاصيل الطلب: خط مراحل بالأوقات + الأصناف + سجل كامل + إجراءات حسب الحالة
+function openOrder(id){
+  const o=data.orders.find(x=>String(x.id)===String(id));
+  if(!o)return;
+  const brName=data.branches.find(b=>b.id===o.branch_id)?.name||'—';
+  const cur={'قيد التحضير':1,'جاهز':2,'مكتمل':3}[o.status]??-1;
+  const steps=[
+    ['إنشاء',o.createdAt||null,0],
+    ['تحضير',stageTime(o,'قيد التحضير'),1],
+    ['جاهز',stageTime(o,'جاهز'),2],
+    ['تسليم',stageTime(o,'مكتمل'),3]
+  ];
+  if(o.status==='ملغي')steps.push(['ملغي',stageTime(o,'ملغي'),4]);
+  const stepHTML=steps.map(([name,t,i])=>{
+    const done=o.status==='ملغي'?(i===0||i===4):(i<=cur||!!t);
+    return `<div class="step ${done?'done':''} ${name==='ملغي'?'cancel':''}"><span class="dot"></span><b>${name}</b><small>${fmtT(t)}</small></div>`;
+  }).join('');
+  const items=(o.items||[]).map(it=>{
+    const p=data.products.find(x=>x.id===it.product_id);
+    return `<tr><td>${esc(p?.name||'صنف محذوف')}</td><td>${it.qty}</td><td>${money(it.price)}</td><td>${money(it.qty*it.price)}</td></tr>`;
+  }).join('');
+  const log=(o.log||[]).map(e=>`<li><b>${esc(e.s)}</b> — ${fmtT(e.t)}</li>`).join('')||'<li class="muted">لا يوجد سجل تفصيلي لهذا الطلب (طلب قديم)</li>';
+  const acts=[];
+  if(o.status==='قيد التحضير'&&can('orders.update'))acts.push(['جاهز','✓ جاهز','btn primary']);
+  if(o.status==='جاهز'&&can('orders.update'))acts.push(['مكتمل','تم التسليم','btn primary']);
+  if(o.status!=='ملغي'&&o.status!=='مكتمل'&&can('orders.cancel'))acts.push(['ملغي','إلغاء الطلب','btn danger']);
+
+  $('#modal').innerHTML=`<div class="modalbg" id="ordBg"><div class="modal" style="width:min(640px,100%)">
+    <h3>طلب #${String(o.id).slice(-6)} <span class="badge ${o.status==='ملغي'?'red':''}">${esc(o.status)}</span></h3>
+    <div class="stepper">${stepHTML}</div>
+    <div class="infogrid">
+      <div><small>الفرع</small>${esc(brName)}</div>
+      <div><small>العميل</small>${esc(o.customer)}</div>
+      <div><small>طريقة الدفع</small>${esc(o.payment)}</div>
+      <div><small>التاريخ</small>${o.date}</div>
+    </div>
+    <div class="sec">الأصناف</div>
+    <div class="scroll"><table><tr><th>الصنف</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr>${items}</table></div>
+    <div class="cdTotal" style="margin-top:10px"><span>الإجمالي</span><b>${money(o.total)}</b></div>
+    <div class="sec">سجل المراحل</div>
+    <ul class="tl">${log}</ul>
+    <div class="actions">${acts.map(([to,l,c])=>`<button type="button" class="${c}" data-oact="${to}">${l}</button>`).join('')}<button type="button" class="btn" id="ordClose">إغلاق</button></div>
+  </div></div>`;
+  $('#ordClose').onclick=()=>$('#modal').innerHTML='';
+  $('#ordBg').onclick=e=>{if(e.target.id==='ordBg')$('#modal').innerHTML=''};
+  $('#modal').querySelectorAll('[data-oact]').forEach(b=>b.onclick=()=>{
+    $('#modal').innerHTML='';
+    setOrderStatus(o.id,b.dataset.oact);
+  });
+}
+
+// تصدير الطلبات المفلترة لملف CSV (يفتح في Excel)
+function exportOrdersCSV(){
+  const list=filteredOrders();
+  const head=['رقم الطلب','التاريخ','الوقت','الفرع','العميل','الأصناف','الإجمالي','الدفع','الحالة','مدة التحضير (د)'];
+  const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
+  const lines=list.map(o=>{
+    const t=o.createdAt?new Date(o.createdAt).toLocaleTimeString('ar-EG'):'';
+    const items=(o.items||[]).map(it=>{const p=data.products.find(x=>x.id===it.product_id);return `${it.qty}x ${p?.name||''}`}).join(' + ');
+    const br=data.branches.find(b=>b.id===o.branch_id)?.name||'';
+    return [String(o.id).slice(-6),o.date,t,br,o.customer,items,o.total,o.payment,o.status,prepMinutes(o)??''].map(q).join(',');
+  });
+  const csv='\uFEFF'+[head.map(q).join(','),...lines].join('\r\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='orders-'+today()+'.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('تم تصدير '+list.length+' طلب');
+}
+
+// شاشة المتابعة (الأعمدة): المطبخ / جاهز / تم التسليم
+function ordersBoardView(){
+  const byTime=(a,b)=>(a.createdAt||a.id)-(b.createdAt||b.id);
+  const prep=data.orders.filter(o=>o.status==='قيد التحضير').sort(byTime);
+  const ready=data.orders.filter(o=>o.status==='جاهز').sort(byTime);
+  const done=data.orders.filter(o=>o.status==='مكتمل'&&o.date===today()).sort(byTime).reverse().slice(0,30);
+  const cancelled=data.orders.filter(o=>o.status==='ملغي').length;
+  return `<div class="heading"><div><h3>متابعة الطلبات</h3><small class="muted">تتحدث تلقائيًا · ${prep.length} قيد التحضير · ${ready.length} جاهز · ${cancelled} ملغي</small></div></div>
+  <div class="board">
+    ${orderCol('🍳 المطبخ — قيد التحضير',prep,'prep')}
+    ${orderCol('🛎 جاهز للتسليم',ready,'ready')}
+    ${orderCol('✓ تم التسليم اليوم',done,'done')}
+  </div>`;
+}
+
+/* ---------- متابعة الطلبات: الكروت والأعمدة ---------- */
+function orderCard(o,kind){
+  const br=esc(data.branches.find(b=>b.id===o.branch_id)?.name||'');
+  const items=(o.items||[]).map(it=>{
+    const p=data.products.find(x=>x.id===it.product_id);
+    return `<li>${it.qty} × ${esc(p?.name||'صنف محذوف')}</li>`;
+  }).join('');
+  const time=o.createdAt?new Date(o.createdAt).toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'}):o.date;
+  const acts=[];
+  if(kind==='prep'&&can('orders.update'))acts.push(`<button class="btn primary" type="button" data-next="${o.id}" data-to="جاهز">✓ جاهز</button>`);
+  if(kind==='ready'&&can('orders.update'))acts.push(`<button class="btn primary" type="button" data-next="${o.id}" data-to="مكتمل">تم التسليم</button>`);
+  if(kind!=='done'&&can('orders.cancel'))acts.push(`<button class="btn danger" type="button" data-next="${o.id}" data-to="ملغي">إلغاء</button>`);
+  return `<div class="ocard ${kind==='prep'&&o.createdAt&&Date.now()-o.createdAt>10*60000?'urgent':''}">
+    <div class="oh"><span>#${String(o.id).slice(-6)}</span><span>${time}</span></div>
+    <div class="om"><span>${br}</span><span>${esc(o.customer)} · ${esc(o.payment)}</span></div>
+    <ul>${items}</ul>
+    <div class="ototal"><span>الإجمالي</span><b>${money(o.total)}</b></div>
+    ${acts.length?`<div class="obtn">${acts.join('')}</div>`:''}
+  </div>`;
+}
+
+function orderCol(title,list,kind){
+  return `<div class="col"><div class="colhead"><span>${title}</span><span class="badge">${list.length}</span></div>`+
+    (list.map(o=>orderCard(o,kind)).join('')||'<p class="empty">لا توجد طلبات</p>')+`</div>`;
+}
+
+function setOrderStatus(id,to){
+  const o=data.orders.find(x=>String(x.id)===String(id));
+  if(!o)return;
+  if(to==='ملغي'&&!can('orders.cancel'))return toast('لا تملك صلاحية إلغاء الطلبات');
+  if(to!=='ملغي'&&!can('orders.update'))return toast('لا تملك صلاحية تغيير الحالة');
+  if(to==='ملغي'&&!confirm('إلغاء الطلب؟'))return;
+  // لو الطلب اتلغى نرجّع الخامات اللي اتخصمت
+  if(to==='ملغي'&&o.status!=='ملغي'){
+    for(const it of o.items||[]){
+      for(const rec of data.recipes.filter(r=>r.product_id===it.product_id)){
+        const st=data.inventory.find(i=>i.id===rec.inventory_id&&i.branch_id===o.branch_id);
+        if(st)st.qty+=rec.qty*it.qty;
+      }
+    }
+  }
+  o.log=[...(o.log||[]),{s:to,t:Date.now()}];
+  o.status=to;
+  save();
+  render(activePage);
+  toast('تم تحديث الطلب: '+to);
 }
 
 /* ---------- ربط الأحداث ---------- */
@@ -1007,15 +1219,16 @@ function wire(page){
   if(page==='pos')wirePos();
 
   if(page==='orders'){
-    view.querySelectorAll('[data-status]').forEach(s=>s.onchange=()=>{
-      const o=data.orders.find(x=>String(x.id)===s.dataset.status);
-      if(!o)return;
-      const next=s.value;
-      if(!can('orders.update')&&!can('orders.cancel')){toast('لا تملك صلاحية تغيير الحالة');s.value=o.status;return}
-      if(next==='ملغي'&&!can('orders.cancel')){toast('لا تملك صلاحية إلغاء الطلبات');s.value=o.status;return}
-      if(next!=='ملغي'&&!can('orders.update')){toast('لا تملك صلاحية تغيير الحالة');s.value=o.status;return}
-      o.status=next;save();toast('تم تحديث حالة الطلب');
-    });
+    view.querySelectorAll('[data-otab]').forEach(b=>b.onclick=()=>{ordersTab=b.dataset.otab;render('orders')});
+    view.querySelectorAll('[data-next]').forEach(b=>b.onclick=()=>setOrderStatus(b.dataset.next,b.dataset.to));
+    view.querySelectorAll('[data-range]').forEach(b=>b.onclick=()=>{ordHist.range=b.dataset.range;render('orders')});
+    $('#hBranch')?.addEventListener('change',e=>{ordHist.branch=e.target.value;refreshHistory()});
+    $('#hStatus')?.addEventListener('change',e=>{ordHist.status=e.target.value;refreshHistory()});
+    $('#hQ')?.addEventListener('input',e=>{ordHist.q=e.target.value;refreshHistory()});
+    $('#hFrom')?.addEventListener('change',e=>{ordHist.from=e.target.value;refreshHistory()});
+    $('#hTo')?.addEventListener('change',e=>{ordHist.to=e.target.value;refreshHistory()});
+    $('#hExport')?.addEventListener('click',exportOrdersCSV);
+    $('#histBody')?.addEventListener('click',e=>{const r=e.target.closest('[data-detail]');if(r)openOrder(r.dataset.detail)});
   }
 
   if(page==='products'){
