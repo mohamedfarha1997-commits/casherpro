@@ -203,11 +203,12 @@ function startGoogleAuth(){
       if(resp.error){$('#loginError').textContent=resp.error;return}
       driveToken=resp.access_token;
       try{
-        const info=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+driveToken}}).then(r=>{if(!r.ok)throw new Error('تعذر قراءة بيانات الحساب ('+r.status+')');return r.json()});
+        const about=await driveRequest('https://www.googleapis.com/drive/v3/about?fields=user(emailAddress,displayName)');
+        const email=about.user?.emailAddress||'Google user';
         driveFolderId=await findOrCreateFolder();
         const n=await pullDrive();
         if(!n){driveDirty=true;await pushDrive()}
-        currentUser={username:info.email||'Google user',full_name:info.name||info.email||''};
+        currentUser={username:email,full_name:about.user?.displayName||email};
         enter();
         driveStatus='متصل بحساب '+currentUser.username;
         if(syncTimer)clearInterval(syncTimer);
