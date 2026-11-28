@@ -30,7 +30,7 @@ const $=s=>document.querySelector(s), money=n=>new Intl.NumberFormat('ar-EG',{st
 const KEY='zad_single_file_data_v1', AUTH='zad_single_file_auth';
 const defaults=()=>({branches:[{id:1,name:'الفرع الرئيسي',location:'القاهرة',active:true}],products:[{id:1,name:'برجر كلاسيك',category:'وجبات',price:145,cost:72,active:true},{id:2,name:'بطاطس',category:'إضافات',price:55,cost:20,active:true},{id:3,name:'كولا',category:'مشروبات',price:30,cost:12,active:true}],inventory:[{id:1,name:'لحم بقري',unit:'كجم',qty:25,min_qty:8,cost:320,branch_id:1},{id:2,name:'خبز برجر',unit:'قطعة',qty:100,min_qty:20,cost:4,branch_id:1}],recipes:[{product_id:1,inventory_id:1,qty:.15},{product_id:1,inventory_id:2,qty:1}],tables:[{id:1,name:'T01',seats:4,status:'متاحة',branch_id:1}],suppliers:[{id:1,name:'شركة التوريدات',phone:'',balance:0}],expenses:[],orders:[],staff:[{id:1,username:'admin',full_name:'مدير النظام',role:'مدير عام',branch_id:1,password:'1234'}],settings:{restaurant:'ZAD',currency:'EGP'}});
 let data;try{data=JSON.parse(localStorage.getItem(KEY))||defaults()}catch{data=defaults()}let currentUser=null,cart=[];
-const GOOGLE_CLIENT_ID="722723147677-eirvij182efkisknsrpq7cjqevp8f4j8.apps.googleusercontent.com";
+const GOOGLE_CLIENT_ID="546589135419-i0c847q2emv7j4rsrlfqfg7jgeg2fkif.apps.googleusercontent.com";
 const DRIVE_SCOPE='https://www.googleapis.com/auth/drive';
 let driveToken=null,driveFolderId=localStorage.getItem('zad_drive_folder_id')||'',driveDirty=false,driveBusy=false,driveStatus='غير متصل';
 const DRIVE_FIELDS='files(id,name,mimeType,modifiedTime,appProperties),nextPageToken';
